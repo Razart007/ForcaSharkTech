@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class ConectarComBanco {
-	Connection con;
+	
+	private Connection con;
 	private Connection oConn;
 	private Statement sStmt;
-	
 		
 	public Connection abrirBDConn(){
 		try{
@@ -24,10 +24,10 @@ public class ConectarComBanco {
 	}
 	
 	public void fecharBDConn(){
-		try{
+	 	try{
 			con.close();
 		} catch(Exception e){
+			e.printStackTrace();
 		}
 	}
-
 }
