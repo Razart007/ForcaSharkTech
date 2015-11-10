@@ -1,5 +1,6 @@
 package Views;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,16 +22,12 @@ public class FramePrincipal {
 		itemBalanco, itemRealizarVendas, itemVendasAVista, itemVendasDuplicatas, itemTodasVendas;
 	
 	public FramePrincipal(){
-
+		instanciarFrame();
 		iniciarComponentes();
 		instanciarEventos();
-		instanciarFrame();
-		
 	}
 
 	private void iniciarComponentes() {
-		
-		frame = new JFrame();
 		menuBar = new JMenuBar();
 		
 		JMenu menuCadastrar = new JMenu("Cadastrar");
@@ -85,20 +82,25 @@ public class FramePrincipal {
 			e.printStackTrace();  
 		}
 		
-		
-		frame.setTitle("Café Novo Horizonete");
+		frame = new JFrame();
+		frame.setTitle("Café Novo Horizonte");
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens/CafeIcone.png")); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		frame.setLayout(null); 
 		frame.setSize(1000, 700); 
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLocationRelativeTo(null); 
 		frame.setVisible(true);
+		
 		
 		frame.addWindowListener(new WindowAdapter() {  
 			public void windowClosing(WindowEvent e){
 				int i = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?");
 				if (i == JOptionPane.OK_OPTION){
 					System.exit(0);
+				}
+				else{
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
 				}
 			}
 		} );

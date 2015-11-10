@@ -16,9 +16,9 @@ import javax.swing.UIManager;
 
 import Controllers.LoginController;
 
-public class FrameLogin { //Classe filha da classe JFrame para fazer telas
+public class FrameLogin {
 	
-	private JFrame frame;
+	private JFrame frame;	//Objeto da classe JFrame para utilizar ele em outras classes
 	private ImageIcon imgFundo; //Imagem de fundo
 	private JLabel lbLogin, lbSenha, lbFundo, lbDesenvolvimento, lbSharkTech, lbSharkIcone; //Labels de login, senha, desenvolvimento e as imagens de fundo
 	private JTextField tfLogin; //Campo de texto de login
@@ -26,9 +26,8 @@ public class FrameLogin { //Classe filha da classe JFrame para fazer telas
 	private JButton btLogin; //Botão para efetuar o login
 	
 	public FrameLogin(){ //Construtor da classe
-
-		inicializaComponentes(); //Chamada do método para instanciar os componentes do frame
 		inicializaFrame(); //Chamada do método para instanciar o frame
+		inicializaComponentes(); //Chamada do método para instanciar os componentes do frame
 	}
 			
 	private void inicializaFrame(){ //Método para criar o frame
@@ -37,7 +36,7 @@ public class FrameLogin { //Classe filha da classe JFrame para fazer telas
 		} catch (Exception e) {  
 			e.printStackTrace();  
 		}  
-		
+		frame = new JFrame();
 		frame.setTitle("Café Novo Horizonte"); //Título do frame
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens/CafeIcone.png")); //Icone do frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Operação ao fechar o frame
@@ -53,14 +52,14 @@ public class FrameLogin { //Classe filha da classe JFrame para fazer telas
 				if (i == JOptionPane.OK_OPTION){
 					System.exit(0);
 				}
+				else{
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+				}
 			}
 		} );
 	}
 	
 	private void inicializaComponentes(){ //Método para instanciar os objetos do frame
-		
-		frame = new JFrame();
-		
 		lbLogin = new JLabel("Login");
 		frame.add(lbLogin); 
 		lbLogin.setBounds(299, 140, 50, 20);
@@ -79,8 +78,9 @@ public class FrameLogin { //Classe filha da classe JFrame para fazer telas
 
 		btLogin = new JButton(new ImageIcon("Imagens/LoginButtonIcone.png"));
 		frame.add(btLogin);
-		btLogin.setBounds(264, 260, 100, 30);
 		btLogin.setContentAreaFilled(false);
+		btLogin.setBounds(264, 260, 100, 30);
+		
 		
 		lbDesenvolvimento = new JLabel("Desenvolvido pela:");
 		frame.add(lbDesenvolvimento);
