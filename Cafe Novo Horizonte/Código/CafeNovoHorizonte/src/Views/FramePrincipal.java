@@ -16,6 +16,19 @@ import Controllers.PrincipalController;
 
 public class FramePrincipal {
 	
+	public static final String CLIENTE = "Cliente";
+	public static final String FORNECEDOR = "Fornecedor";
+	public static final String TRANSPORTADORA = "Transportadora";
+	public static final String PRODUTOS = "Produtos";
+	public static final String PAGAMENTO = "Pagamento";
+	public static final String RECEBIMENTO = "Recebimento";
+	public static final String BALANCO = "Balanço";
+	public static final String REALIZAR_VENDA = "Realizar venda";
+	public static final String VENDAS_A_VISTA = "Listar vendas à vista";
+	public static final String VENDAS_DUPLICATAS = "Listar vendas duplicatas";
+	public static final String TODAS_AS_VENDAS = "Listar todas as vendas";
+	
+						
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenuItem itemCliente, itemFornecedor, itemTransportadora, itemProdutos, itemPagamento, itemRecebimento, 
@@ -35,19 +48,19 @@ public class FramePrincipal {
 		JMenu menuEstoque = new JMenu("Estoque");
 		JMenu menuVendas = new JMenu("Vendas");
 		
-		menuCadastrar.add(itemCliente = new JMenuItem("Cliente"));
-		menuCadastrar.add(itemFornecedor = new JMenuItem("Fornecedor"));
-		menuCadastrar.add(itemTransportadora = new JMenuItem("Transportadora"));
-		menuCadastrar.add(itemProdutos = new JMenuItem("Produtos"));
+		menuCadastrar.add(itemCliente = new JMenuItem(CLIENTE));
+		menuCadastrar.add(itemFornecedor = new JMenuItem(FORNECEDOR));
+		menuCadastrar.add(itemTransportadora = new JMenuItem(TRANSPORTADORA));
+		menuCadastrar.add(itemProdutos = new JMenuItem(PRODUTOS));
 		
-		menuRelatorios.add(itemPagamento = new JMenuItem("Pagamento"));
-		menuRelatorios.add(itemRecebimento = new JMenuItem("Recebimento"));
-		menuRelatorios.add(itemBalanco = new JMenuItem("Balanço"));
+		menuRelatorios.add(itemPagamento = new JMenuItem(PAGAMENTO));
+		menuRelatorios.add(itemRecebimento = new JMenuItem(RECEBIMENTO));
+		menuRelatorios.add(itemBalanco = new JMenuItem(BALANCO));
 		
-		menuVendas.add(itemRealizarVendas = new JMenuItem("Realizaar venda"));
-		menuVendas.add(itemVendasAVista = new JMenuItem("Listar vendas à vista"));
-		menuVendas.add(itemVendasDuplicatas = new JMenuItem("Listar vendas de duplicata"));
-		menuVendas.add(itemTodasVendas = new JMenuItem("Listar todas as vendas"));
+		menuVendas.add(itemRealizarVendas = new JMenuItem(REALIZAR_VENDA));
+		menuVendas.add(itemVendasAVista = new JMenuItem(VENDAS_A_VISTA));
+		menuVendas.add(itemVendasDuplicatas = new JMenuItem(VENDAS_DUPLICATAS));
+		menuVendas.add(itemTodasVendas = new JMenuItem(TODAS_AS_VENDAS));
 		
 		menuBar.add(menuCadastrar);
 		menuBar.add(menuRelatorios);
@@ -61,17 +74,19 @@ public class FramePrincipal {
 
 	private void instanciarEventos(){
 		
-//		itemCliente.addActionListener(new PrincipalController.Cliente());
-//		itemFornecedor.addActionListener(l);
-//		itemTransportadora.addActionListener(l);
-//		itemProdutos.addActionListener(l);
-//		itemPagamento.addActionListener(l);
-//		itemRecebimento.addActionListener(l);
-//		itemBalanco.addActionListener(l);
-//		itemRealizarVendas.addActionListener(l);
-//		itemVendasAVista.addActionListener(l);
-//		itemVendasDuplicatas.addActionListener(l);
-//		itemTodasVendas.addActionListener(l);
+		PrincipalController principalCont = new PrincipalController();
+		
+		itemCliente.addActionListener(principalCont);
+		itemFornecedor.addActionListener(principalCont);
+		itemTransportadora.addActionListener(principalCont);
+		itemProdutos.addActionListener(principalCont);
+		itemPagamento.addActionListener(principalCont);
+		itemRecebimento.addActionListener(principalCont);
+		itemBalanco.addActionListener(principalCont);
+		itemRealizarVendas.addActionListener(principalCont);
+		itemVendasAVista.addActionListener(principalCont);
+		itemVendasDuplicatas.addActionListener(principalCont);
+		itemTodasVendas.addActionListener(principalCont);
 		
 	}
 	

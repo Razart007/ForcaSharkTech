@@ -45,7 +45,7 @@ public class LoginController implements ActionListener{
 			if (resultado == LoginModel.LOGIN_SUCESSO){
 				
 				frame.dispose();
-				FramePrincipal framePrincipal = new FramePrincipal();
+				new FramePrincipal();
 				
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro na autenticação!!!");

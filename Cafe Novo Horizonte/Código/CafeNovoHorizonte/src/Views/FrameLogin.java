@@ -51,12 +51,11 @@ public class FrameLogin {
 				int i = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?");
 				if (i == JOptionPane.OK_OPTION){
 					System.exit(0);
-				}
-				else{
+				} else{
 					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
 				}
 			}
-		} );
+		});
 	}
 	
 	private void inicializaComponentes(){ //Método para instanciar os objetos do frame
@@ -103,9 +102,7 @@ public class FrameLogin {
 		btLogin.addActionListener(new LoginController(frame, tfLogin, tfSenha));
 	}
 	
-	
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		FrameLogin frame = new FrameLogin();
+		new FrameLogin();
 	}
 }

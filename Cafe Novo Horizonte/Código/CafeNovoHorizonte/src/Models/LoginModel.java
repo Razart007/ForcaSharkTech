@@ -23,7 +23,6 @@ public class LoginModel {
 			ResultSet rs = stmt.executeQuery(query);
 			rs.first();
 			
-			int cod = rs.getInt("id");
 			String loginBanco = rs.getString("login");
 			String senhaBanco = rs.getString("senha");
 			
