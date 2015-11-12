@@ -27,12 +27,13 @@ public class FramePrincipal {
 	public static final String VENDAS_A_VISTA = "Listar vendas à vista";
 	public static final String VENDAS_DUPLICATAS = "Listar vendas duplicatas";
 	public static final String TODAS_AS_VENDAS = "Listar todas as vendas";
+	public static final String SAIR = "Sair";
 	
 						
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenuItem itemCliente, itemFornecedor, itemTransportadora, itemProdutos, itemPagamento, itemRecebimento, 
-		itemBalanco, itemRealizarVendas, itemVendasAVista, itemVendasDuplicatas, itemTodasVendas;
+		itemBalanco, itemRealizarVendas, itemVendasAVista, itemVendasDuplicatas, itemTodasVendas, itemSair;
 	
 	public FramePrincipal(){
 		instanciarFrame();
@@ -47,6 +48,7 @@ public class FramePrincipal {
 		JMenu menuRelatorios = new JMenu("Relatórios");
 		JMenu menuEstoque = new JMenu("Estoque");
 		JMenu menuVendas = new JMenu("Vendas");
+		JMenu menuSair = new JMenu("Usuario");
 		
 		menuCadastrar.add(itemCliente = new JMenuItem(CLIENTE));
 		menuCadastrar.add(itemFornecedor = new JMenuItem(FORNECEDOR));
@@ -62,10 +64,13 @@ public class FramePrincipal {
 		menuVendas.add(itemVendasDuplicatas = new JMenuItem(VENDAS_DUPLICATAS));
 		menuVendas.add(itemTodasVendas = new JMenuItem(TODAS_AS_VENDAS));
 		
+		menuSair.add(itemSair = new JMenuItem(SAIR));
+		
 		menuBar.add(menuCadastrar);
 		menuBar.add(menuRelatorios);
 		menuBar.add(menuEstoque);
 		menuBar.add(menuVendas);
+		menuBar.add(menuSair);
 		
 		frame.setJMenuBar(menuBar);
 	}	
@@ -74,7 +79,7 @@ public class FramePrincipal {
 
 	private void instanciarEventos(){
 		
-		PrincipalController principalCont = new PrincipalController();
+		PrincipalController principalCont = new PrincipalController(frame);
 		
 		itemCliente.addActionListener(principalCont);
 		itemFornecedor.addActionListener(principalCont);
@@ -87,6 +92,7 @@ public class FramePrincipal {
 		itemVendasAVista.addActionListener(principalCont);
 		itemVendasDuplicatas.addActionListener(principalCont);
 		itemTodasVendas.addActionListener(principalCont);
+		itemSair.addActionListener(principalCont);
 		
 	}
 	

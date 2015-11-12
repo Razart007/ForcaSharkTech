@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `cafenovohorizonte`.`TB_Usuario` (
   PRIMARY KEY (`id`)  COMMENT '')
 ENGINE = InnoDB;
 
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -35,3 +34,25 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 INSERT INTO TB_Usuario (login, senha) VALUES ('Shark','12345')
 
 INSERT INTO TB_Usuario (login, senha) VALUES ('Admin','12345')
+
+select * from TB_Usuario;
+
+-- -----------------------------------------------------
+-- Table `cafenovohorizonte`.`TB_Produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cafenovohorizonte`.`TB_Produto`(
+	`id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+	`descricao` VARCHAR(150) NOT NULL COMMENT '',
+	PRIMARY KEY (`id`) COMMENT ''
+)
+ENGINE = InnoDB;
+
+INSERT INTO TB_Produto (descricao) VALUES ('Primeiro produto inserido');
+
+INSERT INTO TB_Produto (descricao) VALUES ('Segundo produto inserido');
+
+DELETE FROM TB_PRODUTO where id = 4;
+DELETE FROM TB_PRODUTO where id = 5;
+DELETE FROM TB_PRODUTO where id = 6;
+DELETE FROM TB_PRODUTO where id = 7;
+select * from TB_Produto;

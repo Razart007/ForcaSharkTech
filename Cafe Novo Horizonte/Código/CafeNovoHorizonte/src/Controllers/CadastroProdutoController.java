@@ -4,8 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import Entidades.Produto;
+import Models.CadastroProdutoModel;
 import Views.FrameCadastroProduto;
 
 public class CadastroProdutoController implements ActionListener{
@@ -51,8 +54,19 @@ public class CadastroProdutoController implements ActionListener{
 	}
 
 	private void cadastrar() {
-		//TODO: Criar a tabela de cadastro de produtos no Banco. Usar o SQL para inserir os dados no banco.
-		System.out.println("CADASTRAR");
+		
+		Produto p = new Produto();
+		
+		p.setDescricao(txDescricao.getText());;
+		
+		boolean flag = new CadastroProdutoModel().inserir(p);
+		
+		if (flag){
+			limpar();
+			JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
+		} else {
+			JOptionPane.showMessageDialog(null, "Ocorreu algum erro ao cadastrar o produto");
+		}
 	}
 
 	private void limpar() {

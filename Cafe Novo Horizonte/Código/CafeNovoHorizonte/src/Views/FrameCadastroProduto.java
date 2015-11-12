@@ -1,10 +1,12 @@
 package Views;
 
 import java.awt.Container;
+import java.awt.Dimension;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -17,6 +19,7 @@ public class FrameCadastroProduto {
 	public static final String LIMPAR = "Limpar";
 	public static final String CANCELAR = "Cancelar";
 
+	private JFrame frame;
 	private JDialog dialog;
 	private JLabel lbCodigo, lbDescricao, lbEan, lbEanUnidTrib,  lbExIpi,  lbGenero, lbNcm, 
 			lbQntTrib, lbUnidCom, lbUnidTrib,  lbValorUnidCom,  lbValorUnidTrib;
@@ -24,15 +27,16 @@ public class FrameCadastroProduto {
 			txNcm, txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib;
 	private JButton btCadastrar, btCancelar, btLimpar;
 
-	public FrameCadastroProduto(){
+	public FrameCadastroProduto(JFrame frame){
+		this.frame = frame;
 		instanciarComponentes();
-		inicializaComponentes();
 		eventos();
+		inicializaComponentes();
 	}
 
 	private void instanciarComponentes() {
 		
-		dialog = new JDialog();
+		dialog = new JDialog(frame, "Cadastrar produtos");
 		
 		lbCodigo = new JLabel("Codigo:");
 		lbDescricao = new JLabel("Descricao:");
@@ -171,9 +175,11 @@ public class FrameCadastroProduto {
 						.addGap(60, 60, 60))
 				);
 
-		dialog.setModal(true);
 		dialog.pack();
+		dialog.setMinimumSize(new Dimension(dialog.getSize()));
+		dialog.setLocationRelativeTo(frame);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setModal(true);
 		dialog.setVisible(true);
 	}
 	
