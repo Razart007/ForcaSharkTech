@@ -1,5 +1,6 @@
 package Views;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 
@@ -37,6 +38,7 @@ public class FrameCadastroProduto {
 	private void instanciarComponentes() {
 		
 		dialog = new JDialog(frame, "Cadastrar produtos");
+		dialog.getContentPane().setBackground(Color.LIGHT_GRAY);
 		
 		lbCodigo = new JLabel("Codigo:");
 		lbDescricao = new JLabel("Descricao:");
@@ -49,7 +51,7 @@ public class FrameCadastroProduto {
 		lbUnidCom = new JLabel("Unid. Comp.:");
 		lbUnidTrib = new JLabel("Unid. Trib.:");
 		lbValorUnidCom = new JLabel("Valor Unid. Com.:");
-		lbValorUnidTrib = new JLabel("Valor Unid. Trb");
+		lbValorUnidTrib = new JLabel("Valor Unid. Trb.:");
 		
 		txCodigo = new JTextField();
 		txDescricao = new JTextField();

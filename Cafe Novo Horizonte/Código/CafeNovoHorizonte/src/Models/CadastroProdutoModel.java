@@ -2,7 +2,6 @@ package Models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
 import Controllers.ConectarComBanco;
 import Entidades.Produto;
 import Interfaces.InterfaceProduto;
