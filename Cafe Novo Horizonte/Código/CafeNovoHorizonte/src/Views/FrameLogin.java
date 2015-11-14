@@ -58,7 +58,8 @@ public class FrameLogin {
 		});
 	}
 	
-	private void inicializaComponentes(){ //Método para instanciar os objetos do frame
+	private void inicializaComponentes(){
+		//Método para instanciar os objetos do frame
 		lbLogin = new JLabel("Login");
 		frame.add(lbLogin); 
 		lbLogin.setBounds(299, 140, 50, 20);
@@ -67,11 +68,11 @@ public class FrameLogin {
 		frame.add(lbSenha);
 		lbSenha.setBounds(296, 200, 50, 20);
 
-		tfLogin = new JTextField();
+		tfLogin = new JTextField("Admin");
 		frame.add(tfLogin);
 		tfLogin.setBounds(215, 160, 200, 25);
 
-		tfSenha = new JPasswordField();
+		tfSenha = new JPasswordField("12345");
 		frame.add(tfSenha);
 		tfSenha.setBounds(215, 220, 200, 25);
 
@@ -85,9 +86,9 @@ public class FrameLogin {
 		frame.add(lbDesenvolvimento);
 		lbDesenvolvimento.setBounds(263, 310, 130, 20);
 		
-		lbSharkTech = new JLabel("hark Tech®");
+		lbSharkTech = new JLabel("Shark Tech®");
 		frame.add(lbSharkTech);
-		lbSharkTech.setBounds(280, 345, 120, 20);
+		lbSharkTech.setBounds(280, 345, 140, 20);
 		lbSharkTech.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		lbSharkIcone = new JLabel(new ImageIcon("Imagens/Shark.png"));

@@ -13,14 +13,14 @@ public class CadastroClienteController implements ActionListener{
 	private JDialog dialog;
 	private JTextField tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, 
 	   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
-	private JComboBox cbEstado, cbTipoImposto;
+	private JComboBox<String> cbEstado, cbTipoImposto;
 	
 	
 	public CadastroClienteController(JDialog dialog, JTextField tfNomeFantasia, JTextField tfEmail, 
 									 JTextField tfTelefone, JTextField tfRua, JTextField tfNumero,
 									 JTextField tfBairro, JTextField tfCidade, JTextField tfCep,
 									 JTextField tfCpfCnpj, JTextField tfNInscricao, 
-									 JComboBox cbEstado, JComboBox cbTipoImposto){
+									 JComboBox<String> cbEstado, JComboBox<String> cbTipoImposto){
 		
 		this.dialog = dialog;
 		this.tfNomeFantasia = tfNomeFantasia;
@@ -77,6 +77,4 @@ public class CadastroClienteController implements ActionListener{
 	private void cancelar() {	
 		dialog.dispose();
 	}
-
-	
 }

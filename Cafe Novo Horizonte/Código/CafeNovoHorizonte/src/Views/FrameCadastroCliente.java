@@ -1,8 +1,5 @@
 package Views;
 
-import java.awt.Container;
-
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -13,6 +10,10 @@ import javax.swing.JTextField;
 import Controllers.CadastroClienteController;
 
 public class FrameCadastroCliente {
+	
+	private static final String[] IMPOSTOS = new String[]{"Simples", "- - -"};
+	private static final String[] ESTADOS = new String []{"SE", "BA"};
+	
 	public static final String CADASTRAR = "Cadastrar";
 	public static final String LIMPAR = "Limpar";
 	public static final String CANCELAR = "Cancelar";
@@ -25,7 +26,7 @@ public class FrameCadastroCliente {
 	private JButton btCadastrar, btLimpar, btCancelar;
 	private JTextField tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, 
 					   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
-	private JComboBox cbEstado, cbTipoImposto;
+	private JComboBox<String> cbEstado, cbTipoImposto;
 
 	
 	
@@ -37,6 +38,7 @@ public class FrameCadastroCliente {
 	}	
 	
 	private void instanciarComponentes(){
+		
 		dialog = new JDialog(frame,"Cadastrar Clientes");
 		lbNomeFantasia = new JLabel("Nome Fantasia:");
 		lbEmail = new JLabel("E-mail:");
@@ -66,13 +68,15 @@ public class FrameCadastroCliente {
 		tfCpfCnpj = new JTextField();
 		tfNInscricao = new JTextField();
 		
-		cbEstado = new JComboBox();
-		cbTipoImposto = new JComboBox();
+		cbEstado = new JComboBox<>(ESTADOS);
+		cbTipoImposto = new JComboBox<>(IMPOSTOS);
 	}
 	
-	private void inicializarComponentes(){	
+	private void inicializarComponentes(){
+		
 		dialog.setSize(700, 400);
 		dialog.setLocationRelativeTo(frame);
+		dialog.setResizable(false);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setVisible(true);
 		dialog.getContentPane().setLayout(null);
@@ -105,11 +109,7 @@ public class FrameCadastroCliente {
 		dialog.add(tfCpfCnpj);
 		dialog.add(tfNInscricao);
 		
-		cbEstado.addItem("SE");
-		cbEstado.addItem("BA");
 		cbEstado.setSelectedItem(0);
-
-		cbTipoImposto.addItem("SIMPLES");
 		cbTipoImposto.setSelectedItem(0);
 		
 		dialog.add(cbEstado);
@@ -150,6 +150,7 @@ public class FrameCadastroCliente {
 		CadastroClienteController clienteCont = new CadastroClienteController(dialog,tfNomeFantasia, tfEmail, 
 				tfTelefone, tfRua, tfNumero, tfBairro, tfCidade, tfCep, tfCpfCnpj, tfNInscricao, cbEstado, 
 				cbTipoImposto);
+		
 		btCadastrar.addActionListener(clienteCont);
 		btLimpar.addActionListener(clienteCont);
 		btCancelar.addActionListener(clienteCont);

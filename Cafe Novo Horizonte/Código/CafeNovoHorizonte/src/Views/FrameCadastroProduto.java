@@ -2,7 +2,6 @@ package Views;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -178,7 +177,7 @@ public class FrameCadastroProduto {
 				);
 
 		dialog.pack();
-		dialog.setMinimumSize(new Dimension(dialog.getSize()));
+		dialog.setResizable(false);
 		dialog.setLocationRelativeTo(frame);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dialog.setModal(true);
