@@ -1,17 +1,16 @@
-package Controllers;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import Views.FrameCadastroCliente;
-import Views.FrameCadastroProduto;
-import Views.FrameLogin;
-import Views.FramePrincipal;
+import views.FrameCadastroCliente;
+import views.FrameCadastroProduto;
+import views.FrameCadastroTransportadora;
+import views.FrameLogin;
+import views.FramePrincipal;
 
 public class PrincipalController implements ActionListener{
 	
@@ -31,7 +30,9 @@ public class PrincipalController implements ActionListener{
 		} else if(FramePrincipal.FORNECEDOR.equals(e.getActionCommand())){
 
 		} else if(FramePrincipal.TRANSPORTADORA.equals(e.getActionCommand())){
-
+			
+			new FrameCadastroTransportadora(frame);
+			
 		} else if(FramePrincipal.PRODUTOS.equals(e.getActionCommand())){
 			
 			new FrameCadastroProduto(frame);

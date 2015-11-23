@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
-import Views.FrameCadastroProduto;
+import views.FrameCadastroProduto;
 
 public class CadastroClienteController implements ActionListener{
 	private JDialog dialog;

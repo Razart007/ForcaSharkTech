@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ public class ConectarComBanco {
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/cafenovohorizonte";
-			con = DriverManager.getConnection(url,"root","bqq1620944");
+			con = DriverManager.getConnection(url,"root","");
 			return con;
 		}
 		catch(Exception e){

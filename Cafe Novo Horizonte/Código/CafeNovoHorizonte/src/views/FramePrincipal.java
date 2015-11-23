@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import Controllers.PrincipalController;
+import controllers.PrincipalController;
 
 public class FramePrincipal {
 	

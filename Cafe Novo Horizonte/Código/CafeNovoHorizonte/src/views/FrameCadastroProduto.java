@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import Controllers.CadastroProdutoController;
+import controllers.CadastroProdutoController;
 
 public class FrameCadastroProduto {
 	
@@ -28,6 +28,7 @@ public class FrameCadastroProduto {
 	private JButton btCadastrar, btCancelar, btLimpar;
 
 	public FrameCadastroProduto(JFrame frame){
+
 		this.frame = frame;
 		instanciarComponentes();
 		eventos();
@@ -73,9 +74,9 @@ public class FrameCadastroProduto {
 	private void inicializaComponentes(){
 		
 		Container container = dialog.getContentPane();
-		
 		GroupLayout layout = new GroupLayout(container);
 		container.setLayout(layout);
+		
 		layout.setHorizontalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()

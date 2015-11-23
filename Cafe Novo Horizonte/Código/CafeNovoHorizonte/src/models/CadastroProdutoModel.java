@@ -1,10 +1,11 @@
-package Models;
+package models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import Controllers.ConectarComBanco;
-import Entidades.Produto;
-import Interfaces.InterfaceProduto;
+
+import controllers.ConectarComBanco;
+import entidades.Produto;
+import interfaces.InterfaceProduto;
 
 public class CadastroProdutoModel implements InterfaceProduto{
 

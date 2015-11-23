@@ -1,6 +1,6 @@
-package Interfaces;
+package interfaces;
 
-import Entidades.Produto;
+import entidades.Produto;
 
 public interface InterfaceProduto {	
 	public boolean inserir(Produto p);

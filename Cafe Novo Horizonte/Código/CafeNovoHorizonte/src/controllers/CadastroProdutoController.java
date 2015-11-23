@@ -1,4 +1,4 @@
- package Controllers;
+ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,9 +7,9 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import Entidades.Produto;
-import Models.CadastroProdutoModel;
-import Views.FrameCadastroProduto;
+import entidades.Produto;
+import models.CadastroProdutoModel;
+import views.FrameCadastroProduto;
 
 public class CadastroProdutoController implements ActionListener{
 

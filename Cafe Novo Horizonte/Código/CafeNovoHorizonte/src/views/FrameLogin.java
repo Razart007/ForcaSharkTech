@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -14,7 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import Controllers.LoginController;
+import controllers.LoginController;
 
 public class FrameLogin {
 	

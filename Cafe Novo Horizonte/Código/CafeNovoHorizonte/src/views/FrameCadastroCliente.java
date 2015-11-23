@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import Controllers.CadastroClienteController;
+import controllers.CadastroClienteController;
 
 public class FrameCadastroCliente {
 	
@@ -147,7 +147,7 @@ public class FrameCadastroCliente {
 	}
 	
 	private void eventos(){
-		CadastroClienteController clienteCont = new CadastroClienteController(dialog,tfNomeFantasia, tfEmail, 
+		CadastroClienteController clienteCont = new CadastroClienteController(dialog, tfNomeFantasia, tfEmail, 
 				tfTelefone, tfRua, tfNumero, tfBairro, tfCidade, tfCep, tfCpfCnpj, tfNInscricao, cbEstado, 
 				cbTipoImposto);
 		

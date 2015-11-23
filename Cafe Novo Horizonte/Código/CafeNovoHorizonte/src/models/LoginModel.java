@@ -1,10 +1,10 @@
-package Models;
+package models;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import Controllers.ConectarComBanco;
+import controllers.ConectarComBanco;
 
 public class LoginModel {
 	

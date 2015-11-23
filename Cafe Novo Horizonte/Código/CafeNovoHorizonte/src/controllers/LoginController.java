@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import Models.LoginModel;
-import Views.FramePrincipal;
+import models.LoginModel;
+import views.FramePrincipal;
 
 public class LoginController implements ActionListener{
 	

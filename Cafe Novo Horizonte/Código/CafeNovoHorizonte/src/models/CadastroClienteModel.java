@@ -1,7 +1,7 @@
-package Models;
+package models;
 
-import Entidades.Cliente;
-import Interfaces.InterfaceCliente;
+import entidades.Cliente;
+import interfaces.InterfaceCliente;
 
 public class CadastroClienteModel implements InterfaceCliente{
 

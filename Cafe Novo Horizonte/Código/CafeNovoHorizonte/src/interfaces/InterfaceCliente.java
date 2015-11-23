@@ -1,6 +1,6 @@
-package Interfaces;
+package interfaces;
 
-import Entidades.Cliente;
+import entidades.Cliente;
 
 public interface InterfaceCliente {
 	
