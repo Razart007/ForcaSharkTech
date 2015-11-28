@@ -6,6 +6,7 @@ public class Cliente {
 	private String nome;
 	private boolean fisico;
 	private int documento; //CPF ou CNPJ
+	private String telefone;
 	private String email;
 	private Endereco endereco;
 	private int inscricaoEstadual;
@@ -13,17 +14,18 @@ public class Cliente {
 	
 	
 	public Cliente() {
-		super();
+		this(-1, "", false, -1, "", "", new Endereco(), -1, false);
 	}
 
 
-	public Cliente(int id, String nome, boolean fisico, int documento, String email, Endereco endereco,
+	public Cliente(int id, String nome, boolean fisico, int documento, String telefone, String email, Endereco endereco,
 			int inscricaoEstadual, boolean isentoIcms) {
-		super();
+		
 		this.id = id;
 		this.nome = nome;
 		this.fisico = fisico;
 		this.documento = documento;
+		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
 		this.inscricaoEstadual = inscricaoEstadual;
@@ -61,13 +63,23 @@ public class Cliente {
 	}
 
 
-	public int getDocumento() {
+	public Integer getDocumento() {
 		return documento;
 	}
 
 
 	public void setDocumento(int documento) {
 		this.documento = documento;
+	}
+
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 
@@ -110,6 +122,9 @@ public class Cliente {
 		this.isentoIcms = isentoIcms;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Documento: " + documento + ", Nome: " + nome + ", Endereco: " + endereco ;
+	}
 	
 }

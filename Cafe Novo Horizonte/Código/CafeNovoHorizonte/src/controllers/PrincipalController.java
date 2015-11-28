@@ -6,11 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import views.FrameCadastroCliente;
-import views.FrameCadastroProduto;
-import views.FrameCadastroTransportadora;
-import views.FrameLogin;
-import views.FramePrincipal;
+import views.*;
 
 public class PrincipalController implements ActionListener{
 	
@@ -36,6 +32,16 @@ public class PrincipalController implements ActionListener{
 		} else if(FramePrincipal.PRODUTOS.equals(e.getActionCommand())){
 			
 			new FrameCadastroProduto(frame);
+
+		}if (FramePrincipal.LISTAR_CLIENTE.equals(e.getActionCommand())){
+			
+			new FrameListarCliente(frame);
+			
+		} else if(FramePrincipal.LISTAR_FORNECEDOR.equals(e.getActionCommand())){
+
+		} else if(FramePrincipal.LISTAR_TRANSPORTADORA.equals(e.getActionCommand())){
+			
+		} else if(FramePrincipal.LISTAR_PRODUTOS.equals(e.getActionCommand())){
 
 		} else if(FramePrincipal.PAGAMENTO.equals(e.getActionCommand())){
 
