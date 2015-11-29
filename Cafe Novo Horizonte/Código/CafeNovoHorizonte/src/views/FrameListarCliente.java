@@ -1,12 +1,10 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -175,10 +173,10 @@ public class FrameListarCliente {
 					return c.getTelefone();
 				}
 				case EDITAR: {
-					return new ImageIcon("Imagens/edit-user-icon-32.png");
+					return AbstractTabelaCrud.ICON_EDITAR;
 				}
 				case EXCLUIR: {
-					return new ImageIcon("Imagens/remove-user-icon-32.png");
+					return AbstractTabelaCrud.ICON_EXCLUIR;
 				}
 				default: {
 					return null;
@@ -227,10 +225,10 @@ public class FrameListarCliente {
 					return c.getTelefone().getClass();
 				}
 				case EDITAR: {
-					return Image.class;
+					return AbstractTabelaCrud.ICON_EDITAR.getClass();
 				}
 				case EXCLUIR: {
-					return Image.class;
+					return AbstractTabelaCrud.ICON_EXCLUIR.getClass();
 				}
 				default: {
 					return null;
