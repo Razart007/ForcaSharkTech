@@ -58,19 +58,19 @@ public class FramePrincipal {
 		menuBar = new JMenuBar();
 		mItemAbrir = new JMenuItem(ABRIR);
 		mItemSalvar = new JMenuItem(SALVAR);
-		mItemSair = new JMenuItem(SAIR, new ImageIcon("imgs/icon_sair.png"));
+		mItemSair = new JMenuItem(SAIR, new ImageIcon("Imagens/icon_sair.png"));
 		
 		scrTelaPrincipal = new JScrollPane();
 		pnlMenuLateral = new JPanel();
 		pnlMenuLateral = new FrameHome(Color.WHITE).getPanel();
 		
-		lblHome = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/home.png"));
-		lblCadastrar = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/cadastrar.png"));
-		lblListar = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/listar.png"));
-		lblRelatorios = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/relatorios.png"));
-		lblEstoque = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/estoque.png"));
-		lblVendas = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/vendas.png"));
-		lblSair = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/sair.png"));
+		lblHome = new JLabel(new ImageIcon("Imagens/home.png"));
+		lblCadastrar = new JLabel(new ImageIcon("Imagens/cadastrar.png"));
+		lblListar = new JLabel(new ImageIcon("Imagens/listar.png"));
+		lblRelatorios = new JLabel(new ImageIcon("Imagens/relatorios.png"));
+		lblEstoque = new JLabel(new ImageIcon("Imagens/estoque.png"));
+		lblVendas = new JLabel(new ImageIcon("Imagens/vendas.png"));
+		lblSair = new JLabel(new ImageIcon("Imagens/sair.png"));
 
 		iniciarLookAndFeel();
 		iniciarMenu();
