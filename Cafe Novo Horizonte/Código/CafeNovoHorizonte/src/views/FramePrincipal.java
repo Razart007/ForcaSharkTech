@@ -1,188 +1,251 @@
 package views;
 
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.LayoutManager;
+
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle;
 import javax.swing.UIManager;
 
 import controllers.PrincipalController;
 
 public class FramePrincipal {
-
-	private static int count = 0;
 	
-	public static final String CLIENTE = "Cliente";
-	public static final String FORNECEDOR = "Fornecedor";
-	public static final String TRANSPORTADORA = "Transportadora";
-	public static final String PRODUTOS = "Produto";
-	public static final String LISTAR_CLIENTE = "Clientes";
-	public static final String LISTAR_FORNECEDOR = "Fornecedores";
-	public static final String LISTAR_TRANSPORTADORA = "Transportadoras";
-	public static final String LISTAR_PRODUTOS = "Produtos";
-	public static final String PAGAMENTO = "Pagamento";
-	public static final String RECEBIMENTO = "Recebimento";
-	public static final String BALANCO = "Balanço";
-	public static final String REALIZAR_VENDA = "Realizar venda";
-	public static final String VENDAS_A_VISTA = "Listar vendas à vista";
-	public static final String VENDAS_DUPLICATAS = "Listar vendas duplicatas";
-	public static final String TODAS_AS_VENDAS = "Listar todas as vendas";
+	private static final int LARGURA = 150;
+	private static final int ALTURA = 50;
+	private static final int GAP = 10;
+	
+	public static final String ARQUIVO = "Arquivo";
+	public static final String USUARIO = "Usuario";
+	public static final String ABRIR = "Abrir";
+	public static final String SALVAR = "Salvar";
+	public static final String HOME = "Home";
+	public static final String CADASTRAR = "Cadastrar";
+	public static final String LISTAR = "Listar";
+	public static final String RELATORIOS = "Relatorios";
+	public static final String ESTOQUE = "Estoque";
+	public static final String VENDAS = "Vendas";
 	public static final String SAIR = "Sair";
 	
-						
+	private PrincipalController controller;
 	private JFrame frame;
-	private JPanel painel;
 	private JMenuBar menuBar;
-	private JMenuItem itemCliente, itemFornecedor, itemTransportadora, itemListarCliente, itemListarFornecedor, 
-			itemListarTransportadora, itemListarProdutos, itemProdutos, itemPagamento, itemRecebimento, itemBalanco, 
-			itemRealizarVendas, itemVendasAVista, itemVendasDuplicatas, itemTodasVendas, itemSair;
-	private JLabel label;
+	private static JScrollPane scrTelaPrincipal;
+	private JPanel pnlMenuLateral;
+	private static JPanel pnlPrincipal;
+	private JLabel lblHome, lblCadastrar, lblListar, lblRelatorios, lblEstoque, lblVendas, 
+			lblSair;
+	private JMenuItem mItemSalvar, mItemAbrir, mItemSair;
 	
-	public FramePrincipal(){
-		instanciarFrame();
-		iniciarComponentes();
-		instanciarEventos();
-	}
-
-	private void iniciarComponentes() {
+	
+	public FramePrincipal(String s) {
+		
+		frame = new JFrame(s);
+		controller = new PrincipalController(frame);
 		
 		menuBar = new JMenuBar();
+		mItemAbrir = new JMenuItem(ABRIR);
+		mItemSalvar = new JMenuItem(SALVAR);
+		mItemSair = new JMenuItem(SAIR, new ImageIcon("imgs/icon_sair.png"));
 		
-		JMenu menuCadastrar = new JMenu("Cadastrar");
-		JMenu menuListar = new JMenu("Listar");
-		JMenu menuRelatorios = new JMenu("Relatórios");
-		JMenu menuEstoque = new JMenu("Estoque");
-		JMenu menuVendas = new JMenu("Vendas");
-		JMenu menuSair = new JMenu("Usuario");
+		scrTelaPrincipal = new JScrollPane();
+		pnlMenuLateral = new JPanel();
+		pnlMenuLateral = new FrameHome(Color.WHITE).getPanel();
 		
-		menuCadastrar.add(itemCliente = new JMenuItem(CLIENTE));
-		menuCadastrar.add(itemFornecedor = new JMenuItem(FORNECEDOR));
-		menuCadastrar.add(itemTransportadora = new JMenuItem(TRANSPORTADORA));
-		menuCadastrar.add(itemProdutos = new JMenuItem(PRODUTOS));
-		
-		menuListar.add(itemListarCliente = new JMenuItem(LISTAR_CLIENTE));
-		menuListar.add(itemListarFornecedor = new JMenuItem(LISTAR_FORNECEDOR));
-		menuListar.add(itemListarTransportadora = new JMenuItem(LISTAR_TRANSPORTADORA));
-		menuListar.add(itemListarProdutos = new JMenuItem(LISTAR_PRODUTOS));
-		
-		menuRelatorios.add(itemPagamento = new JMenuItem(PAGAMENTO));
-		menuRelatorios.add(itemRecebimento = new JMenuItem(RECEBIMENTO));
-		menuRelatorios.add(itemBalanco = new JMenuItem(BALANCO));
-		
-		menuVendas.add(itemRealizarVendas = new JMenuItem(REALIZAR_VENDA));
-		menuVendas.add(itemVendasAVista = new JMenuItem(VENDAS_A_VISTA));
-		menuVendas.add(itemVendasDuplicatas = new JMenuItem(VENDAS_DUPLICATAS));
-		menuVendas.add(itemTodasVendas = new JMenuItem(TODAS_AS_VENDAS));
-		
-		menuSair.add(itemSair = new JMenuItem(SAIR));
-		
-		menuBar.add(menuCadastrar);
-		menuBar.add(menuListar);
-		menuBar.add(menuRelatorios);
-		menuBar.add(menuEstoque);
-		menuBar.add(menuVendas);
-		menuBar.add(menuSair);
-		
-		painel.setLayout(painelLayout());
-		frame.setJMenuBar(menuBar);
-	}	
-	
+		lblHome = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/home.png"));
+		lblCadastrar = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/cadastrar.png"));
+		lblListar = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/listar.png"));
+		lblRelatorios = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/relatorios.png"));
+		lblEstoque = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/estoque.png"));
+		lblVendas = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/vendas.png"));
+		lblSair = new JLabel(new ImageIcon("CafeNovoHorizonte/Imagens/sair.png"));
 
+		iniciarLookAndFeel();
+		iniciarMenu();
+		iniciarComponentes();
+		iniciarPopoupMenus();
+		iniciarEventos();
+	}
 
-	private void instanciarEventos(){
-		
-		PrincipalController principalCont = new PrincipalController(frame);
-		
-		itemCliente.addActionListener(principalCont);
-		itemFornecedor.addActionListener(principalCont);
-		itemTransportadora.addActionListener(principalCont);
-		itemProdutos.addActionListener(principalCont);
-		itemListarCliente.addActionListener(principalCont);
-		itemListarFornecedor.addActionListener(principalCont);
-		itemListarTransportadora.addActionListener(principalCont);
-		itemListarProdutos.addActionListener(principalCont);
-		itemPagamento.addActionListener(principalCont);
-		itemRecebimento.addActionListener(principalCont);
-		itemBalanco.addActionListener(principalCont);
-		itemRealizarVendas.addActionListener(principalCont);
-		itemVendasAVista.addActionListener(principalCont);
-		itemVendasDuplicatas.addActionListener(principalCont);
-		itemTodasVendas.addActionListener(principalCont);
-		itemSair.addActionListener(principalCont);
-
+	public void setVisible(boolean flag){
+		frame.setVisible(flag);
 	}
 	
-	private void instanciarFrame(){
+	public static void setPanel(JPanel panel){
+		pnlPrincipal = panel;
+		scrTelaPrincipal.setViewportView(pnlPrincipal);
+	}
+	
+	private void iniciarLookAndFeel(){
 		try { //Exceção para utilizar ou não o tema Ninbus do java  
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");  
 		} catch (Exception e) {  
 			e.printStackTrace();  
-		}
+		}  
+	}
+	
+	private void iniciarMenu(){
 
-		frame = new JFrame();
-		painel = new JPanel();
-		label = new JLabel();
+		JMenu menuArquivo = new JMenu("Arquivo");
+		JMenu menUsuario = new JMenu("Usuario");
+
+		menuArquivo.add(mItemAbrir);
+		menuArquivo.add(mItemSalvar);
+		menUsuario.add(mItemSair);
 		
-//		frame.getContentPane().setLayout(frameLayout());
-		frame.setTitle("Café Novo Horizonte");
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens/CafeIcone.png")); 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		frame.setSize(1000, 700);  
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setLocationRelativeTo(null); 
-		frame.setVisible(true);		
-		
-		frame.addWindowListener(new WindowAdapter() {  
-			public void windowClosing(WindowEvent e){
-				int i = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?");
-				if (i == JOptionPane.OK_OPTION){
-					System.exit(0);
-				}
-				else{
-					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
-				}
-			}
-		} );
+		menuBar.add(menuArquivo);
+		menuBar.add(menUsuario);
+
+		frame.setJMenuBar(menuBar);
+	}
+
+	private void iniciarComponentes(){
+				
+		scrTelaPrincipal.setViewportView(pnlPrincipal);
+        scrTelaPrincipal.setBorder(BorderFactory.createEtchedBorder());
+
+		pnlMenuLateral.setLayout(getLayoutMenuLateral());
+        pnlMenuLateral.setBorder(BorderFactory.createEtchedBorder());
+        pnlMenuLateral.setBackground(Color.WHITE);
+
+        frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frame.getContentPane().setLayout(getLayoutFrame());
+		frame.pack();
+		frame.setMinimumSize(new Dimension(900, 600));
+		frame.setSize(1000, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
 	}
 	
-	private GroupLayout painelLayout(){
-		label.setText("contador " + ++count);
-		GroupLayout layout = new GroupLayout(painel);
-		
-		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addGroup(layout.createSequentialGroup()
-                .addContainerGap().addComponent(label)
-                .addContainerGap(336, Short.MAX_VALUE)));
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label)
-                .addContainerGap(282, Short.MAX_VALUE)));
-	
-		return layout;
-	}
-	
-	private GroupLayout frameLayout(){
-		
+	private GroupLayout getLayoutFrame(){
+
 		GroupLayout layout = new GroupLayout(frame.getContentPane());
 		
-		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addComponent(painel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-	            .addComponent(painel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(pnlMenuLateral, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(GAP)
+						.addComponent(scrTelaPrincipal)
+						.addContainerGap()
+				)
+		);
+		layout.setVerticalGroup(
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+								.addComponent(scrTelaPrincipal, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+								.addComponent(pnlMenuLateral, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap()
+				)
+		);
 
-        frame.pack();
-	
 		return layout;
 	}
-}
+	
+	private LayoutManager getLayoutMenuLateral(){
 
+		GroupLayout layout = new GroupLayout(pnlMenuLateral);
+		
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addGap(GAP)
+	                .addGroup(
+	                		
+	                		layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+	                		.addComponent(lblHome, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				.addComponent(lblCadastrar, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				.addComponent(lblListar, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				.addComponent(lblRelatorios, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				.addComponent(lblEstoque, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				.addComponent(lblVendas, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				.addComponent(lblSair, GroupLayout.DEFAULT_SIZE, LARGURA, Short.MAX_VALUE)
+	        				
+            		).addGap(GAP)
+                )
+        );
+				
+		layout.setVerticalGroup(
+			layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+			.addGroup(
+				layout.createSequentialGroup()
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblHome, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblCadastrar, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblListar, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblRelatorios, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblEstoque, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblVendas, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGap(GAP)
+				.addComponent(lblSair, GroupLayout.PREFERRED_SIZE, ALTURA, GroupLayout.PREFERRED_SIZE)
+			)
+		);
+
+		return layout;
+	}
+	
+	private void iniciarPopoupMenus(){
+		
+		JPopupMenu menuCadastrar = new JPopupMenu();
+		
+		JMenuItem mItemCliente = new JMenuItem("Cliente");
+		JMenuItem mItemFornecedor = new JMenuItem("Fornecedor");
+		JMenuItem mItemTransportadora = new JMenuItem("Transportadora");
+		JMenuItem mItemProduto = new JMenuItem("Produto");
+		
+		mItemCliente.addActionListener(controller.getAcitonListener("Cliente"));
+		mItemFornecedor.addActionListener(controller.getAcitonListener("Fornecedor"));
+		mItemTransportadora.addActionListener(controller.getAcitonListener("Transportadora"));
+		mItemProduto.addActionListener(controller.getAcitonListener("Produto"));
+		
+		menuCadastrar.add(mItemCliente);
+		menuCadastrar.add(mItemFornecedor);
+		menuCadastrar.add(mItemTransportadora);
+		menuCadastrar.add(mItemProduto);
+		
+		lblCadastrar.setComponentPopupMenu(menuCadastrar);
+		
+	}
+
+	private void iniciarEventos(){
+
+		frame.addWindowListener(controller.getWindowListener());
+		
+		//Itens da barra de menus prinicipal
+		mItemSalvar.addActionListener(controller.getAcitonListener(SALVAR));
+		mItemAbrir.addActionListener(controller.getAcitonListener(ABRIR));
+		mItemSair.addActionListener(controller.getAcitonListener(SAIR));
+		
+		//Itens no menu lateral
+		
+		frame.addMouseListener(controller.getMouseListener("FRAME"));
+		
+		
+		lblHome.addMouseListener(controller.getMouseListener(HOME));
+		lblCadastrar.addMouseListener(controller.getMouseListener(CADASTRAR));
+		lblListar.addMouseListener(controller.getMouseListener(LISTAR));
+		lblRelatorios.addMouseListener(controller.getMouseListener(RELATORIOS));
+		lblEstoque.addMouseListener(controller.getMouseListener(ESTOQUE));
+		lblVendas.addMouseListener(controller.getMouseListener(VENDAS));
+		lblSair.addMouseListener(controller.getMouseListener(SAIR));
+	}	
+}

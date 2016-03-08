@@ -1,92 +1,34 @@
- package controllers;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
-import entidades.Produto;
-import models.CadastroProdutoModel;
-import views.FrameCadastroProduto;
+import views.FrameCadastroCliente;
 
-public class CadastroProdutoController implements ActionListener{
-
-	private JDialog dialog;
-	private JTextField txCodigo,  txDescricao, txEan, txEanUnidTrib, txExIpi, txGenero,
-			txNcm, txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib;
-
-	public CadastroProdutoController(JDialog dialog, JTextField txCodigo, JTextField txDescricao, JTextField txEan,
-			JTextField txEanUnidTrib, JTextField txExIpi, JTextField txGenero, JTextField txNcm, JTextField txQntTrib,
-			JTextField txUnidCom, JTextField txUnidTrib, JTextField txValorUnidCom, JTextField txValorUnidTrib) {
-		
-		this.dialog = dialog;
-		this.txCodigo = txCodigo;
-		this.txDescricao = txDescricao;
-		this.txEan = txEan;
-		this.txEanUnidTrib = txEanUnidTrib;
-		this.txExIpi = txExIpi;
-		this.txGenero = txGenero;
-		this.txNcm = txNcm;
-		this.txQntTrib = txQntTrib;
-		this.txUnidCom = txUnidCom;
-		this.txUnidTrib = txUnidTrib;
-		this.txValorUnidCom = txValorUnidCom;
-		this.txValorUnidTrib = txValorUnidTrib;
+public class CadastroProdutoController implements ActionListener {
+	
+	private String name;
+	
+	public CadastroProdutoController(String name) {
+		this.name = name;
 	}
-
+	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent arg0) {
 		
-		if(FrameCadastroProduto.CADASTRAR.equals(e.getActionCommand())){
+		if(name.equals(FrameCadastroCliente.CADASTRAR)){
 			
-			cadastrar();
+			JOptionPane.showMessageDialog(null, "btnCadastrar clickado", name, JOptionPane.INFORMATION_MESSAGE);
 			
-		} else if(FrameCadastroProduto.LIMPAR.equals(e.getActionCommand())){
+		} else if(name.equals(FrameCadastroCliente.LIMPAR)){
 			
-			limpar();
-			
-		} else if(FrameCadastroProduto.CANCELAR.equals(e.getActionCommand())){
-			
-			cancelar();
-		}		
-	}
+			JOptionPane.showMessageDialog(null, "btnlimpar clickado", name, JOptionPane.INFORMATION_MESSAGE);
 
-	private void cadastrar() {
-		
-		Produto p = new Produto();
-		
-		p.setDescricao(txDescricao.getText());;
-		
-		boolean flag = new CadastroProdutoModel().inserir(p);
-		
-		if (flag){
-			limpar();
-			JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
-		} else {
-			JOptionPane.showMessageDialog(null, "Ocorreu algum erro ao cadastrar o produto");
+		} else if(name.equals(FrameCadastroCliente.CANCELAR)){
+			
+			JOptionPane.showMessageDialog(null, "btncancelar clickado", name, JOptionPane.INFORMATION_MESSAGE);
 		}
-	}
-
-	private void limpar() {
-		
-		txCodigo.setText("");
-		txDescricao.setText("");
-		txEan.setText("");
-		txEanUnidTrib.setText("");
-		txExIpi.setText("");
-		txGenero.setText("");
-		txNcm.setText("");
-		txQntTrib.setText("");
-		txUnidCom.setText("");
-		txUnidTrib.setText("");
-		txValorUnidCom.setText("");
-		txValorUnidTrib.setText("");
-	}
-
-	private void cancelar() {
-		
-		dialog.dispose();
 	}
 }

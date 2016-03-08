@@ -3,78 +3,43 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
-import views.FrameCadastroProduto;
+import views.FrameCadastroCliente;
 
-public class CadastroClienteController implements ActionListener{
-	private JDialog dialog;
-	private JTextField tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, 
-	   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
-	private JComboBox<String> cbEstado, cbTipoImposto;
+public class CadastroClienteController  {
 	
+	public CadastroClienteController() { }
 	
-	public CadastroClienteController(JDialog dialog, JTextField tfNomeFantasia, JTextField tfEmail, 
-									 JTextField tfTelefone, JTextField tfRua, JTextField tfNumero,
-									 JTextField tfBairro, JTextField tfCidade, JTextField tfCep,
-									 JTextField tfCpfCnpj, JTextField tfNInscricao, 
-									 JComboBox<String> cbEstado, JComboBox<String> cbTipoImposto){
-		
-		this.dialog = dialog;
-		this.tfNomeFantasia = tfNomeFantasia;
-		this.tfEmail = tfEmail;
-		this.tfTelefone = tfTelefone;
-		this.tfRua = tfRua;
-		this.tfNumero = tfNumero;
-		this.tfBairro = tfBairro;
-		this.tfCidade = tfCidade;
-		this.tfCep = tfCep;
-		this.tfCpfCnpj = tfCpfCnpj;
-		this.tfNInscricao = tfNInscricao;
-		this.cbEstado = cbEstado;
-		this.cbTipoImposto = cbTipoImposto;
-		
+	public AddActionListener getActionListener(String name){
+		return new AddActionListener(name);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		if(FrameCadastroProduto.CADASTRAR.equals(e.getActionCommand())){
-			
-			cadastrar();
-			
-		} else if(FrameCadastroProduto.LIMPAR.equals(e.getActionCommand())){
-			
-			limpar();
-			
-		} else if(FrameCadastroProduto.CANCELAR.equals(e.getActionCommand())){
-			
-			cancelar();
-		}			
-	}
-	
-	private void cadastrar(){
+	private class AddActionListener implements ActionListener{
 		
-	}
-	
-	
-	
-	private void limpar() {
-		tfNomeFantasia.setText("");
-		tfEmail.setText("");
-		tfTelefone.setText("");
-		tfRua.setText("");
-		tfNumero.setText("");
-		tfBairro.setText("");
-		tfCidade.setText("");
-		tfCep.setText("");
-		tfCpfCnpj.setText("");
-		tfNInscricao.setText("");
-		cbEstado.setSelectedIndex(0);
-		cbTipoImposto.setSelectedIndex(0);	
+
+		private String name;
+		
+		public AddActionListener(String name) {
+			this.name = name;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			if(name.equals(FrameCadastroCliente.CADASTRAR)){
+				
+				JOptionPane.showMessageDialog(null, "btnCadastrar clickado", name, JOptionPane.INFORMATION_MESSAGE);
+				
+			} else if(name.equals(FrameCadastroCliente.LIMPAR)){
+				
+				JOptionPane.showMessageDialog(null, "btnlimpar clickado", name, JOptionPane.INFORMATION_MESSAGE);
+		
+			} else if(name.equals(FrameCadastroCliente.CANCELAR)){
+				
+				JOptionPane.showMessageDialog(null, "btncancelar clickado", name, JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
 	}
 
-	private void cancelar() {	
-		dialog.dispose();
-	}
 }

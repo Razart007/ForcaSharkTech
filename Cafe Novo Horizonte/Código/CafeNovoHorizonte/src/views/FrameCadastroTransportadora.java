@@ -1,12 +1,12 @@
 package views;
 
+import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,9 +24,8 @@ public class FrameCadastroTransportadora  {
 	public static final String LIMPAR = "Limpar campos";
 	public static final String CANCELAR = "Cancelar";
 	
-	private JFrame frame;
-	private JDialog dialog;
-	private JPanel pnlEndereco;
+	private JPanel panel, pnlEndereco;
+	
 	private JLabel lbNome, lbTipoDocumento, lbDocumento, lbInscricaoEstadual, lbLogradouro, lbNumero,
 			lbComplemento, lbBairro, lbCep, lbPais, lbUf, lbMunicipio, lbEmail, lbTelefone;
 	private JTextField txNome, txDocumento, txInscricaoEstadual, txLogradouro, txNumero,
@@ -36,18 +35,10 @@ public class FrameCadastroTransportadora  {
 	private JButton btnCadastrar, btnLimpar, btnCancelar;
 	
 
-	public FrameCadastroTransportadora(JFrame frame) {
+	public FrameCadastroTransportadora() {
 		
-		this.frame = frame;
-
-		this.instanciarComponentes();
-		this.inicializarComponentes();
-		this.eventos();
-	}
-	
-	public void instanciarComponentes(){
-		
-		dialog = new JDialog(frame, "Cadastrar transportadora");
+		panel = new JPanel();
+		pnlEndereco = new JPanel();
 		
 		lbNome = new JLabel("Nome/Razão social:");
 		lbTipoDocumento = new JLabel("Tipo do documento:");
@@ -77,6 +68,18 @@ public class FrameCadastroTransportadora  {
 		txEmail = new JTextField();
 		txTelefone = new JTextField();
 		
+		iniciarComponentes();
+		iniciarEventos();
+	}
+	
+	public void iniciarComponentes(){
+
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(gePanelLayout());
+		
+		pnlEndereco.setLayout(panelEnderecoLayout());
+		pnlEndereco.setBorder(BorderFactory.createTitledBorder("Endereço"));
+		
 		cmbTipoDocumento = new JComboBox<String>(TIPO_DOCUMENTO);
 		cmbUf = new JComboBox<String>(UF);
 		
@@ -92,31 +95,17 @@ public class FrameCadastroTransportadora  {
 		pnlEndereco = new JPanel();
 	}
 	
-	private void inicializarComponentes(){
-
-		pnlEndereco.setLayout(panelEnderecoLayout());
-		pnlEndereco.setBorder(BorderFactory.createTitledBorder("Endereço"));
-
-        dialog.getContentPane().setLayout(dialogLayout());
-        dialog.pack();		
-		dialog.setLocationRelativeTo(frame);
-		dialog.setResizable(false);
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setVisible(true);	
-
-	}
-	
-	private void eventos(){
+	private void iniciarEventos(){
 		
-		CadastroTransportadoraController controller = new CadastroTransportadoraController(dialog, txNome, txDocumento, txInscricaoEstadual, 
+		CadastroTransportadoraController controller = new CadastroTransportadoraController(panel, txNome, txDocumento, txInscricaoEstadual, 
 				txLogradouro, txNumero, txComplemento, txBairro, txCep, txPais, txMunicipio, txTelefone, cmbTipoDocumento, cmbUf, chbIsentoIcms);
 		
-		btnCadastrar.addActionListener(controller);
-		btnLimpar.addActionListener(controller);
-		btnCancelar.addActionListener(controller);
+		btnCadastrar.addActionListener(controller.getActionListener());
+		btnLimpar.addActionListener(controller.getActionListener());
+		btnCancelar.addActionListener(controller.getActionListener());
 		
-		cmbTipoDocumento.addItemListener(controller);
-		cmbUf.addItemListener(controller);
+		cmbTipoDocumento.addItemListener(controller.getItemListener());
+		cmbUf.addItemListener(controller.getItemListener());
 	}
 	
 	private GroupLayout panelEnderecoLayout(){
@@ -208,9 +197,9 @@ public class FrameCadastroTransportadora  {
 		return pnlEnderecoLayout;		
 	}
 	
-	private GroupLayout dialogLayout(){
+	private GroupLayout gePanelLayout(){
 		
-		GroupLayout layout = new GroupLayout(dialog.getContentPane());
+		GroupLayout layout = new GroupLayout(panel);
 		
 		layout.setHorizontalGroup(
 	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)

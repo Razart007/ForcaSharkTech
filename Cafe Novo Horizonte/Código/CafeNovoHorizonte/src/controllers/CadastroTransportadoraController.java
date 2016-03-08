@@ -7,26 +7,26 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import views.FrameCadastroTransportadora;
 
-public class CadastroTransportadoraController implements ActionListener, ItemListener{
+public class CadastroTransportadoraController {
 
-	private JDialog dialog;
+//	private JPanel panel; 
+	
 	private JTextField txNome, txDocumento, txInscricaoEstadual, txRua, txNumero,
-			txComplemento, txBairro, txCep, txPais, txMunicipio, txTelefone;
+		txComplemento, txBairro, txCep, txPais, txMunicipio, txTelefone;
 	private JComboBox<String> cmbTipoDocumento, cmbUf;
 	private JCheckBox chbIsentoIcms;
-
 	
-	public CadastroTransportadoraController(JDialog dialog, JTextField txNome, JTextField txDocumento,
+	public CadastroTransportadoraController(JPanel panel, JTextField txNome, JTextField txDocumento,
 			JTextField txInscricaoEstadual, JTextField txRua, JTextField txNumero, JTextField txComplemento,
 			JTextField txBairro, JTextField txCep, JTextField txPais, JTextField txMunicipio, JTextField txTelefone,
 			JComboBox<String> cmbTipoDocumento, JComboBox<String> cmbUf, JCheckBox chbIsentoIcms) {
 	
-		this.dialog = dialog;
+//		this.panel = panel;
 		this.txNome = txNome;
 		this.txDocumento = txDocumento;
 		this.txInscricaoEstadual = txInscricaoEstadual;
@@ -42,39 +42,19 @@ public class CadastroTransportadoraController implements ActionListener, ItemLis
 		this.cmbUf = cmbUf;
 		this.chbIsentoIcms = chbIsentoIcms;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent actEvt) {
+	
+	public ActionListener getActionListener (){
 		
-		if (FrameCadastroTransportadora.CADASTRAR.equals(actEvt.getActionCommand())){
-
-			cadastrar();
-			
-		} else if (FrameCadastroTransportadora.LIMPAR.equals(actEvt.getActionCommand())){
-			
-			limpar();
-			
-		} else if (FrameCadastroTransportadora.CANCELAR.equals(actEvt.getActionCommand())){
-			
-			cancelar();
-		}		
+		return new AddActionListener();
 	}
-
-	@Override
-	public void itemStateChanged(ItemEvent actEvt) {
+	
+	public ItemListener getItemListener (){
 		
-		if(actEvt.getSource().equals(cmbTipoDocumento)){
-			
-			tipoDocumentoAlterado(cmbTipoDocumento.getSelectedIndex());
-			
-		} else if(actEvt.getSource().equals(cmbUf)){
-			
-			ufAlterado(cmbUf.getSelectedIndex());			
-		}		
+		return new AddItemListener();
 	}
 
 	private void cadastrar(){
-		dialog.dispose();
+		//TODO: Ao cadastrar, retornar à continuar na tela atual ou ir para a home...?
 	}
 	
 	private void limpar() {
@@ -94,10 +74,12 @@ public class CadastroTransportadoraController implements ActionListener, ItemLis
 	}
 	
 	private void cancelar() {
-		dialog.dispose();
+		//TODO: Ao cancelar, retornar à tela anterior ou ir para a home...?
 	}
 	
-	private void tipoDocumentoAlterado(int index){
+	private void tipoDocumentoAlterado(){
+		
+		int index = cmbTipoDocumento.getSelectedIndex();
 		
 		if(index != 0){
 			txDocumento.setEnabled(true);
@@ -106,11 +88,53 @@ public class CadastroTransportadoraController implements ActionListener, ItemLis
 		}
 	}
 	
-	private void ufAlterado(int index){
-		if(cmbUf.getSelectedIndex() != 0){
+	private void ufAlterado(){
+		
+		int index = cmbUf.getSelectedIndex();
+		
+		if( index != 0){
 			txMunicipio.setEnabled(true);
 		} else {
 			txMunicipio.setEnabled(false);
 		}
+	}
+	
+	private class AddActionListener implements ActionListener{
+		
+		
+		public AddActionListener() {}
+		
+		@Override
+		public void actionPerformed(ActionEvent actEvt) {
+			
+			if (FrameCadastroTransportadora.CADASTRAR.equals(actEvt.getActionCommand())){
+
+				cadastrar();
+				
+			} else if (FrameCadastroTransportadora.LIMPAR.equals(actEvt.getActionCommand())){
+				
+				limpar();
+				
+			} else if (FrameCadastroTransportadora.CANCELAR.equals(actEvt.getActionCommand())){
+				
+				cancelar();
+			}		
+		}		
+	}
+	
+	private class AddItemListener implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent actEvt) {
+			
+			if(actEvt.getSource().equals(cmbTipoDocumento)){
+				
+				tipoDocumentoAlterado();
+				
+			} else if(actEvt.getSource().equals(cmbUf)){
+				
+				ufAlterado();			
+			}		
+		}		
 	}
 }

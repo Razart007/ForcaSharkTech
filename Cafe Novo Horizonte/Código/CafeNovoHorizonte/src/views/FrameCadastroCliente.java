@@ -1,10 +1,11 @@
 package views;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controllers.CadastroClienteController;
@@ -17,29 +18,21 @@ public class FrameCadastroCliente {
 	public static final String CADASTRAR = "Cadastrar";
 	public static final String LIMPAR = "Limpar";
 	public static final String CANCELAR = "Cancelar";
-	
-	private JFrame frame;
-	
-	private JDialog dialog;
+
+	private CadastroClienteController controller;
+	private JPanel panelCliente;	
 	private JLabel lbNomeFantasia, lbEmail, lbTelefone, lbRua, lbNumero, lbBairro,
 		    	   lbCidade, lbEstado, lbCep, lbCpfCnpj, lbNInscricao, lbTipoImposto;
 	private JButton btCadastrar, btLimpar, btCancelar;
 	private JTextField tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, 
 					   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
 	private JComboBox<String> cbEstado, cbTipoImposto;
-
 	
-	
-	public FrameCadastroCliente(JFrame frame) {
-		this.frame = frame;
-		this.instanciarComponentes();
-		this.inicializarComponentes();
-		this.eventos();
-	}	
-	
-	private void instanciarComponentes(){
+	public FrameCadastroCliente(Color c) {
 		
-		dialog = new JDialog(frame,"Cadastrar Clientes");
+		panelCliente = new JPanel();
+		controller = new CadastroClienteController();
+		
 		lbNomeFantasia = new JLabel("Nome Fantasia:");
 		lbEmail = new JLabel("E-mail:");
 		lbTelefone = new JLabel("Telefone:");
@@ -70,50 +63,49 @@ public class FrameCadastroCliente {
 		
 		cbEstado = new JComboBox<>(ESTADOS);
 		cbTipoImposto = new JComboBox<>(IMPOSTOS);
+		
+		configurarComponentes(c);
+		configurarEventos();
 	}
 	
-	private void inicializarComponentes(){
+	private void configurarComponentes(Color c){
 		
-		dialog.setSize(700, 400);
-		dialog.setLocationRelativeTo(frame);
-		dialog.setResizable(false);
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setVisible(true);
-		dialog.getContentPane().setLayout(null);
+		panelCliente.setLayout(null);
+		panelCliente.setBackground(c);
 		
-		dialog.add(lbNomeFantasia);
-		dialog.add(lbEmail);
-		dialog.add(lbTelefone);
-		dialog.add(lbRua);
-		dialog.add(lbNumero);
-		dialog.add(lbBairro);
-		dialog.add(lbCidade);
-		dialog.add(lbEstado);
-		dialog.add(lbCep);
-		dialog.add(lbCpfCnpj);
-		dialog.add(lbNInscricao);
-		dialog.add(lbTipoImposto);
+		panelCliente.add(lbNomeFantasia);
+		panelCliente.add(lbEmail);
+		panelCliente.add(lbTelefone);
+		panelCliente.add(lbRua);
+		panelCliente.add(lbNumero);
+		panelCliente.add(lbBairro);
+		panelCliente.add(lbCidade);
+		panelCliente.add(lbEstado);
+		panelCliente.add(lbCep);
+		panelCliente.add(lbCpfCnpj);
+		panelCliente.add(lbNInscricao);
+		panelCliente.add(lbTipoImposto);
 		
-		dialog.add(btCadastrar);
-		dialog.add(btLimpar);
-		dialog.add(btCancelar);
+		panelCliente.add(btCadastrar);
+		panelCliente.add(btLimpar);
+		panelCliente.add(btCancelar);
 		
-		dialog.add(tfNomeFantasia);
-		dialog.add(tfEmail);
-		dialog.add(tfTelefone);
-		dialog.add(tfRua);
-		dialog.add(tfNumero);
-		dialog.add(tfBairro);
-		dialog.add(tfCidade);
-		dialog.add(tfCep);
-		dialog.add(tfCpfCnpj);
-		dialog.add(tfNInscricao);
+		panelCliente.add(tfNomeFantasia);
+		panelCliente.add(tfEmail);
+		panelCliente.add(tfTelefone);
+		panelCliente.add(tfRua);
+		panelCliente.add(tfNumero);
+		panelCliente.add(tfBairro);
+		panelCliente.add(tfCidade);
+		panelCliente.add(tfCep);
+		panelCliente.add(tfCpfCnpj);
+		panelCliente.add(tfNInscricao);
 		
 		cbEstado.setSelectedItem(0);
 		cbTipoImposto.setSelectedItem(0);
 		
-		dialog.add(cbEstado);
-		dialog.add(cbTipoImposto);
+		panelCliente.add(cbEstado);
+		panelCliente.add(cbTipoImposto);
 		
 		lbNomeFantasia.setBounds(25, 20, 100, 20);
 		lbEmail.setBounds(25, 70, 60, 20);
@@ -146,13 +138,14 @@ public class FrameCadastroCliente {
 		cbTipoImposto.setBounds(575, 218, 85, 25);
 	}
 	
-	private void eventos(){
-		CadastroClienteController clienteCont = new CadastroClienteController(dialog, tfNomeFantasia, tfEmail, 
-				tfTelefone, tfRua, tfNumero, tfBairro, tfCidade, tfCep, tfCpfCnpj, tfNInscricao, cbEstado, 
-				cbTipoImposto);
+	private void configurarEventos(){
 		
-		btCadastrar.addActionListener(clienteCont);
-		btLimpar.addActionListener(clienteCont);
-		btCancelar.addActionListener(clienteCont);
+		btCadastrar.addActionListener(controller.getActionListener(CADASTRAR));
+		btLimpar.addActionListener(controller.getActionListener(LIMPAR));
+		btCancelar.addActionListener(controller.getActionListener(CANCELAR));
+	}
+	
+	public JPanel getPanel(){
+		return panelCliente;
 	}
 }

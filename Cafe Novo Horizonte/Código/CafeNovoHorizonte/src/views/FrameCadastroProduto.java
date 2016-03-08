@@ -1,44 +1,34 @@
 package views;
 
 import java.awt.Color;
-import java.awt.Container;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import controllers.CadastroProdutoController;
 
 public class FrameCadastroProduto {
-	
+
+
 	public static final String CADASTRAR = "Cadastrar";
 	public static final String LIMPAR = "Limpar";
 	public static final String CANCELAR = "Cancelar";
 
-	private JFrame frame;
-	private JDialog dialog;
+	
+	private JPanel panel;
 	private JLabel lbCodigo, lbDescricao, lbEan, lbEanUnidTrib,  lbExIpi,  lbGenero, lbNcm, 
 			lbQntTrib, lbUnidCom, lbUnidTrib,  lbValorUnidCom,  lbValorUnidTrib;
 	private JTextField txCodigo,  txDescricao, txEan, txEanUnidTrib, txExIpi, txGenero,
 			txNcm, txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib;
-	private JButton btCadastrar, btCancelar, btLimpar;
+	private JButton btnCadastrar, btnCancelar, btnLimpar;
 
-	public FrameCadastroProduto(JFrame frame){
-
-		this.frame = frame;
-		instanciarComponentes();
-		eventos();
-		inicializaComponentes();
-	}
-
-	private void instanciarComponentes() {
+	public FrameCadastroProduto() {
 		
-		dialog = new JDialog(frame, "Cadastrar produtos");
-		dialog.getContentPane().setBackground(Color.LIGHT_GRAY);
+		panel = new JPanel();
 		
 		lbCodigo = new JLabel("Codigo:");
 		lbDescricao = new JLabel("Descricao:");
@@ -66,16 +56,23 @@ public class FrameCadastroProduto {
 		txValorUnidCom = new JTextField();
 		txValorUnidTrib = new JTextField();
 		
-		btCadastrar = new JButton(CADASTRAR);
-		btLimpar = new JButton(LIMPAR);
-		btCancelar = new JButton(CANCELAR);
+		btnCadastrar = new JButton(CADASTRAR);
+		btnLimpar = new JButton(LIMPAR);
+		btnCancelar = new JButton(CANCELAR);
+		
+		configurarEventos();
+		configurarCompomentes();
 	}
 	
-	private void inicializaComponentes(){
+	private void configurarCompomentes(){
 		
-		Container container = dialog.getContentPane();
-		GroupLayout layout = new GroupLayout(container);
-		container.setLayout(layout);
+		panel.setBackground(Color.white);
+		panel.setLayout(getLayoutPrincipal());
+	}
+	
+	public GroupLayout getLayoutPrincipal(){
+		
+		GroupLayout layout = new GroupLayout(panel);
 		
 		layout.setHorizontalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -125,11 +122,11 @@ public class FrameCadastroProduto {
 																				.addComponent(txExIpi, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
 																				.addComponent(txNcm)))))
 												.addGroup(layout.createSequentialGroup()
-														.addComponent(btCadastrar)
+														.addComponent(btnCadastrar)
 														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-														.addComponent(btLimpar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+														.addComponent(btnLimpar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-														.addComponent(btCancelar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))))
+														.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))))
 						.addContainerGap(60, Short.MAX_VALUE))
 				);
 		layout.setVerticalGroup(
@@ -171,27 +168,22 @@ public class FrameCadastroProduto {
 								.addComponent(txValorUnidTrib, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
 						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(btCadastrar)
-								.addComponent(btLimpar)
-								.addComponent(btCancelar))
+								.addComponent(btnCadastrar)
+								.addComponent(btnLimpar)
+								.addComponent(btnCancelar))
 						.addGap(60, 60, 60))
 				);
-
-		dialog.pack();
-		dialog.setResizable(false);
-		dialog.setLocationRelativeTo(frame);
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setModal(true);
-		dialog.setVisible(true);
+		return layout;
 	}
 	
-	private void eventos(){
+	private void configurarEventos(){
 		
-		CadastroProdutoController produtoCont = new CadastroProdutoController(dialog, txCodigo, txDescricao, txEan, 
-				txEanUnidTrib, txExIpi, txGenero, txNcm, txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib);
-		
-		btCadastrar.addActionListener(produtoCont);
-		btLimpar.addActionListener(produtoCont);
-		btCancelar.addActionListener(produtoCont);
+		btnCadastrar.addActionListener(new CadastroProdutoController(CADASTRAR));
+		btnLimpar.addActionListener(new CadastroProdutoController(LIMPAR));
+		btnCancelar.addActionListener(new CadastroProdutoController(CANCELAR));
+	}
+	
+	public JPanel getPanel() {
+		return panel;
 	}	
 }

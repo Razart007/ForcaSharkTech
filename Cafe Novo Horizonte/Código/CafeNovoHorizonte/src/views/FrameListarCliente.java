@@ -14,7 +14,7 @@ import javax.swing.table.TableColumn;
 
 import entidades.Cliente;
 import entidades.Endereco;
-import interfaces.AbstractTabelaCrud;
+import interfaces.AbstractTabelCrud;
 
 public class FrameListarCliente {
 
@@ -65,11 +65,11 @@ public class FrameListarCliente {
 		
 		colunaEdit.setMaxWidth(50);
 		colunaEdit.setMinWidth(35);
-		colunaEdit.setCellRenderer(new AbstractTabelaCrud.IconTableRenderer());
+		colunaEdit.setCellRenderer(new AbstractTabelCrud.IconTableRenderer());
 		
 		colunaExcl.setMaxWidth(50);
 		colunaExcl.setMinWidth(35);
-		colunaExcl.setCellRenderer(new AbstractTabelaCrud.IconTableRenderer());
+		colunaExcl.setCellRenderer(new AbstractTabelCrud.IconTableRenderer());
 		
 	}
 	
@@ -123,7 +123,7 @@ public class FrameListarCliente {
 		
 	}
 	
-	private class ClienteTableModel extends AbstractTabelaCrud <Cliente> {
+	private class ClienteTableModel extends AbstractTabelCrud <Cliente> {
 
 		private static final long serialVersionUID = 1L;
 
@@ -173,10 +173,10 @@ public class FrameListarCliente {
 					return c.getTelefone();
 				}
 				case EDITAR: {
-					return AbstractTabelaCrud.ICON_EDITAR;
+					return AbstractTabelCrud.ICON_EDITAR;
 				}
 				case EXCLUIR: {
-					return AbstractTabelaCrud.ICON_EXCLUIR;
+					return AbstractTabelCrud.ICON_EXCLUIR;
 				}
 				default: {
 					return null;
@@ -225,10 +225,10 @@ public class FrameListarCliente {
 					return c.getTelefone().getClass();
 				}
 				case EDITAR: {
-					return AbstractTabelaCrud.ICON_EDITAR.getClass();
+					return AbstractTabelCrud.ICON_EDITAR.getClass();
 				}
 				case EXCLUIR: {
-					return AbstractTabelaCrud.ICON_EXCLUIR.getClass();
+					return AbstractTabelCrud.ICON_EXCLUIR.getClass();
 				}
 				default: {
 					return null;
