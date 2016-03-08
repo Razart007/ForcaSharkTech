@@ -31,7 +31,7 @@ public class LoginController implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		String login = tfLogin.getText();
-		String senha = new String(tfSenha.getPassword());
+		String senha = new String(tfSenha.getPassword()); 
 		
 		if (login.equalsIgnoreCase("") || senha.equalsIgnoreCase("")){
 			
