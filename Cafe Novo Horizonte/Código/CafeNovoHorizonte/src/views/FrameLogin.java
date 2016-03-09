@@ -38,7 +38,7 @@ public class FrameLogin {
 		}  
 		frame = new JFrame();
 		frame.setTitle("Café Novo Horizonte"); //Título do frame
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagens/CafeIcone.png")); //Icone do frame
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(FramePrincipal.URL_IMAGENS + "/CafeIcone.png")); //Icone do frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Operação ao fechar o frame
 		frame.setResizable(false); //Não deixa modificar o tamanho da tela
 		frame.setLayout(null); //Seta o layout como null

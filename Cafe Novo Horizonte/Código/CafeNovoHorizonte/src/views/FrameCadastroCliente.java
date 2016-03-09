@@ -28,7 +28,7 @@ public class FrameCadastroCliente {
 					   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
 	private JComboBox<String> cbEstado, cbTipoImposto;
 	
-	public FrameCadastroCliente(Color c) {
+	public FrameCadastroCliente() {
 		
 		panelCliente = new JPanel();
 		controller = new CadastroClienteController();
@@ -64,14 +64,14 @@ public class FrameCadastroCliente {
 		cbEstado = new JComboBox<>(ESTADOS);
 		cbTipoImposto = new JComboBox<>(IMPOSTOS);
 		
-		configurarComponentes(c);
+		configurarComponentes();
 		configurarEventos();
 	}
 	
-	private void configurarComponentes(Color c){
+	private void configurarComponentes(){
 		
 		panelCliente.setLayout(null);
-		panelCliente.setBackground(c);
+		panelCliente.setBackground(Color.WHITE);
 		
 		panelCliente.add(lbNomeFantasia);
 		panelCliente.add(lbEmail);

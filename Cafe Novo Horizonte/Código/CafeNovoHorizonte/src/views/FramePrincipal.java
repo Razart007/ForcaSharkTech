@@ -4,6 +4,7 @@ package views;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -23,10 +24,11 @@ import controllers.PrincipalController;
 
 public class FramePrincipal {
 	
-	private static final int LARGURA = 150;
-	private static final int ALTURA = 50;
-	private static final int GAP = 10;
+	public static final int LARGURA = 150;
+	public static final int ALTURA = 50;
+	public static final int GAP = 10;
 	
+	public static final String URL_IMAGENS = "Imagens";
 	public static final String ARQUIVO = "Arquivo";
 	public static final String USUARIO = "Usuario";
 	public static final String ABRIR = "Abrir";
@@ -44,9 +46,9 @@ public class FramePrincipal {
 	private JMenuBar menuBar;
 	private static JScrollPane scrTelaPrincipal;
 	private JPanel pnlMenuLateral;
-	private static JPanel pnlPrincipal;
-	private JLabel lblHome, lblCadastrar, lblListar, lblRelatorios, lblEstoque, lblVendas, 
-			lblSair;
+	private static JPanel pnlPrincipal;	
+	private JLabel lblHome, lblCadastrar, lblListar, lblRelatorios, lblEstoque, 
+			lblVendas, lblSair;
 	private JMenuItem mItemSalvar, mItemAbrir, mItemSair;
 	
 	
@@ -60,17 +62,17 @@ public class FramePrincipal {
 		mItemSalvar = new JMenuItem(SALVAR);
 		mItemSair = new JMenuItem(SAIR, new ImageIcon("Imagens/icon_sair.png"));
 		
-		scrTelaPrincipal = new JScrollPane();
 		pnlMenuLateral = new JPanel();
-		pnlMenuLateral = new FrameHome(Color.WHITE).getPanel();
+		pnlPrincipal = new FrameHome().getPanel();
+		scrTelaPrincipal = new JScrollPane();
 		
-		lblHome = new JLabel(new ImageIcon("Imagens/home.png"));
-		lblCadastrar = new JLabel(new ImageIcon("Imagens/cadastrar.png"));
-		lblListar = new JLabel(new ImageIcon("Imagens/listar.png"));
-		lblRelatorios = new JLabel(new ImageIcon("Imagens/relatorios.png"));
-		lblEstoque = new JLabel(new ImageIcon("Imagens/estoque.png"));
-		lblVendas = new JLabel(new ImageIcon("Imagens/vendas.png"));
-		lblSair = new JLabel(new ImageIcon("Imagens/sair.png"));
+		lblHome = new JLabel(new ImageIcon(URL_IMAGENS + "/home.png"));
+		lblCadastrar = new JLabel(new ImageIcon(URL_IMAGENS + "/cadastrar.png"));
+		lblListar = new JLabel(new ImageIcon(URL_IMAGENS + "/listar.png"));
+		lblRelatorios = new JLabel(new ImageIcon(URL_IMAGENS + "/relatorios.png"));
+		lblEstoque = new JLabel(new ImageIcon(URL_IMAGENS + "/estoque.png"));
+		lblVendas = new JLabel(new ImageIcon(URL_IMAGENS + "/vendas.png"));
+		lblSair = new JLabel(new ImageIcon(URL_IMAGENS + "/sair.png"));
 
 		iniciarLookAndFeel();
 		iniciarMenu();
@@ -119,7 +121,8 @@ public class FramePrincipal {
 		pnlMenuLateral.setLayout(getLayoutMenuLateral());
         pnlMenuLateral.setBorder(BorderFactory.createEtchedBorder());
         pnlMenuLateral.setBackground(Color.WHITE);
-
+        
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(FramePrincipal.URL_IMAGENS + "/CafeIcone.png"));
         frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.getContentPane().setLayout(getLayoutFrame());
 		frame.pack();
@@ -127,6 +130,8 @@ public class FramePrincipal {
 		frame.setSize(1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
+		
+		
 	}
 	
 	private GroupLayout getLayoutFrame(){
@@ -235,11 +240,7 @@ public class FramePrincipal {
 		mItemAbrir.addActionListener(controller.getAcitonListener(ABRIR));
 		mItemSair.addActionListener(controller.getAcitonListener(SAIR));
 		
-		//Itens no menu lateral
-		
-		frame.addMouseListener(controller.getMouseListener("FRAME"));
-		
-		
+		//Itens no menu lateral		
 		lblHome.addMouseListener(controller.getMouseListener(HOME));
 		lblCadastrar.addMouseListener(controller.getMouseListener(CADASTRAR));
 		lblListar.addMouseListener(controller.getMouseListener(LISTAR));

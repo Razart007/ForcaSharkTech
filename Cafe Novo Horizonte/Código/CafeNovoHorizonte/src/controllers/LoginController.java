@@ -32,26 +32,28 @@ public class LoginController implements ActionListener{
 		
 		String login = tfLogin.getText();
 		String senha = new String(tfSenha.getPassword()); 
-		
-		if (login.equalsIgnoreCase("") || senha.equalsIgnoreCase("")){
-			
-			JOptionPane.showMessageDialog(null, "Informe os dois campos para concluir a autenticação!!!");
-			return;
-			
-		} else {
-
-			int resultado = model.buscarUsuario(login, senha);
-			
-			if (resultado == LoginModel.LOGIN_SUCESSO){
-				
-				frame.dispose();
-				new FramePrincipal("Café Novo Horizonte").setVisible(true);
-				
-			} else {
-				JOptionPane.showMessageDialog(null, "Erro na autenticação!!!");
-				return;
-			}
-		}
+		frame.dispose();
+		new FramePrincipal("Café Novo Horizonte").setVisible(true);
+//		
+//		if (login.equalsIgnoreCase("") || senha.equalsIgnoreCase("")){
+//			
+//			JOptionPane.showMessageDialog(null, "Informe os dois campos para concluir a autenticação!!!");
+//			return;
+//			
+//		} else {
+//
+//			int resultado = model.buscarUsuario(login, senha);
+//			
+//			if (resultado == LoginModel.LOGIN_SUCESSO){
+//				
+//				frame.dispose();
+//				new FramePrincipal("Café Novo Horizonte").setVisible(true);
+//				
+//			} else {
+//				JOptionPane.showMessageDialog(null, "Erro na autenticação!!!");
+//				return;
+//			}
+//		}
 	}
 }
 

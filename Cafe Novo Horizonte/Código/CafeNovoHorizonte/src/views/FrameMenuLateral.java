@@ -1,7 +1,7 @@
 package views;
 
-import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -22,16 +22,14 @@ public class FrameMenuLateral {
 	
 	private JDialog dialog;
 	private JLabel menus[];
-//	private Dimension posicao;
-	private String tituloMenus[];
+	private Point posicao;
 	
-	public FrameMenuLateral(Dimension posicao, String[] tituloMenus)  {
+	public FrameMenuLateral(Point posicao, String[] tituloMenus)  {
 		
 		this.dialog = new JDialog();
-//		this.posicao = posicao;
-		this.tituloMenus = tituloMenus;
-		
-		iniciarBotoes();		
+		this.posicao = posicao;
+
+		iniciarBotoes(tituloMenus);
 		iniciarComponentes();
 	}
 
@@ -47,7 +45,7 @@ public class FrameMenuLateral {
 		this.dialog.dispose();
 	}
 	
-	private void iniciarBotoes(){
+	private void iniciarBotoes(String tituloMenus[]){
 		
 		menus = new JLabel[tituloMenus.length];
 		
@@ -58,13 +56,18 @@ public class FrameMenuLateral {
 	}
 
 	private void iniciarComponentes() {
+		
+		int x = posicao.x + FramePrincipal.LARGURA + FramePrincipal.GAP / 2;
+		int y = posicao.y;
 
 		dialog.getContentPane().setLayout(getLayout());
 		dialog.setUndecorated(true); //Oculta a barra de titulos e borda do JFrame 
 		dialog.setResizable(false);
 		dialog.pack();
+		dialog.setLocation(x, y);
 		dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		dialog.setLocationRelativeTo(null);
+		dialog.setAlwaysOnTop(true);
+		
 	}
 	
 	private void iniciarEventos(JLabel menus) {
@@ -72,10 +75,7 @@ public class FrameMenuLateral {
 		menus.addMouseListener(new MouseListener(){
 
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(menus, menus.getText() + " clickado", 
-						menus.getText(), JOptionPane.INFORMATION_MESSAGE );	
-			}
+			public void mouseClicked(MouseEvent arg0) { }
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) { }
@@ -87,12 +87,19 @@ public class FrameMenuLateral {
 			public void mousePressed(MouseEvent arg0) { }
 
 			@Override
-			public void mouseReleased(MouseEvent arg0) { }
+			public void mouseReleased(MouseEvent arg0) {
+
+				JOptionPane.showMessageDialog(menus, menus.getText() + " clickado", 
+						menus.getText(), JOptionPane.INFORMATION_MESSAGE );	
+			}
 			
 		});
 	}
 
 	private LayoutManager getLayout(){
+		
+//		FlowLayout layout = new FlowLayout();
+//		layout.setAlignment(FlowLayout.CENTER);
 		
 		GroupLayout layout = new GroupLayout(dialog.getContentPane());
 		Groups groups = new Groups(layout);

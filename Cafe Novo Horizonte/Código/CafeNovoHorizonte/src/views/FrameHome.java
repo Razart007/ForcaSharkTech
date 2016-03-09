@@ -16,18 +16,18 @@ public class FrameHome {
 	private JLabel lblImagem; 
 	private ImageIcon icon;
 
-	public FrameHome(Color c) {
+	public FrameHome() {
 		
 		panel = new JPanel();
-		icon = new ImageIcon("imgs/logo.png");
+		icon = new ImageIcon(FramePrincipal.URL_IMAGENS + "/logo.png");
 		lblImagem = new JLabel(icon, SwingConstants.RIGHT);
 		
-		configurarComponentes(c);
+		configurarComponentes();
 	}
 	
-	private void configurarComponentes(Color c){
+	private void configurarComponentes(){
 
-		panel.setBackground(c);
+		panel.setBackground(Color.WHITE);
 		panel.setMinimumSize(new Dimension(840, 510));
 		panel.setLayout(getLayoutTelaPrincipal());
 

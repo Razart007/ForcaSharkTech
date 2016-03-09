@@ -1,7 +1,8 @@
 package controllers;
 
-import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -51,16 +52,16 @@ public class PrincipalController {
 		return new AddActionListner(id);
 	}
 	
-	public MouseListener getMouseListener(String id){
-		return new AddMouseListener(id);
+	public MouseListener getMouseListener(String menu){
+		return new AddMouseListener(menu);
 	}
 		
-	private void exibirMenuLateral(String menu[]){
+	private void exibirMenuLateral(Point posicao, String menus[]){
 		
 		if (menuLateral == null){
-			menuLateral = new FrameMenuLateral(new Dimension(20,20), menu);
+			menuLateral = new FrameMenuLateral(posicao, menus);
 			menuLateral.setVisible(true);
-		}
+		} 
 	}
 	
 	private void atualizarTela(String titulo){
@@ -76,8 +77,8 @@ public class PrincipalController {
 		frame.repaint();
 	}
 	
-	private void salvar(String titulo) {
-		atualizarTela(titulo);
+	private void salvar() {
+		atualizarTela("Salvar documento");
 	}
 	
 	private void abrir() {
@@ -85,13 +86,13 @@ public class PrincipalController {
 	}
 	
 	private void home(){
-		JPanel panel = new FrameHome(Color.WHITE).getPanel();
+		JPanel panel = new FrameHome().getPanel();
 		atualizarTela("home", panel);
 	}
 	
 	private void cliente(){
 
-		JPanel panel = new FrameCadastroCliente(Color.WHITE).getPanel();
+		JPanel panel = new FrameCadastroCliente().getPanel();
 		atualizarTela("Cliente", panel);
 	}
 	
@@ -108,37 +109,38 @@ public class PrincipalController {
 		atualizarTela("Produto", panel);
 	}
 	
-	private void cadastrar() {
+	private void cadastrar(Point p) {
+		
 		atualizarTela("cadastrar" );
 		String menuCadastrar[] = {CLIENTE, FORNECEDOR, TRANSPORTADORA, PRODUTO};
-		exibirMenuLateral(menuCadastrar);
+		exibirMenuLateral(p, menuCadastrar);
 	}
 
-	private void listar() {
+	private void listar(Point p) {
 		atualizarTela("listar");
 		String menuListar[] = {CLIENTE, FORNECEDOR, TRANSPORTADORA, PRODUTO};
-		exibirMenuLateral(menuListar);
+		exibirMenuLateral(p, menuListar);
 	}
 
-	private void relatorios() {
+	private void relatorios(Point p) {
 		atualizarTela("relatorios");
 		String menuRelatorios[] = {PAGAMENTO, RECEBIMENTO, BALANCO};
-		exibirMenuLateral(menuRelatorios);
+		exibirMenuLateral(p, menuRelatorios);
 	}
 
 	private void estoque() {
 		atualizarTela("estoque");
 	}
 	
-	private void vendas() {
+	private void vendas(Point p) {
 		atualizarTela("vendas");
 		String menuVendas[] = {REALIZAR_VENDA, LISTAR_VENDAS_A_VISTA, LISTAR_VENDAS_DUPLICATA, LISTAR_VENDAS};
-		exibirMenuLateral(menuVendas);
+		exibirMenuLateral(p, menuVendas);
 	}
 	
 	private void sair() {
 		
-		JPanel panel = new FrameHome(Color.CYAN).getPanel();
+		JPanel panel = new FrameHome().getPanel();
 		atualizarTela("Café Novo Horizonte", panel);
 		
 		int result = JOptionPane.showConfirmDialog(frame, "Você realmente deseja sair do aplicativo?", "Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -159,22 +161,22 @@ public class PrincipalController {
 	
 	public class AddActionListner implements ActionListener{
 
-		private String id;
+		private String menu;
 		
-		public AddActionListner(String id) {
-			this.id = id;
+		public AddActionListner(String menu) {
+			this.menu = menu;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			
-			if (id.equals(FramePrincipal.ABRIR)){
+			if (menu.equals(FramePrincipal.ABRIR)){
 				
 				abrir();
 				
-			} else if (id.equals(FramePrincipal.SALVAR)){
+			} else if (menu.equals(FramePrincipal.SALVAR)){
 				
-				salvar("Salvando documento");
+				salvar();
 				
 			} else if (event.getActionCommand().equals("Cliente")){
 
@@ -198,41 +200,57 @@ public class PrincipalController {
 
 	public class AddMouseListener implements MouseListener{
 
-		private String id;
+		private String menu;
 		
-		public AddMouseListener(String id) {
-			this.id = id;
+		public AddMouseListener(String menu) {
+			this.menu = menu;
 		}
 				
 		@Override
-		public void mouseClicked(MouseEvent event) {
+		public void mouseClicked(MouseEvent event) {}
+
+		@Override
+		public void mouseEntered(MouseEvent event) {}
+
+		@Override
+		public void mouseExited(MouseEvent event) {}
+
+		@Override
+		public void mousePressed(MouseEvent event) { }
+
+		@Override
+		public void mouseReleased(MouseEvent event) {
+		
+			Point p = ((Container) event.getSource()).getLocationOnScreen();
 			
-			if (id.equals(FramePrincipal.HOME)){
+			if (menu.equals(FramePrincipal.HOME)){
 			
 				home();
 
-			}  else if (id.equals(FramePrincipal.ESTOQUE)){
+			}  else if (menu.equals(FramePrincipal.ESTOQUE)){
 
 				estoque();
 				
-			} else if (id.equals(FramePrincipal.SAIR)){
+			} else if (menu.equals(FramePrincipal.SAIR)){
 
 				sair();
-			} else if (FramePrincipal.CADASTRAR.equals(id)){
-				 
-				cadastrar();
-
-			} else if (id.equals(FramePrincipal.LISTAR)){
 				
-				listar();
-
-			} else if (id.equals(FramePrincipal.RELATORIOS)){
-
-				relatorios();
+			} else if (menu.equals(FramePrincipal.CADASTRAR)){
 				
-			}  else if (id.equals(FramePrincipal.VENDAS)){
+				cadastrar(p);
 
-				vendas();
+			} else if (menu.equals(FramePrincipal.LISTAR)){
+				
+				listar(p);
+
+			} else if (menu.equals(FramePrincipal.RELATORIOS)){
+
+				relatorios(p);
+				
+			}  else if (menu.equals(FramePrincipal.VENDAS)){
+
+				vendas(p);
+				
 			} else {
 				
 				if (menuLateral != null && menuLateral.isVisible()){
@@ -242,20 +260,5 @@ public class PrincipalController {
 				}
 			}
 		}
-
-		@Override
-		public void mouseEntered(MouseEvent event) { }
-
-		@Override
-		public void mouseExited(MouseEvent event) {
-			
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent event) { }
-
-		@Override
-		public void mouseReleased(MouseEvent event) { }
 	}
 }
