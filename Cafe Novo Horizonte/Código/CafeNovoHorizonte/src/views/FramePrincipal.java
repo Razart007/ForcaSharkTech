@@ -15,14 +15,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 import javax.swing.UIManager;
 
 import controllers.PrincipalController;
 
-public class FramePrincipal {
+public class FramePrincipal{
 	
 	public static final int LARGURA = 150;
 	public static final int ALTURA = 50;
@@ -77,13 +76,14 @@ public class FramePrincipal {
 		iniciarLookAndFeel();
 		iniciarMenu();
 		iniciarComponentes();
-		iniciarPopoupMenus();
 		iniciarEventos();
 	}
 
 	public void setVisible(boolean flag){
 		frame.setVisible(flag);
 	}
+	
+	
 	
 	public static void setPanel(JPanel panel){
 		pnlPrincipal = panel;
@@ -121,7 +121,7 @@ public class FramePrincipal {
 		pnlMenuLateral.setLayout(getLayoutMenuLateral());
         pnlMenuLateral.setBorder(BorderFactory.createEtchedBorder());
         pnlMenuLateral.setBackground(Color.WHITE);
-        
+      
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage(FramePrincipal.URL_IMAGENS + "/CafeIcone.png"));
         frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.getContentPane().setLayout(getLayoutFrame());
@@ -130,7 +130,6 @@ public class FramePrincipal {
 		frame.setSize(1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		
 		
 	}
 	
@@ -208,33 +207,11 @@ public class FramePrincipal {
 		return layout;
 	}
 	
-	private void iniciarPopoupMenus(){
-		
-		JPopupMenu menuCadastrar = new JPopupMenu();
-		
-		JMenuItem mItemCliente = new JMenuItem("Cliente");
-		JMenuItem mItemFornecedor = new JMenuItem("Fornecedor");
-		JMenuItem mItemTransportadora = new JMenuItem("Transportadora");
-		JMenuItem mItemProduto = new JMenuItem("Produto");
-		
-		mItemCliente.addActionListener(controller.getAcitonListener("Cliente"));
-		mItemFornecedor.addActionListener(controller.getAcitonListener("Fornecedor"));
-		mItemTransportadora.addActionListener(controller.getAcitonListener("Transportadora"));
-		mItemProduto.addActionListener(controller.getAcitonListener("Produto"));
-		
-		menuCadastrar.add(mItemCliente);
-		menuCadastrar.add(mItemFornecedor);
-		menuCadastrar.add(mItemTransportadora);
-		menuCadastrar.add(mItemProduto);
-		
-		lblCadastrar.setComponentPopupMenu(menuCadastrar);
-		
-	}
-
 	private void iniciarEventos(){
 
 		frame.addWindowListener(controller.getWindowListener());
-		
+		frame.addWindowStateListener(controller.getWindowStateListener());
+	
 		//Itens da barra de menus prinicipal
 		mItemSalvar.addActionListener(controller.getAcitonListener(SALVAR));
 		mItemAbrir.addActionListener(controller.getAcitonListener(ABRIR));
