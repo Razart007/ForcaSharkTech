@@ -3,17 +3,29 @@ package views;
 import java.awt.Point;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import controllers.MenuLateralController;
+
 public class FrameMenuLateralRelatorios extends FrameMenuLateral {
-
-	private static final int TOTAL = 3;
+		
+	private JLabel menus[];	
+	private MenuLateralController controller;
 	
-	private static JLabel menus[] = new JLabel[TOTAL];
-	
-	public FrameMenuLateralRelatorios(Point posicao) {
+	private static final int PAGAMENTO = 0;
+	private static final int RECEBIMENTO = 1;
+	private static final int BALANCO = 2;
 
-		super(menus, posicao);
+	private static final int[] ID_MENUS = {PAGAMENTO, RECEBIMENTO, BALANCO}; 
+	
+	public FrameMenuLateralRelatorios(JFrame frame, Point posicao) {
+
+		super(posicao, ID_MENUS);
+		this.menus = getMenus();
+		this.controller = new MenuLateralController(frame);
+		configurarMenusLaterais();
+		iniciarEventos();
 	}
 	
 	@Override
@@ -24,4 +36,10 @@ public class FrameMenuLateralRelatorios extends FrameMenuLateral {
 		menus[BALANCO].setIcon(new ImageIcon(FramePrincipal.URL_IMAGENS + "/balanco.png"));
 	}
 
+	@Override
+	public void iniciarEventos() {
+		menus[PAGAMENTO].addMouseListener(controller.getMouseListener(FramePrincipal.PAGAMENTO, this));
+		menus[RECEBIMENTO].addMouseListener(controller.getMouseListener(FramePrincipal.RECEBIMENTO, this));
+		menus[BALANCO].addMouseListener(controller.getMouseListener(FramePrincipal.BALANCO, this));
+	}	
 }

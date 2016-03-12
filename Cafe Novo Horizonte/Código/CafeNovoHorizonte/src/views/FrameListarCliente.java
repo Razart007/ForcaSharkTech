@@ -1,13 +1,15 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.LayoutManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
@@ -18,31 +20,57 @@ import interfaces.AbstractTabelCrud;
 
 public class FrameListarCliente {
 
-	private JFrame frame;
-	private JDialog dialog;
+	private JPanel panel;
+	private JScrollPane scrTabela;
 	private JTable tblCliente;
 	private ClienteTableModel cTableModel;
 	
-	public FrameListarCliente(JFrame frame){
+	public FrameListarCliente(){
 		
-		this.frame = frame;
-		this.dialog = new JDialog(frame, "Lista de clientes", true);
+		this.panel = new JPanel();
+		this.scrTabela = new JScrollPane();
 		this.tblCliente = new JTable();
 		this.cTableModel = new ClienteTableModel();
 		
-		iniciarFrame();
+		iniciarComponentes();
 		iniciarTabela();
 		iniciarEventos();
 		preencherTabela();
 		
 	}
 	
-	private void iniciarFrame(){
+	public JPanel getPanel() {
+		return this.panel;
+	}
+	
+	private void iniciarComponentes(){
+
+		scrTabela.setViewportView(tblCliente);
+		panel.setBackground(Color.WHITE);
+		panel.add(scrTabela, BorderLayout.CENTER);
+		panel.setLayout(getLayout());
+	}
+	
+	private LayoutManager getLayout(){
 		
-		dialog.setSize(1000, 500);
-		dialog.setLocationRelativeTo(frame);
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.getContentPane().add(new JScrollPane(tblCliente), BorderLayout.CENTER);
+		GroupLayout layout = new GroupLayout(panel);
+		
+		layout.setHorizontalGroup(
+	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+	                .addContainerGap())
+	        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        
+        return layout;
 	}
 	
 	private void iniciarTabela(){
@@ -85,7 +113,6 @@ public class FrameListarCliente {
 			Cliente c = new Cliente(i, "NOME #" + i, false, i * 100, "Tel #" + i, "Email #" + i, new Endereco(), i * 10, false);
 			cTableModel.salvar(c);	
 		}
-		dialog.setVisible(true);
 	}
 	
 	private class TblClienteListener implements MouseListener{
@@ -100,11 +127,11 @@ public class FrameListarCliente {
 				
 				if(indiceColuna == ClienteTableModel.EDITAR ){
 					
-					JOptionPane.showMessageDialog(dialog, c.toString(), cTableModel.getColumnName(ClienteTableModel.EDITAR), JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(panel, c.toString(), cTableModel.getColumnName(ClienteTableModel.EDITAR), JOptionPane.WARNING_MESSAGE);
 					
 				} else if(indiceColuna == ClienteTableModel.EXCLUIR){
 					
-					JOptionPane.showMessageDialog(dialog, c.toString(), cTableModel.getColumnName(ClienteTableModel.EXCLUIR), JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panel, c.toString(), cTableModel.getColumnName(ClienteTableModel.EXCLUIR), JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

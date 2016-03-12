@@ -1,57 +1,38 @@
 package views;
 
+import java.awt.Color;
 import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
-
-import controllers.MenuLateralController;
 
 public abstract class FrameMenuLateral {
 	
 	private static final int LARGURA = 150;
 	private static final int ALTURA = 50;
-	private static final int GAP = 10;
+	private static final int GAP = 10;	
 	
-	public static final int CLIENTE = 0;
-	public static final int TRANSPORTADORA = 1;
-	public static final int FORNECEDOR = 2;
-	public static final int PRODUTO = 3;
-	
-	public static final int PAGAMENTO = 0;
-	public static final int RECEBIMENTO = 1;
-	public static final int BALANCO = 2;
-	
-	public static final int REALIZAR_VENDA = 0;
-	public static final int LISTAR_VENDAS_A_VISTA  = 1;
-	public static final int LISTAR_VENDAS_DUPLICATA  = 2;
-	public static final int LISTAR_VENDAS = 3;
-	
-	
-	private MenuLateralController controller;
 	private JDialog dialog;
+	private JPanel panel;
 	private JLabel menus[];
 	private Point posicao;
 	
-	public FrameMenuLateral() {	}
-	
-	public FrameMenuLateral(JLabel menus[], Point posicao)  {
+	public FrameMenuLateral(Point posicao, int idMenus[])  {
 
 		this.dialog = new JDialog();
-		this.controller = new MenuLateralController();
-		this.menus = menus;
+		this.panel = new JPanel();
 		this.posicao = posicao;
-		
-		iniciarMenus();
-		configurarMenusLaterais();
+			
+		iniciarMenus(idMenus);
 		iniciarComponentes();
 	}
 
@@ -67,25 +48,27 @@ public abstract class FrameMenuLateral {
 		return this.menus;
 	}
 	
-	public MouseListener getMouseListener(){
-		return controller.getMouseListener();
-	}
-	
 	public abstract void configurarMenusLaterais();
+	public abstract void iniciarEventos();
 	
-	private void iniciarMenus(){
-
-		for(int i = 0; i < menus.length; i++){
+	private void iniciarMenus(int[] idMenus){
+		
+		int total = idMenus.length;
+		menus = new JLabel[total];
+		
+		for (int i = 0; i < total; i++){
 			menus[i] = new JLabel();
-			menus[i].addMouseListener(getMouseListener());
 		}
 	}
 	
-	private void iniciarComponentes() {
-				
+	private void iniciarComponentes() {		
+	
 		
-
-		dialog.getContentPane().setLayout(getLayout());
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(getLayout());
+		panel.setBorder(BorderFactory.createEtchedBorder());
+		
+		dialog.getContentPane().add(panel);
 		dialog.setUndecorated(true); //Oculta a barra de titulos e borda do JFrame 
 		dialog.setResizable(false);
 		dialog.pack();
@@ -119,7 +102,7 @@ public abstract class FrameMenuLateral {
 
 	private LayoutManager getLayout(){
 		
-		GroupLayout layout = new GroupLayout(dialog.getContentPane());
+		GroupLayout layout = new GroupLayout(panel);
 		Groups groups = new Groups(layout);
 		
 		layout.setHorizontalGroup(

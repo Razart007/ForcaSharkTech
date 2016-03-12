@@ -28,17 +28,32 @@ public class FramePrincipal{
 	public static final int GAP = 10;
 	
 	public static final String URL_IMAGENS = "Imagens";
-	public static final String ARQUIVO = "Arquivo";
-	public static final String USUARIO = "Usuario";
-	public static final String ABRIR = "Abrir";
-	public static final String SALVAR = "Salvar";
-	public static final String HOME = "Home";
-	public static final String CADASTRAR = "Cadastrar";
-	public static final String LISTAR = "Listar";
-	public static final String RELATORIOS = "Relatorios";
-	public static final String ESTOQUE = "Estoque";
-	public static final String VENDAS = "Vendas";
-	public static final String SAIR = "Sair";
+	public static final int ARQUIVO = 1;
+	public static final int USUARIO = 2;
+	public static final int ABRIR = 3;
+	public static final int SALVAR = 4;
+	public static final int HOME = 5;
+	public static final int CADASTRAR = 6;
+	public static final int LISTAR = 7;
+	public static final int RELATORIOS = 8;
+	public static final int ESTOQUE = 9;
+	public static final int VENDAS = 10;
+	public static final int CLIENTE = 11;
+	public static final int TRANSPORTADORA = 12;
+	public static final int FORNECEDOR = 13;
+	public static final int PRODUTO = 14;
+	public static final int LISTAR_CLIENTE = 15;
+	public static final int LISTAR_TRANSPORTADORA = 16;
+	public static final int LISTAR_FORNECEDOR = 17;
+	public static final int LISTAR_PRODUTO = 18;
+	public static final int PAGAMENTO = 19;
+	public static final int RECEBIMENTO = 20;
+	public static final int BALANCO = 21;
+	public static final int REALIZAR_VENDA = 22;
+	public static final int LISTAR_VENDAS_A_VISTA  = 23;
+	public static final int LISTAR_VENDAS_DUPLICATA  = 24;
+	public static final int LISTAR_VENDAS = 25;
+	public static final int SAIR = 26;
 	
 	private PrincipalController controller;
 	private JFrame frame;
@@ -57,9 +72,9 @@ public class FramePrincipal{
 		controller = new PrincipalController(frame);
 		
 		menuBar = new JMenuBar();
-		mItemAbrir = new JMenuItem(ABRIR);
-		mItemSalvar = new JMenuItem(SALVAR);
-		mItemSair = new JMenuItem(SAIR, new ImageIcon("Imagens/icon_sair.png"));
+		mItemAbrir = new JMenuItem("Abrir");
+		mItemSalvar = new JMenuItem("Salvar");
+		mItemSair = new JMenuItem("Sair", new ImageIcon("Imagens/icon_sair.png"));
 		
 		pnlMenuLateral = new JPanel();
 		pnlPrincipal = new FrameHome().getPanel();
@@ -78,12 +93,10 @@ public class FramePrincipal{
 		iniciarComponentes();
 		iniciarEventos();
 	}
-
+	
 	public void setVisible(boolean flag){
 		frame.setVisible(flag);
 	}
-	
-	
 	
 	public static void setPanel(JPanel panel){
 		pnlPrincipal = panel;
@@ -209,6 +222,7 @@ public class FramePrincipal{
 	
 	private void iniciarEventos(){
 
+//		frame.addFocusListener(controller.getFocusListener());
 		frame.addWindowListener(controller.getWindowListener());
 		frame.addWindowStateListener(controller.getWindowStateListener());
 	

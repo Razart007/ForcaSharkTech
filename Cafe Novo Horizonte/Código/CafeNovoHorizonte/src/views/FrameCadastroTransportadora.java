@@ -67,12 +67,24 @@ public class FrameCadastroTransportadora  {
 		txMunicipio = new JTextField();
 		txEmail = new JTextField();
 		txTelefone = new JTextField();
+
+		chbIsentoIcms = new JCheckBox("Isento do ICMS:", false);
+		cmbTipoDocumento = new JComboBox<String>(TIPO_DOCUMENTO);
+		cmbUf = new JComboBox<String>(UF);
+		
+		btnCadastrar = new JButton(CADASTRAR);
+		btnLimpar = new JButton(LIMPAR);
+		btnCancelar = new JButton(CANCELAR);
 		
 		iniciarComponentes();
 		iniciarEventos();
 	}
 	
-	public void iniciarComponentes(){
+	public JPanel getPanel(){
+		return this.panel;
+	}
+	
+	private void iniciarComponentes(){
 
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(gePanelLayout());
@@ -80,19 +92,8 @@ public class FrameCadastroTransportadora  {
 		pnlEndereco.setLayout(panelEnderecoLayout());
 		pnlEndereco.setBorder(BorderFactory.createTitledBorder("Endereço"));
 		
-		cmbTipoDocumento = new JComboBox<String>(TIPO_DOCUMENTO);
-		cmbUf = new JComboBox<String>(UF);
-		
-		chbIsentoIcms = new JCheckBox("Isento do ICMS:", false);
-		
 		txDocumento.setEnabled(false);
 		txMunicipio.setEnabled(false);
-		
-		btnCadastrar = new JButton(CADASTRAR);
-		btnLimpar = new JButton(LIMPAR);
-		btnCancelar = new JButton(CANCELAR);
-		
-		pnlEndereco = new JPanel();
 	}
 	
 	private void iniciarEventos(){
