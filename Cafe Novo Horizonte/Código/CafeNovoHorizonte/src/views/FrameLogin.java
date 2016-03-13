@@ -26,6 +26,7 @@ public class FrameLogin {
 	private JButton btLogin; //Botão para efetuar o login
 	
 	public FrameLogin(){ //Construtor da classe
+		
 		inicializaFrame(); //Chamada do método para instanciar o frame
 		inicializaComponentes(); //Chamada do método para instanciar os componentes do frame
 	}
@@ -49,7 +50,7 @@ public class FrameLogin {
 		frame.addWindowListener(new WindowAdapter() {  //Verifica se o usuário deseja mesmo sair do sistema
 			public void windowClosing(WindowEvent e){
 				int i = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?");
-				if (i == JOptionPane.OK_OPTION){
+				if (i == JOptionPane.YES_NO_OPTION){
 					System.exit(0);
 				} else{
 					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
@@ -105,5 +106,5 @@ public class FrameLogin {
 	
 	public static void main(String[] args) {
 		new FrameLogin();
-	}
+	}	
 }

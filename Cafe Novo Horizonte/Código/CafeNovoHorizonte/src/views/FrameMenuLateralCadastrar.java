@@ -7,8 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controllers.MenuLateralController;
+import interfaces.AbstractMenuLateral;
 
-public class FrameMenuLateralCadastrar extends FrameMenuLateral{
+public class FrameMenuLateralCadastrar extends AbstractMenuLateral{
 	
 	private JLabel menus[];
 	private MenuLateralController controller;
@@ -44,6 +45,4 @@ public class FrameMenuLateralCadastrar extends FrameMenuLateral{
 		menus[FORNECEDOR].addMouseListener(controller.getMouseListener(FramePrincipal.FORNECEDOR, this));
 		menus[PRODUTO].addMouseListener(controller.getMouseListener(FramePrincipal.PRODUTO, this));
 	}
-	
-	
 }

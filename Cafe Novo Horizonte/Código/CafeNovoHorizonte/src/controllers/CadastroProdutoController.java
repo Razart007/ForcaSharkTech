@@ -1,34 +1,17 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JTextField;
 
-import javax.swing.JOptionPane;
+import interfaces.AbstractCadastroController;
 
-import views.FrameCadastroCliente;
-
-public class CadastroProdutoController implements ActionListener {
+public class CadastroProdutoController extends AbstractCadastroController{
 	
-	private String name;
-	
-	public CadastroProdutoController(String name) {
-		this.name = name;
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public CadastroProdutoController (JTextField txCodigo,  JTextField txDescricao, 
+			JTextField txEan, JTextField txEanUnidTrib, JTextField txExIpi, JTextField txGenero,
+			JTextField txNcm, JTextField txQntTrib, JTextField txUnidCom, JTextField txUnidTrib, 
+			JTextField txValorUnidCom, JTextField txValorUnidTrib) {
 		
-		if(name.equals(FrameCadastroCliente.CADASTRAR)){
-			
-			JOptionPane.showMessageDialog(null, "btnCadastrar clickado", name, JOptionPane.INFORMATION_MESSAGE);
-			
-		} else if(name.equals(FrameCadastroCliente.LIMPAR)){
-			
-			JOptionPane.showMessageDialog(null, "btnlimpar clickado", name, JOptionPane.INFORMATION_MESSAGE);
-
-		} else if(name.equals(FrameCadastroCliente.CANCELAR)){
-			
-			JOptionPane.showMessageDialog(null, "btncancelar clickado", name, JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
+		super(txCodigo,  txDescricao, txEan, txEanUnidTrib, txExIpi, txGenero, txNcm, 
+				txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib);
+	}	
 }

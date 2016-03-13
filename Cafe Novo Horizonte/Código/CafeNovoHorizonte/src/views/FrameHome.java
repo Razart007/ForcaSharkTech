@@ -14,29 +14,31 @@ public class FrameHome {
 
 	private JPanel panel;
 	private JLabel lblImagem; 
-	private ImageIcon icon;
-
+	private ImageIcon iconLogo;
+	
 	public FrameHome() {
 		
-		panel = new JPanel();
-		icon = new ImageIcon(FramePrincipal.URL_IMAGENS + "/logo.png");
-		lblImagem = new JLabel(icon, SwingConstants.RIGHT);
-		
-		configurarComponentes();
-	}
+		panel = new JPanel();		
+		iconLogo = new ImageIcon(FramePrincipal.URL_IMAGENS + "/logo.png");
+		lblImagem = new JLabel(iconLogo, SwingConstants.RIGHT);
 	
-	private void configurarComponentes(){
+		configurarComponentes();		
+	}
 
+	public JPanel getPanel() {
+		return this.panel;
+	}
+
+	private void configurarComponentes() {
+		
 		panel.setBackground(Color.WHITE);
 		panel.setMinimumSize(new Dimension(840, 510));
-		panel.setLayout(getLayoutTelaPrincipal());
-
+		panel.setLayout(getLayout());
 	}
-	
-	private LayoutManager getLayoutTelaPrincipal(){
-		
-		GroupLayout layout = new GroupLayout(panel);
 
+	private LayoutManager getLayout() {
+		GroupLayout layout = new GroupLayout(panel);
+		
 		layout.setHorizontalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 	            .addComponent(lblImagem, GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
@@ -48,10 +50,5 @@ public class FrameHome {
                 .addComponent(lblImagem))
         );
 		return layout;
-	}
-	
-	public JPanel getPanel(){
-
-		return panel;
 	}
 }

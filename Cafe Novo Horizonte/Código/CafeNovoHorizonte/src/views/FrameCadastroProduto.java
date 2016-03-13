@@ -1,35 +1,34 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.LayoutManager;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 
 import controllers.CadastroProdutoController;
+import interfaces.AbstractCadastroController;
 
 public class FrameCadastroProduto {
 
-
-	public static final String CADASTRAR = "Cadastrar";
-	public static final String LIMPAR = "Limpar";
-	public static final String CANCELAR = "Cancelar";
-
-	
-	private JPanel panel;
-	private JLabel lbCodigo, lbDescricao, lbEan, lbEanUnidTrib,  lbExIpi,  lbGenero, lbNcm, 
+	private JPanel panel, panelBotoes;
+	private JLabel lbTitulo, lbCodigo, lbDescricao, lbEan, lbEanUnidTrib,  lbExIpi,  lbGenero, lbNcm, 
 			lbQntTrib, lbUnidCom, lbUnidTrib,  lbValorUnidCom,  lbValorUnidTrib;
-	private JTextField txCodigo,  txDescricao, txEan, txEanUnidTrib, txExIpi, txGenero,
-			txNcm, txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib;
-	private JButton btnCadastrar, btnCancelar, btnLimpar;
+	
+	private JTextField tfCodigo,  tfDescricao, tfEan, tfEanUnidTrib, tfExIpi, tfGenero,
+			tfNcm, tfQntTrib, tfUnidCom, tfUnidTrib, tfValorUnidCom, tfValorUnidTrib;
+	private JButton btCadastrar, btCancelar, btLimpar;
 
-	public FrameCadastroProduto() {
+	public FrameCadastroProduto(String titulo) {
 		
 		panel = new JPanel();
+		panelBotoes = new JPanel();
 		
+		lbTitulo = new JLabel(titulo);
 		lbCodigo = new JLabel("Codigo:");
 		lbDescricao = new JLabel("Descricao:");
 		lbEan = new JLabel("EAN:");
@@ -43,22 +42,22 @@ public class FrameCadastroProduto {
 		lbValorUnidCom = new JLabel("Valor Unid. Com.:");
 		lbValorUnidTrib = new JLabel("Valor Unid. Trb.:");
 		
-		txCodigo = new JTextField();
-		txDescricao = new JTextField();
-		txEan = new JTextField();
-		txEanUnidTrib = new JTextField();
-		txExIpi = new JTextField();
-		txGenero = new JTextField();
-		txNcm = new JTextField();
-		txQntTrib = new JTextField();
-		txUnidCom = new JTextField();
-		txUnidTrib = new JTextField();
-		txValorUnidCom = new JTextField();
-		txValorUnidTrib = new JTextField();
+		tfCodigo = new JTextField();
+		tfDescricao = new JTextField();
+		tfEan = new JTextField();
+		tfEanUnidTrib = new JTextField();
+		tfExIpi = new JTextField();
+		tfGenero = new JTextField();
+		tfNcm = new JTextField();
+		tfQntTrib = new JTextField();
+		tfUnidCom = new JTextField();
+		tfUnidTrib = new JTextField();
+		tfValorUnidCom = new JTextField();
+		tfValorUnidTrib = new JTextField();
 		
-		btnCadastrar = new JButton(CADASTRAR);
-		btnLimpar = new JButton(LIMPAR);
-		btnCancelar = new JButton(CANCELAR);
+		btCadastrar = new JButton(FramePrincipal.BTN_CADASTRAR);
+		btLimpar = new JButton(FramePrincipal.BTN_LIMPAR);
+		btCancelar = new JButton(FramePrincipal.BTN_CANCELAR);
 		
 		configurarEventos();
 		configurarCompomentes();
@@ -68,6 +67,11 @@ public class FrameCadastroProduto {
 		
 		panel.setBackground(Color.white);
 		panel.setLayout(getLayoutPrincipal());
+		
+		panelBotoes.setBackground(Color.white);
+		panelBotoes.setLayout(getLayoutPnlBotoes());
+		
+		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 	}
 	
 	public GroupLayout getLayoutPrincipal(){
@@ -75,112 +79,139 @@ public class FrameCadastroProduto {
 		GroupLayout layout = new GroupLayout(panel);
 		
 		layout.setHorizontalGroup(
-				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGap(60, 60, 60)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(lbDescricao)
-								.addComponent(lbCodigo)
-								.addComponent(lbEan)
-								.addComponent(lbUnidCom)
-								.addComponent(lbUnidTrib))
-						.addGap(4, 4, 4)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-								.addComponent(txDescricao)
-								.addGroup(layout.createSequentialGroup()
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-												.addComponent(txUnidCom, GroupLayout.Alignment.LEADING)
-												.addComponent(txEan, GroupLayout.Alignment.LEADING)
-												.addComponent(txCodigo, GroupLayout.Alignment.LEADING)
-												.addComponent(txUnidTrib, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-										.addGap(60, 60, 60)
-										.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-												.addGroup(layout.createSequentialGroup()
-														.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-																.addComponent(lbEanUnidTrib)
-																.addComponent(lbGenero)
-																.addComponent(lbValorUnidCom)
-																.addComponent(lbQntTrib))
-														.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-														.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-																.addComponent(txGenero)
-																.addComponent(txEanUnidTrib)
-																.addComponent(txValorUnidCom)
-																.addComponent(txQntTrib, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-														.addGap(60, 60, 60)
-														.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-																.addGroup(layout.createSequentialGroup()
-																		.addComponent(lbValorUnidTrib)
-																		.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(txValorUnidTrib, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-																.addGroup(layout.createSequentialGroup()
-																		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-																				.addComponent(lbExIpi)
-																				.addComponent(lbNcm))
-																		.addGap(55, 55, 55)
-																		.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-																				.addComponent(txExIpi, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-																				.addComponent(txNcm)))))
-												.addGroup(layout.createSequentialGroup()
-														.addComponent(btnCadastrar)
-														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-														.addComponent(btnLimpar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-														.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))))
-						.addContainerGap(60, Short.MAX_VALUE))
-				);
-		layout.setVerticalGroup(
-				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGap(60, 60, 60)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(lbDescricao)
-								.addComponent(txDescricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(18, 18, 18)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(lbCodigo)
-								.addComponent(txCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbNcm)
-								.addComponent(txNcm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbGenero)
-								.addComponent(txGenero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(lbEan)
-								.addComponent(txEan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbEanUnidTrib)
-								.addComponent(txEanUnidTrib, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbExIpi)
-								.addComponent(txExIpi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(lbUnidCom)
-								.addComponent(txUnidCom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbValorUnidCom)
-								.addComponent(txValorUnidCom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(lbUnidTrib)
-								.addComponent(txUnidTrib, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbQntTrib)
-								.addComponent(txQntTrib, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbValorUnidTrib)
-								.addComponent(txValorUnidTrib, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(btnCadastrar)
-								.addComponent(btnLimpar)
-								.addComponent(btnCancelar))
-						.addGap(60, 60, 60))
-				);
+	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                    .addComponent(panelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addComponent(lbTitulo)
+	                        .addGap(0, 0, Short.MAX_VALUE))
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                            .addComponent(lbDescricao)
+	                            .addComponent(lbCodigo)
+	                            .addComponent(lbEan)
+	                            .addComponent(lbUnidCom)
+	                            .addComponent(lbUnidTrib))
+	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                            .addComponent(tfDescricao)
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+	                                    .addComponent(tfUnidTrib, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+	                                    .addComponent(tfCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(tfEan, javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(tfUnidCom, javax.swing.GroupLayout.Alignment.LEADING))
+	                                .addGap(18, 18, 18)
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(lbEanUnidTrib)
+	                                    .addComponent(lbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(lbValorUnidCom)
+	                                    .addComponent(lbQntTrib))
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+	                                    .addComponent(tfQntTrib, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+	                                    .addComponent(tfGenero)
+	                                    .addComponent(tfEanUnidTrib)
+	                                    .addComponent(tfValorUnidCom))
+	                                .addGap(18, 18, 18)
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(lbNcm)
+	                                    .addComponent(lbExIpi)
+	                                    .addComponent(lbValorUnidTrib))
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(tfValorUnidTrib, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(tfExIpi, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(tfNcm, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                                .addGap(0, 0, Short.MAX_VALUE)))))
+	                .addContainerGap())
+	        );
+	        layout.setVerticalGroup(
+	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	                .addGap(30, 30, 30)
+	                .addComponent(lbTitulo)
+	                .addGap(30, 30, 30)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(lbDescricao)
+	                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbCodigo)
+	                    .addComponent(lbGenero)
+	                    .addComponent(tfGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbNcm)
+	                    .addComponent(tfNcm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(tfEan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbEan, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(tfEanUnidTrib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbEanUnidTrib)
+	                    .addComponent(lbExIpi)
+	                    .addComponent(tfExIpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(tfUnidCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbUnidCom)
+	                    .addComponent(tfValorUnidCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbValorUnidCom))
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+	                    .addComponent(tfUnidTrib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbUnidTrib, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(tfQntTrib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lbQntTrib)
+	                    .addComponent(lbValorUnidTrib)
+	                    .addComponent(tfValorUnidTrib, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+	                .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                .addContainerGap())
+	        );
+		
 		return layout;
+	}
+	
+	private LayoutManager getLayoutPnlBotoes(){
+		
+		GroupLayout pnlBotoesLayout = new GroupLayout(panelBotoes);
+		
+		pnlBotoesLayout.setHorizontalGroup(
+            pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBotoesLayout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(btCadastrar)
+                .addGap(18, 18, 18)
+                .addComponent(btLimpar)
+                .addGap(18, 18, 18)
+                .addComponent(btCancelar)
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+        pnlBotoesLayout.setVerticalGroup(
+            pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, pnlBotoesLayout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCadastrar)
+                    .addComponent(btLimpar)
+                    .addComponent(btCancelar))
+                .addContainerGap())
+        );
+        return pnlBotoesLayout;
 	}
 	
 	private void configurarEventos(){
 		
-		btnCadastrar.addActionListener(new CadastroProdutoController(CADASTRAR));
-		btnLimpar.addActionListener(new CadastroProdutoController(LIMPAR));
-		btnCancelar.addActionListener(new CadastroProdutoController(CANCELAR));
+		CadastroProdutoController controller = new CadastroProdutoController(tfCodigo,  
+				tfDescricao, tfEan, tfEanUnidTrib, tfExIpi, tfGenero, tfNcm, tfQntTrib, 
+				tfUnidCom, tfUnidTrib, tfValorUnidCom, tfValorUnidTrib);
+		
+		btCadastrar.addActionListener(controller.getActionListener(AbstractCadastroController.CADASTRAR));
+		btLimpar.addActionListener(controller.getActionListener(AbstractCadastroController.LIMPAR));
+		btCancelar.addActionListener(controller.getActionListener(AbstractCadastroController.CANCELAR));
 	}
 	
 	public JPanel getPanel() {

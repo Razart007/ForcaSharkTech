@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public abstract class AbstractTabelCrud <E> extends AbstractTableModel{
+public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
 	
 	public static final ImageIcon ICON_EDITAR = new ImageIcon("Imagens/edit-user-icon-32.png");
 	public static final ImageIcon ICON_EXCLUIR = new ImageIcon("Imagens/remove-user-icon-32.png");

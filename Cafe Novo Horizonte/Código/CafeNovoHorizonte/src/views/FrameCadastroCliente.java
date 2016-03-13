@@ -1,37 +1,38 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.LayoutManager;
 
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
 
 import controllers.CadastroClienteController;
+import interfaces.AbstractCadastroController;
 
 public class FrameCadastroCliente {
-	
+
 	private static final String[] IMPOSTOS = new String[]{"Simples", "- - -"};
 	private static final String[] ESTADOS = new String []{"SE", "BA"};
-	
-	public static final String CADASTRAR = "Cadastrar";
-	public static final String LIMPAR = "Limpar";
-	public static final String CANCELAR = "Cancelar";
 
-	private CadastroClienteController controller;
-	private JPanel panelCliente;	
-	private JLabel lbNomeFantasia, lbEmail, lbTelefone, lbRua, lbNumero, lbBairro,
-		    	   lbCidade, lbEstado, lbCep, lbCpfCnpj, lbNInscricao, lbTipoImposto;
+	private JPanel panel, panelBotoes;	
+	private JLabel lbTitulo, lbNomeFantasia, lbEmail, lbTelefone, lbRua, lbNumero,
+				lbBairro,lbCidade, lbEstado, lbCep, lbCpfCnpj, lbNInscricao, lbTipoImposto;
 	private JButton btCadastrar, btLimpar, btCancelar;
 	private JTextField tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, 
 					   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
 	private JComboBox<String> cbEstado, cbTipoImposto;
 	
-	public FrameCadastroCliente() {
-		
-		panelCliente = new JPanel();
-		controller = new CadastroClienteController();
+	public FrameCadastroCliente(String titulo) {
+
+		panel = new JPanel();
+		panelBotoes = new JPanel();
+		lbTitulo = new JLabel(titulo);
 		
 		lbNomeFantasia = new JLabel("Nome Fantasia:");
 		lbEmail = new JLabel("E-mail:");
@@ -46,9 +47,9 @@ public class FrameCadastroCliente {
 		lbNInscricao = new JLabel("Nº de Inscrição:");
 		lbTipoImposto = new JLabel("Tipo de Imposto:");
 		
-		btCadastrar = new JButton(CADASTRAR);
-		btLimpar = new JButton(LIMPAR);
-		btCancelar = new JButton(CANCELAR);
+		btCadastrar = new JButton(FramePrincipal.BTN_CADASTRAR);
+		btLimpar = new JButton(FramePrincipal.BTN_LIMPAR);
+		btCancelar = new JButton(FramePrincipal.BTN_CANCELAR);
 		
 		tfNomeFantasia = new JTextField();
 		tfEmail = new JTextField();
@@ -68,84 +69,173 @@ public class FrameCadastroCliente {
 		configurarEventos();
 	}
 	
+	public JPanel getPanel(){
+		return panel;
+	}
+	
 	private void configurarComponentes(){
 		
-		panelCliente.setLayout(null);
-		panelCliente.setBackground(Color.WHITE);
+		panel.setLayout(getLayout());
+		panel.setBackground(Color.WHITE);
 		
-		panelCliente.add(lbNomeFantasia);
-		panelCliente.add(lbEmail);
-		panelCliente.add(lbTelefone);
-		panelCliente.add(lbRua);
-		panelCliente.add(lbNumero);
-		panelCliente.add(lbBairro);
-		panelCliente.add(lbCidade);
-		panelCliente.add(lbEstado);
-		panelCliente.add(lbCep);
-		panelCliente.add(lbCpfCnpj);
-		panelCliente.add(lbNInscricao);
-		panelCliente.add(lbTipoImposto);
-		
-		panelCliente.add(btCadastrar);
-		panelCliente.add(btLimpar);
-		panelCliente.add(btCancelar);
-		
-		panelCliente.add(tfNomeFantasia);
-		panelCliente.add(tfEmail);
-		panelCliente.add(tfTelefone);
-		panelCliente.add(tfRua);
-		panelCliente.add(tfNumero);
-		panelCliente.add(tfBairro);
-		panelCliente.add(tfCidade);
-		panelCliente.add(tfCep);
-		panelCliente.add(tfCpfCnpj);
-		panelCliente.add(tfNInscricao);
+		panelBotoes.setLayout(getLayoutPnlBotoes());
+		panelBotoes.setBackground(Color.WHITE);
 		
 		cbEstado.setSelectedItem(0);
 		cbTipoImposto.setSelectedItem(0);
 		
-		panelCliente.add(cbEstado);
-		panelCliente.add(cbTipoImposto);
+		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+	}
+	
+	private LayoutManager getLayout(){
 		
-		lbNomeFantasia.setBounds(25, 20, 100, 20);
-		lbEmail.setBounds(25, 70, 60, 20);
-		lbRua.setBounds(25, 120, 60, 20);
-		lbBairro.setBounds(25, 170, 60, 20);
-		lbCep.setBounds(470, 120, 60, 20);
-		lbCpfCnpj.setBounds(25, 220, 80, 20);
-		lbTelefone.setBounds(410, 70, 60, 20);
-		lbNumero.setBounds(350, 120, 60, 20);
-		lbCidade.setBounds(260, 170, 60, 20);
-		lbEstado.setBounds(535, 170, 60, 20);
-		lbNInscricao.setBounds(260, 220, 100, 20);
-		lbTipoImposto.setBounds(480, 220, 100, 20);
+		GroupLayout layout = new GroupLayout(panel);
 		
-		btCadastrar.setBounds(180,300,100, 30);
-		btLimpar.setBounds(290,300,100, 30);
-		btCancelar.setBounds(400,300,100, 30);
+		layout.setHorizontalGroup(
+	        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	        .addGroup(layout.createSequentialGroup()
+	            .addContainerGap()
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                .addGroup(layout.createSequentialGroup()
+	                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                        .addComponent(lbRua)
+	                        .addComponent(lbEstado)
+	                        .addComponent(lbCpfCnpj))
+	                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                        .addGroup(layout.createSequentialGroup()
+	                            .addComponent(cbEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbCidade)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(tfCidade, GroupLayout.PREFERRED_SIZE, 215, GroupLayout.PREFERRED_SIZE)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbBairro)
+	                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                            .addComponent(tfBairro))
+	                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	                            .addComponent(tfRua)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbNumero)
+	                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                            .addComponent(tfNumero, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbCep)
+	                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                            .addComponent(tfCep, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+	                        .addGroup(layout.createSequentialGroup()
+	                            .addComponent(tfCpfCnpj, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbNInscricao)
+	                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                            .addComponent(tfNInscricao, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbTipoImposto)
+	                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                            .addComponent(cbTipoImposto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                            .addGap(0, 0, Short.MAX_VALUE))
+	                        .addGroup(layout.createSequentialGroup()
+	                            .addComponent(tfEmail)
+	                            .addGap(18, 18, 18)
+	                            .addComponent(lbTelefone)
+	                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                            .addComponent(tfTelefone, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
+	                .addComponent(panelBotoes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                .addGroup(layout.createSequentialGroup()
+	                    .addComponent(lbTitulo)
+	                    .addGap(0, 0, Short.MAX_VALUE))
+	                .addGroup(layout.createSequentialGroup()
+	                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                        .addComponent(lbEmail)
+	                        .addComponent(lbNomeFantasia))
+	                    .addGap(22, 22, 22)
+	                    .addComponent(tfNomeFantasia)))
+	            .addContainerGap())
+	    );
+	    layout.setVerticalGroup(
+	        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	        .addGroup(layout.createSequentialGroup()
+	            .addGap(30, 30, 30)
+	            .addComponent(lbTitulo)
+	            .addGap(30, 30, 30)
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(lbNomeFantasia)
+	                .addComponent(tfNomeFantasia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(lbEmail)
+	                .addComponent(tfEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbTelefone)
+	                .addComponent(tfTelefone, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(lbRua)
+	                .addComponent(tfRua, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbNumero)
+	                .addComponent(tfNumero, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbCep)
+	                .addComponent(tfCep, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(cbEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbEstado)
+	                .addComponent(lbCidade)
+	                .addComponent(tfCidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbBairro)
+	                .addComponent(tfBairro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	            .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+	            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                .addComponent(tfCpfCnpj, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbCpfCnpj)
+	                .addComponent(lbNInscricao)
+	                .addComponent(tfNInscricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(lbTipoImposto)
+	                .addComponent(cbTipoImposto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+	            .addComponent(panelBotoes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	            .addContainerGap())
+	    );
 		
-		tfNomeFantasia.setBounds(115, 18, 545, 25);
-		tfEmail.setBounds(115, 68, 280, 25);
-		tfTelefone.setBounds(470, 68, 190, 25);
-		tfRua.setBounds(115, 118, 225, 25);
-		tfNumero.setBounds(370, 118, 85, 25);
-		tfCep.setBounds(500, 118, 160, 25);
-		tfBairro.setBounds(115, 168, 135, 25);
-		tfCidade.setBounds(310, 168, 210, 25);
-		cbEstado.setBounds(585, 168, 75, 25);
-		tfCpfCnpj.setBounds(115, 218, 135, 25);
-		tfNInscricao.setBounds(350,218,120, 25);
-		cbTipoImposto.setBounds(575, 218, 85, 25);
+		return layout;
+	}
+	
+	private LayoutManager getLayoutPnlBotoes(){
+		
+		GroupLayout pnlBotoesLayout = new GroupLayout(panelBotoes);
+		
+		pnlBotoesLayout.setHorizontalGroup(
+            pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBotoesLayout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(btCadastrar)
+                .addGap(18, 18, 18)
+                .addComponent(btLimpar)
+                .addGap(18, 18, 18)
+                .addComponent(btCancelar)
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+        pnlBotoesLayout.setVerticalGroup(
+            pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, pnlBotoesLayout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCadastrar)
+                    .addComponent(btLimpar)
+                    .addComponent(btCancelar))
+                .addContainerGap())
+        );
+        return pnlBotoesLayout;
 	}
 	
 	private void configurarEventos(){
 		
-		btCadastrar.addActionListener(controller.getActionListener(CADASTRAR));
-		btLimpar.addActionListener(controller.getActionListener(LIMPAR));
-		btCancelar.addActionListener(controller.getActionListener(CANCELAR));
+		CadastroClienteController controller = new CadastroClienteController(tfNomeFantasia, tfEmail, tfTelefone, 
+				tfRua, tfNumero, tfBairro, tfCidade, tfCep, tfCpfCnpj, tfNInscricao, 
+				cbEstado, cbTipoImposto );
+		
+		btCadastrar.addActionListener(controller.getActionListener(AbstractCadastroController.CADASTRAR));
+		btLimpar.addActionListener(controller.getActionListener(AbstractCadastroController.LIMPAR));
+		btCancelar.addActionListener(controller.getActionListener(AbstractCadastroController.CANCELAR));
 	}
 	
-	public JPanel getPanel(){
-		return panelCliente;
-	}
 }

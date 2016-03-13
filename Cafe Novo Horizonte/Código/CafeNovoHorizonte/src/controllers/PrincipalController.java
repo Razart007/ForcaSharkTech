@@ -19,8 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import interfaces.AbstractMenuLateral;
 import views.FrameHome;
-import views.FrameMenuLateral;
+import views.FrameLogin;
 import views.FrameMenuLateralCadastrar;
 import views.FrameMenuLateralListar;
 import views.FrameMenuLateralRelatorios;
@@ -35,7 +36,7 @@ public class PrincipalController {
 	private static final int VENDAS = 3;
 	
 	private JFrame frame;
-	private FrameMenuLateral menuLateral;
+	private AbstractMenuLateral menuLateral;
 	
 	public PrincipalController(JFrame frame) {
 		this.frame = frame;
@@ -118,6 +119,15 @@ public class PrincipalController {
 		atualizarTela(null, "Abrir novo documento");
 	}
 	
+	private void imprimir(){
+		atualizarTela(null, "Imprimir documento");
+	}
+	
+	private void sobre(){
+
+		atualizarTela(null, "Sobre o aplicativo");
+	}
+	
 	private void home(){
 		JPanel panel = new FrameHome().getPanel();
 		atualizarTela(panel, "Café Novo Horizonte");
@@ -133,7 +143,8 @@ public class PrincipalController {
 				"Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		
 		if (result == JOptionPane.YES_OPTION){
-			System.exit(0);
+			frame.dispose();
+			new FrameLogin();
 		} else {
 			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}
@@ -181,14 +192,27 @@ public class PrincipalController {
 				case FramePrincipal.ABRIR: {
 					
 					abrir();
+					break;
 					
 				} case FramePrincipal.SALVAR: {
 					
 					salvar();
+					break;
+					
+				} case FramePrincipal.IMPRIMIR: {
+					
+					imprimir();
+					break;
 					
 				} case FramePrincipal.SAIR: {
 
-					sair();	
+					sair();
+					break;
+					
+				} case FramePrincipal.SOBRE: {
+					
+					sobre();
+					break;					
 				}
 			}
 		}

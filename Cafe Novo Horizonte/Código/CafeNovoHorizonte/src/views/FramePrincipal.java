@@ -27,11 +27,17 @@ public class FramePrincipal{
 	public static final int ALTURA = 50;
 	public static final int GAP = 10;
 	
+	public static final String BTN_CADASTRAR = "Cadastrar";
+	public static final String BTN_LIMPAR = "Limpar campos";
+	public static final String BTN_CANCELAR = "Cancelar";
+	
 	public static final String URL_IMAGENS = "Imagens";
 	public static final int ARQUIVO = 1;
 	public static final int USUARIO = 2;
 	public static final int ABRIR = 3;
+	public static final int IMPRIMIR = 27;
 	public static final int SALVAR = 4;
+	public static final int SOBRE = 28;
 	public static final int HOME = 5;
 	public static final int CADASTRAR = 6;
 	public static final int LISTAR = 7;
@@ -63,7 +69,7 @@ public class FramePrincipal{
 	private static JPanel pnlPrincipal;	
 	private JLabel lblHome, lblCadastrar, lblListar, lblRelatorios, lblEstoque, 
 			lblVendas, lblSair;
-	private JMenuItem mItemSalvar, mItemAbrir, mItemSair;
+	private JMenuItem mItemSalvar, mItemAbrir, mItemImprimir, mItemSair, mItemSobre;
 	
 	
 	public FramePrincipal(String s) {
@@ -74,7 +80,9 @@ public class FramePrincipal{
 		menuBar = new JMenuBar();
 		mItemAbrir = new JMenuItem("Abrir");
 		mItemSalvar = new JMenuItem("Salvar");
+		mItemImprimir = new JMenuItem("Imprimir");
 		mItemSair = new JMenuItem("Sair", new ImageIcon("Imagens/icon_sair.png"));
+		mItemSobre = new JMenuItem("Sobre");
 		
 		pnlMenuLateral = new JPanel();
 		pnlPrincipal = new FrameHome().getPanel();
@@ -114,14 +122,18 @@ public class FramePrincipal{
 	private void iniciarMenu(){
 
 		JMenu menuArquivo = new JMenu("Arquivo");
-		JMenu menUsuario = new JMenu("Usuario");
+		JMenu menuUsuario = new JMenu("Usuario");
+		JMenu menuAjuda = new JMenu("Ajuda");
 
 		menuArquivo.add(mItemAbrir);
 		menuArquivo.add(mItemSalvar);
-		menUsuario.add(mItemSair);
+		menuArquivo.add(mItemImprimir);
+		menuUsuario.add(mItemSair);
+		menuAjuda.add(mItemSobre);
 		
 		menuBar.add(menuArquivo);
-		menuBar.add(menUsuario);
+		menuBar.add(menuUsuario);
+		menuBar.add(menuAjuda);
 
 		frame.setJMenuBar(menuBar);
 	}
@@ -227,9 +239,11 @@ public class FramePrincipal{
 		frame.addWindowStateListener(controller.getWindowStateListener());
 	
 		//Itens da barra de menus prinicipal
-		mItemSalvar.addActionListener(controller.getAcitonListener(SALVAR));
 		mItemAbrir.addActionListener(controller.getAcitonListener(ABRIR));
+		mItemSalvar.addActionListener(controller.getAcitonListener(SALVAR));
+		mItemImprimir.addActionListener(controller.getAcitonListener(IMPRIMIR));
 		mItemSair.addActionListener(controller.getAcitonListener(SAIR));
+		mItemSobre.addActionListener(controller.getAcitonListener(SOBRE));
 		
 		//Itens no menu lateral		
 		lblHome.addMouseListener(controller.getMouseListener(HOME));

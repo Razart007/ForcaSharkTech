@@ -7,8 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controllers.MenuLateralController;
+import interfaces.AbstractMenuLateral;
 
-public class FrameMenuLateralRelatorios extends FrameMenuLateral {
+public class FrameMenuLateralRelatorios extends AbstractMenuLateral {
 		
 	private JLabel menus[];	
 	private MenuLateralController controller;

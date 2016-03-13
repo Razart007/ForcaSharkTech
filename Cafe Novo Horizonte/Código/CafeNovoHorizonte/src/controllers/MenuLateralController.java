@@ -1,30 +1,45 @@
 package controllers;
 
 import java.awt.Dimension;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import interfaces.AbstractMenuLateral;
 import views.FrameCadastroCliente;
+import views.FrameCadastroFornecedor;
 import views.FrameCadastroProduto;
 import views.FrameCadastroTransportadora;
 import views.FrameListarCliente;
-import views.FrameMenuLateral;
 import views.FramePrincipal;
 
 public class MenuLateralController {
 	
+	private static final String CADASTRO_CLIENTE = "Cadastro de cliente";
+	private static final String CADASTRO_TRANSPORTADORA = "Cadastro de transportadora";
+	private static final String CADASTRO_FORNECEDOR = "Cadastro de fornecedor";
+	private static final String CADASTRO_PRODUTO = "Cadastro de produto";
+	
 	private JFrame frame;
+	
+	public MenuLateralController() { }
 	
 	public MenuLateralController(JFrame frame) {
 		this.frame = frame;
 	}
 	
-	public MouseListener getMouseListener(int menu, FrameMenuLateral menuLateral){
+	public FocusListener getFocusListener(JDialog dialog){
+		return new AddFocusListener(dialog);
+	}
+	
+	public MouseListener getMouseListener(int menu, AbstractMenuLateral menuLateral){
 		return new AddMouseListener(menu, menuLateral);
 	}
 	
@@ -34,31 +49,32 @@ public class MenuLateralController {
 	
 	private void atualizarTela(JPanel panel, String titulo){
 		
-		if(panel != null){
+		if(panel != null && frame != null){
 			FramePrincipal.setPanel(panel);
+			frame.setTitle(titulo);
+			frame.setMinimumSize(new Dimension(840, 510));
+			frame.repaint();
 		}
-		frame.setTitle(titulo);
-		frame.setMinimumSize(new Dimension(840, 510));
-		frame.repaint();
 	}
 	
-	private void cliente(){
-		JPanel panel = new FrameCadastroCliente().getPanel();
-		atualizarTela(panel, "Castrar cliente");
+	private void cliente(String titulo){
+		JPanel panel = new FrameCadastroCliente(titulo).getPanel();
+		atualizarTela(panel, titulo);
 	}
 	
-	private void transportadora(){
-		JPanel panel = new FrameCadastroTransportadora().getPanel();
-		atualizarTela(panel, "Castrar transportadora");
+	private void transportadora(String titulo){
+		JPanel panel = new FrameCadastroTransportadora(titulo).getPanel();
+		atualizarTela(panel, titulo);
 	}
 	
-	private void fornecedor(){
-		atualizarTela(null, "Castrar fornecedor");
+	private void fornecedor(String titulo){
+		JPanel panel = new FrameCadastroFornecedor(titulo).getPanel();
+		atualizarTela(panel, titulo);
 	}
 	
-	private void produto(){
-		JPanel panel = new FrameCadastroProduto().getPanel();
-		atualizarTela(panel, "Castrar produto");
+	private void produto(String titulo){
+		JPanel panel = new FrameCadastroProduto(titulo).getPanel();
+		atualizarTela(panel, titulo);
 	}
 	
 	private void listarCliente(){
@@ -67,8 +83,7 @@ public class MenuLateralController {
 	}
 	
 	private void listarTransportadora(){
-		JPanel panel = new FrameCadastroTransportadora().getPanel();
-		atualizarTela(panel, "Listar transportadoras");
+		atualizarTela(null, "Listar transportadoras");
 	}
 	
 	private void listarFornecedor(){
@@ -76,8 +91,8 @@ public class MenuLateralController {
 	}
 	
 	private void listarProduto(){
-		JPanel panel = new FrameCadastroProduto().getPanel();
-		atualizarTela(panel, "Listar produtos");
+
+		atualizarTela(null, "Listar produtos");
 	}
 	
 	private void pagamento(){
@@ -108,12 +123,28 @@ public class MenuLateralController {
 		atualizarTela(null, "Listar todas as vendas");
 	}
 	
+	private class AddFocusListener implements FocusListener{
+
+		private JDialog dialog;
+		public AddFocusListener(JDialog dialog) {
+			this.dialog = dialog;
+		}
+		
+		@Override
+		public void focusGained(FocusEvent arg0) { }
+
+		@Override
+		public void focusLost(FocusEvent arg0) {
+			dialog.dispose();
+		}
+	}
+	
 	private class AddMouseListener implements MouseListener{
 		
 		private int menu;
-		private FrameMenuLateral menuLateral;
+		private AbstractMenuLateral menuLateral;
 		
-		public AddMouseListener(int menu, FrameMenuLateral menuLateral) {
+		public AddMouseListener(int menu, AbstractMenuLateral menuLateral) {
 			this.menu = menu;
 			this.menuLateral = menuLateral;
 		}
@@ -383,25 +414,25 @@ public class MenuLateralController {
 				case FramePrincipal.CLIENTE : {
 					
 					alterarIcone(label, "/cliente_item.png");
-					cliente();
+					cliente(CADASTRO_CLIENTE);
 					break;
 					
 				} case FramePrincipal.TRANSPORTADORA : {
 					
 					alterarIcone(label, "/transportadora_item.png");
-					transportadora();
+					transportadora(CADASTRO_TRANSPORTADORA);
 					break;
 					
 				} case FramePrincipal.FORNECEDOR : {
 					
 					alterarIcone(label, "/fornecedor_item.png");
-					fornecedor();
+					fornecedor(CADASTRO_FORNECEDOR);
 					break;
 					
 				} case FramePrincipal.PRODUTO : {
 					
 					alterarIcone(label, "/produto_item.png");
-					produto();
+					produto(CADASTRO_PRODUTO);
 					break;
 					
 				} case FramePrincipal.LISTAR_CLIENTE : {

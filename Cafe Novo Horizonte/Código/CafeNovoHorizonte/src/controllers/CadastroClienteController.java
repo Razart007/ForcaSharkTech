@@ -1,45 +1,18 @@
 package controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
-import javax.swing.JOptionPane;
+import interfaces.AbstractCadastroController;
 
-import views.FrameCadastroCliente;
-
-public class CadastroClienteController  {
-	
-	public CadastroClienteController() { }
-	
-	public AddActionListener getActionListener(String name){
-		return new AddActionListener(name);
+public class CadastroClienteController extends AbstractCadastroController{
+		
+	public CadastroClienteController (JTextField tfNomeFantasia, JTextField tfEmail, 
+			JTextField tfTelefone,JTextField tfRua, JTextField tfNumero, JTextField tfBairro,
+			JTextField tfCidade, JTextField tfCep, JTextField tfCpfCnpj, JTextField tfNInscricao, 
+			JComboBox<String> cbEstado,	JComboBox<String> cbTipoImposto) {
+		
+		super(tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, tfCidade,
+				tfCep, tfCpfCnpj, tfNInscricao, cbEstado, cbTipoImposto);
 	}
-	
-	private class AddActionListener implements ActionListener{
-		
-
-		private String name;
-		
-		public AddActionListener(String name) {
-			this.name = name;
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			
-			if(name.equals(FrameCadastroCliente.CADASTRAR)){
-				
-				JOptionPane.showMessageDialog(null, "btnCadastrar clickado", name, JOptionPane.INFORMATION_MESSAGE);
-				
-			} else if(name.equals(FrameCadastroCliente.LIMPAR)){
-				
-				JOptionPane.showMessageDialog(null, "btnlimpar clickado", name, JOptionPane.INFORMATION_MESSAGE);
-		
-			} else if(name.equals(FrameCadastroCliente.CANCELAR)){
-				
-				JOptionPane.showMessageDialog(null, "btncancelar clickado", name, JOptionPane.INFORMATION_MESSAGE);
-			}
-		}
-	}
-
 }

@@ -1,4 +1,4 @@
-package views;
+package interfaces;
 
 import java.awt.Color;
 import java.awt.LayoutManager;
@@ -15,7 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 
-public abstract class FrameMenuLateral {
+import controllers.MenuLateralController;
+import views.FramePrincipal;
+
+public abstract class AbstractMenuLateral {
 	
 	private static final int LARGURA = 150;
 	private static final int ALTURA = 50;
@@ -26,7 +29,7 @@ public abstract class FrameMenuLateral {
 	private JLabel menus[];
 	private Point posicao;
 	
-	public FrameMenuLateral(Point posicao, int idMenus[])  {
+	public AbstractMenuLateral(Point posicao, int idMenus[])  {
 
 		this.dialog = new JDialog();
 		this.panel = new JPanel();
@@ -62,11 +65,13 @@ public abstract class FrameMenuLateral {
 	}
 	
 	private void iniciarComponentes() {		
-	
 		
 		panel.setBackground(Color.WHITE);
-		panel.setLayout(getLayout());
+		panel.setLayout(getLayoutDialog());
 		panel.setBorder(BorderFactory.createEtchedBorder());
+		
+		MenuLateralController controller = new MenuLateralController();
+		dialog.addFocusListener(controller.getFocusListener(dialog));
 		
 		dialog.getContentPane().add(panel);
 		dialog.setUndecorated(true); //Oculta a barra de titulos e borda do JFrame 
@@ -76,7 +81,6 @@ public abstract class FrameMenuLateral {
 		dialog.setAlwaysOnTop(true);
 		
 		configurarPosicaoRelativa();
-		
 	}
 	
 	private void configurarPosicaoRelativa(){
@@ -99,8 +103,8 @@ public abstract class FrameMenuLateral {
 		
 		dialog.setLocation(x, y);
 	}
-
-	private LayoutManager getLayout(){
+	
+	private LayoutManager getLayoutDialog(){
 		
 		GroupLayout layout = new GroupLayout(panel);
 		Groups groups = new Groups(layout);
