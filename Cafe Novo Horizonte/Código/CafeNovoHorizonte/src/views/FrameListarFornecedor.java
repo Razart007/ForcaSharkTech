@@ -16,13 +16,13 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.TableColumn;
 
-import controllers.ListarTransportadoraController;
+import controllers.ListarFornecedorController;
 import entidades.Endereco;
-import entidades.Transportadora;
+import entidades.Fornecedor;
 import interfaces.AbstractListarController;
 import interfaces.AbstractTabelaCrud;
 
-public class FrameListarTransportadora {
+public class FrameListarFornecedor {
 	
 	public static final int DOCUMENTO = 0;
 	public static final int INSCRICAO_ESTADUAL = 1;
@@ -30,32 +30,36 @@ public class FrameListarTransportadora {
 	public static final int ENDERECO = 3;
 	public static final int EDITAR = 4;
 	public static final int EXCLUIR = 5;
-
-	private static final String[] COLUNAS = new String[]{"Documento", "Inscrição Estadual", "Nome", "Endereço", "Editar", "Excluir"};
-
-	private ArrayList<Transportadora> transportadoras;
+	
+	private static final String[] COLUNAS = new String[]{"Documento", "Nome", "Endereço", "Telefone", "Editar", "Excluir"};
+	
 	private JPanel panel;
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;
 	private JScrollPane scrTabela;
 	private JTable tblCliente;
-	private TabelaCrudTransportadora modeloTabelaCrud;
+	private TabelaCrudFornecedor modeloTabelaCrud;
+	private ArrayList<Fornecedor> clientes;
 	
-	public FrameListarTransportadora(String titulo) {
+	public FrameListarFornecedor(String titulo) {
 		
-		this.transportadoras = new ArrayList<Transportadora>();
 		this.panel = new JPanel();
 		this.lblTitulo = new JLabel(titulo);
 		this.lblIconPesquisa = new JLabel(new ImageIcon(FramePrincipal.URL_IMAGENS + "/icon_pesquisar.png"));
 		this.txtPesquisa = new JTextField();
 		this.scrTabela = new JScrollPane();
 		this.tblCliente = new JTable();
-		this.modeloTabelaCrud = new TabelaCrudTransportadora(COLUNAS, transportadoras);
+		this.clientes = new ArrayList<Fornecedor>();
+		this.modeloTabelaCrud = new TabelaCrudFornecedor(COLUNAS, clientes);
 		
 		iniciarComponentes();
 		iniciarTabela();
 		iniciarEventos();
 		preencherTabela();
+	}
+	
+	public JPanel getPanel() {
+		return this.panel;
 	}
 	
 	private void iniciarComponentes(){
@@ -75,33 +79,33 @@ public class FrameListarTransportadora {
 		GroupLayout layout = new GroupLayout(panel);
 		
 		layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(scrTabela, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIconPesquisa)))
-                        .addGap(0, 118, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIconPesquisa))
-                .addGap(17, 17, 17)
-                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
-        );
+	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                    .addComponent(scrTabela, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                            .addComponent(lblTitulo)
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+	                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                                .addComponent(lblIconPesquisa)))
+	                        .addGap(0, 118, Short.MAX_VALUE)))
+	                .addContainerGap())
+	        );
+	        layout.setVerticalGroup(
+	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	                .addGap(30, 30, 30)
+	                .addComponent(lblTitulo)
+	                .addGap(30, 30, 30)
+	                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lblIconPesquisa))
+	                .addGap(17, 17, 17)
+	                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
+	        );
         
         return layout;
 	}
@@ -135,8 +139,7 @@ public class FrameListarTransportadora {
 	
 	private void iniciarEventos(){
 		
-		ListarTransportadoraController controller = new ListarTransportadoraController(txtPesquisa, tblCliente, modeloTabelaCrud);
-		
+		ListarFornecedorController controller = new ListarFornecedorController(txtPesquisa, tblCliente, modeloTabelaCrud);
 		
 		txtPesquisa.addKeyListener(controller.getKeyListener(AbstractListarController.PESQUISAR));
 		lblIconPesquisa.addMouseListener(controller.getMouseListener(AbstractListarController.PESQUISAR));
@@ -145,30 +148,24 @@ public class FrameListarTransportadora {
 	
 	private void preencherTabela(){
 	
-		for (int i = 1; i <= 5; i++){
+		for (int i = 1; i <= 10; i++){
 			
 			//TODO: Alterar o método para buscar os clientes do banco e salvar num ArrayList();
-			
-			Transportadora t = new Transportadora(i, "TRANSPORTADORA #" + i, false, i *10, i * 100, false, new Endereco());
-			modeloTabelaCrud.salvar(t);	
+			Fornecedor f = new Fornecedor(i, "FORNECEDOR #" + i, false, i *10, i * 100, false, new Endereco());
+			modeloTabelaCrud.salvar(f);	
 		}
 	}
 	
-	public JPanel getPanel() {
-		return panel;
-	}
-	
-	private class TabelaCrudTransportadora extends AbstractTabelaCrud<Transportadora>{
+	private class TabelaCrudFornecedor extends AbstractTabelaCrud<Fornecedor>{
 
 		private static final long serialVersionUID = 1L;
-		
-		
-		public TabelaCrudTransportadora(String[] colunas, ArrayList<Transportadora> elementos) {
+
+		public TabelaCrudFornecedor(String[] colunas, ArrayList<Fornecedor> elementos) {
 			super(colunas, elementos);
 		}
 
 		@Override
-		public Object getCampo(Transportadora t, int coluna) {
+		public Object getCampo(Fornecedor t, int coluna) {
 			switch(coluna){
 				case DOCUMENTO:{
 					
@@ -199,7 +196,7 @@ public class FrameListarTransportadora {
 		}
 
 		@Override
-		public void setCampo(Transportadora c, Object valor, int coluna) {
+		public void setCampo(Fornecedor c, Object valor, int coluna) {
 			switch(coluna){
 				case DOCUMENTO:{
 					
@@ -218,6 +215,6 @@ public class FrameListarTransportadora {
 					c.setEndereco((Endereco) valor);
 				}
 			}
-		}		
+		}
 	}
 }

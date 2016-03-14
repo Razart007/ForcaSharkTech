@@ -22,6 +22,10 @@ public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
 		this.elementos = elementos;
 	}
 	
+	public static IconCellRenderer getIconCellRenderer(){
+		return new IconCellRenderer();
+	}	
+	
 	public abstract Object getCampo(E e, int coluna);
 	
 	public abstract void setCampo(E e, Object valor, int coluna);
@@ -91,7 +95,9 @@ public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
 		return e;
 	}
 	
-	public static class IconTableRenderer extends DefaultTableCellRenderer  {  
+	
+	
+	private static class IconCellRenderer extends DefaultTableCellRenderer  {  
 		 
 		private static final long serialVersionUID = 1L;
 

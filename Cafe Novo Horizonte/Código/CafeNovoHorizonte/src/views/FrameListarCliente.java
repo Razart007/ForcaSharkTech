@@ -80,34 +80,33 @@ public class FrameListarCliente {
 		GroupLayout layout = new GroupLayout(panel);
 		
 		layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIconPesquisa)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIconPesquisa))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(layout.createSequentialGroup()
+	                .addContainerGap()
+	                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                    .addComponent(scrTabela, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+	                    .addGroup(layout.createSequentialGroup()
+	                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	                            .addComponent(lblTitulo)
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+	                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+	                                .addComponent(lblIconPesquisa)))
+	                        .addGap(0, 118, Short.MAX_VALUE)))
+	                .addContainerGap())
+	        );
+	        layout.setVerticalGroup(
+	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+	            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+	                .addGap(30, 30, 30)
+	                .addComponent(lblTitulo)
+	                .addGap(30, 30, 30)
+	                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+	                    .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	                    .addComponent(lblIconPesquisa))
+	                .addGap(17, 17, 17)
+	                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
+	        );
         
         return layout;
 	}
@@ -132,20 +131,20 @@ public class FrameListarCliente {
 		
 		colunaEdit.setMaxWidth(50);
 		colunaEdit.setMinWidth(35);
-		colunaEdit.setCellRenderer(new AbstractTabelaCrud.IconTableRenderer());
+		colunaEdit.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
 		
 		colunaExcl.setMaxWidth(50);
 		colunaExcl.setMinWidth(35);
-		colunaExcl.setCellRenderer(new AbstractTabelaCrud.IconTableRenderer());
+		colunaExcl.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
 	}
 	
 	private void iniciarEventos(){
 		
-		ListarClienteController controller = new ListarClienteController();
+		ListarClienteController controller = new ListarClienteController(txtPesquisa, tblCliente, modeloTabelaCrud);
 		
 		txtPesquisa.addKeyListener(controller.getKeyListener(AbstractListarController.PESQUISAR));
 		lblIconPesquisa.addMouseListener(controller.getMouseListener(AbstractListarController.PESQUISAR));
-		tblCliente.addMouseListener(controller.getMouseListener(tblCliente, modeloTabelaCrud));
+		tblCliente.addMouseListener(controller.getMouseListener());
 	}
 	
 	private void preencherTabela(){
@@ -153,7 +152,7 @@ public class FrameListarCliente {
 		for (int i = 1; i <= 10; i++){
 			
 			//TODO: Alterar o método para buscar os clientes do banco e salvar num ArrayList();
-			Cliente c = new Cliente(i, "NOME #" + i, false, i * 100, "Tel #" + i, "Email #" + i, new Endereco(), i * 10, false);
+			Cliente c = new Cliente(i, "CLIENTE #" + i, false, i * 100, "Tel #" + i, "Email #" + i, new Endereco(), i * 10, false);
 			modeloTabelaCrud.salvar(c);	
 		}
 	}

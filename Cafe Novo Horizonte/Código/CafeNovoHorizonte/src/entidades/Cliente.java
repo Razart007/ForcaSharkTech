@@ -124,7 +124,8 @@ public class Cliente {
 	
 	@Override
 	public String toString() {
-		return "Documento: " + documento + ", Nome: " + nome + ", Endereco: " + endereco ;
+		return "Documento: " + documento + ", Nome: " + nome + 
+				", Endereco: " + endereco + " Telefone: " + telefone;
 	}
 	
 }

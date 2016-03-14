@@ -8,29 +8,50 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import views.FrameListarCliente;
 
 public abstract class AbstractListarController<E> {
 
-	
 	public static final int PESQUISAR = 0;
+
+	private JTable tabela;
+	private AbstractTabelaCrud<E> modelo;
+	private JTextField text;
 		
+	public AbstractListarController(JTextField text, 
+			JTable tabela, AbstractTabelaCrud<E> modelo) {
+		super();
+		this.tabela = tabela;
+		this.modelo = modelo;
+		this.text = text;
+	}
+
 	public KeyListener getKeyListener(int id){
 		return new AddKeyListener(id);
+	}
+	
+	public MouseListener getMouseListener(){
+		return new AddMouseListener();
 	}
 	
 	public MouseListener getMouseListener(int id){
 		return new AddMouseListener(id);
 	}
 	
-	public MouseListener getMouseListener(JTable tabela, AbstractTabelaCrud<E> modelo){
-		return new AddMouseListener(tabela, modelo);
+	private void resetarTextField(JTextField text){
+		text.setText("");
 	}
 	
-	public ArrayList<E> pesquisar(){
+	public ArrayList<E> pesquisar(JTextField text, JTable tabela, 
+			AbstractTabelaCrud<E> modelo){
+		
+		resetarTextField(text);
+		
 		JOptionPane.showMessageDialog(null, "Pesquisar selecionado", 
 				"Pesquisar", JOptionPane.ERROR_MESSAGE);
+		
 		return null;
 	}
 	
@@ -57,46 +78,39 @@ public abstract class AbstractListarController<E> {
 		public void keyPressed(KeyEvent e) {}
 
 		@Override
-		public void keyReleased(KeyEvent e) {}
+		public void keyReleased(KeyEvent e) {
+			if(id == PESQUISAR && e.getKeyCode() == KeyEvent.VK_ENTER){
+				pesquisar(text, tabela, modelo);
+			}
+		}
 
 		@Override
-		public void keyTyped(KeyEvent e) {
-			
-			if(id == PESQUISAR){
-				pesquisar();
-			}
-		}		
+		public void keyTyped(KeyEvent e) { }		
 	}
 	
 	private class AddMouseListener implements MouseListener{
 
 		private int id;
-		private JTable tabela;
-		private AbstractTabelaCrud<E> modelo;
-				
-		public AddMouseListener(JTable tabela, AbstractTabelaCrud<E> modelo) {
-			this.id = -1;
-			this.tabela = tabela;
-			this.modelo = modelo; 
-		}
 
+		public AddMouseListener() {
+			this.id = -1;
+		}
+		
 		public AddMouseListener(int id) {
 			this.id = id;
-			this.tabela = null;
-			this.modelo = null;
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent event) { }
+		public void mouseClicked(MouseEvent event) {}
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {	}
+		public void mouseEntered(MouseEvent arg0) {}
 
 		@Override
-		public void mouseExited(MouseEvent arg0) { }
+		public void mouseExited(MouseEvent arg0) {}
 
 		@Override
-		public void mousePressed(MouseEvent arg0) { }
+		public void mousePressed(MouseEvent arg0) {}
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) { 
@@ -122,10 +136,11 @@ public abstract class AbstractListarController<E> {
 					break;
 					
 				} default: {
-				
+					
 					switch(id){
+					
 						case PESQUISAR:{
-							pesquisar();
+							pesquisar(text, tabela, modelo);
 							break;
 						}
 					}

@@ -18,6 +18,8 @@ import views.FrameCadastroFornecedor;
 import views.FrameCadastroProduto;
 import views.FrameCadastroTransportadora;
 import views.FrameListarCliente;
+import views.FrameListarFornecedor;
+import views.FrameListarProduto;
 import views.FrameListarTransportadora;
 import views.FramePrincipal;
 
@@ -29,6 +31,8 @@ public class MenuLateralController {
 	private static final String CADASTRO_PRODUTO = "Cadastro de produto";
 	private static final String LISTAR_CLIENTE = "Lista dos clientes cadastrados";
 	private static final String LISTAR_TRANSPORTADORA = "Lista das transportadoras cadastradas";
+	private static final String LISTAR_FORNECEDOR = "Lista dos fornecedores cadastrados";
+	private static final String LISTAR_PRODUTO = "Lista dos produtos cadastrados";
 	
 	private JFrame frame;
 	
@@ -90,13 +94,15 @@ public class MenuLateralController {
 		atualizarTela(panel, titulo);
 	}
 	
-	private void listarFornecedor(){
-		atualizarTela(null, "Listar fornecedores");
+	private void listarFornecedor(String titulo){
+		JPanel panel = new FrameListarFornecedor(titulo).getPanel();
+		atualizarTela(panel, titulo);
 	}
 	
-	private void listarProduto(){
+	private void listarProduto(String titulo){
 
-		atualizarTela(null, "Listar produtos");
+		JPanel panel = new FrameListarProduto(titulo).getPanel();
+		atualizarTela(panel, titulo);
 	}
 	
 	private void pagamento(){
@@ -454,13 +460,13 @@ public class MenuLateralController {
 				} case FramePrincipal.LISTAR_FORNECEDOR : {
 					
 					alterarIcone(label, "/fornecedor_item.png");
-					listarFornecedor();
+					listarFornecedor(LISTAR_FORNECEDOR);
 					break;
 					
 				} case FramePrincipal.LISTAR_PRODUTO : {
 					
 					alterarIcone(label, "/produto_item.png");
-					listarProduto();
+					listarProduto(LISTAR_PRODUTO);
 					break;
 					
 				}case FramePrincipal.PAGAMENTO : {

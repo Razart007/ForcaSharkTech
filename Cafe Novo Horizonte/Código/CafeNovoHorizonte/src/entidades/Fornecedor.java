@@ -1,6 +1,6 @@
 package entidades;
 
-public class Transportadora {
+public class Fornecedor {
 	
 	public int id;
 	public String nome;
@@ -10,11 +10,11 @@ public class Transportadora {
 	public boolean isentoIcms;
 	public Endereco endereco;
 	
-	public Transportadora() {
+	public Fornecedor() {
 		super();
 	}
 
-	public Transportadora(int id, String nome, boolean tipoDocumento, int documento, int inscricaoEstadual, boolean isentoIcms,
+	public Fornecedor(int id, String nome, boolean tipoDocumento, int documento, int inscricaoEstadual, boolean isentoIcms,
 			Endereco endereco) {
 		super();
 		this.id = id;
