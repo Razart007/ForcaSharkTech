@@ -16,51 +16,46 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.TableColumn;
 
-import controllers.ListarClienteController;
-import entidades.Cliente;
+import controllers.ListarTransportadoraController;
 import entidades.Endereco;
+import entidades.Transportadora;
 import interfaces.AbstractListarController;
 import interfaces.AbstractTabelaCrud;
 
-public class FrameListarCliente {
+public class FrameListarTransportadora {
 	
 	public static final int DOCUMENTO = 0;
-	public static final int NOME = 1;
-	public static final int ENDERECO = 2;
-	public static final int TELEFONE = 3;
+	public static final int INSCRICAO_ESTADUAL = 1;
+	public static final int NOME = 2;
+	public static final int ENDERECO = 3;
 	public static final int EDITAR = 4;
 	public static final int EXCLUIR = 5;
 
-	private static final String[] COLUNAS = new String[]{"Documento", "Nome", "Endereço", "Telefone", "Editar", "Excluir"};
-	
+	private static final String[] COLUNAS = new String[]{"Documento", "Inscrição Estadual", "Nome", "Endereço", "Editar", "Excluir"};
+
+	private ArrayList<Transportadora> transportadoras;
 	private JPanel panel;
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;
 	private JScrollPane scrTabela;
 	private JTable tblCliente;
-	private TabelaCrudCliente modeloTabelaCrud;
-	private ArrayList<Cliente> clientes;
+	private TabelaCrudTransportadora modeloTabelaCrud;
 	
-	public FrameListarCliente(String titulo){
+	public FrameListarTransportadora(String titulo) {
 		
+		this.transportadoras = new ArrayList<Transportadora>();
 		this.panel = new JPanel();
 		this.lblTitulo = new JLabel(titulo);
 		this.lblIconPesquisa = new JLabel(new ImageIcon(FramePrincipal.URL_IMAGENS + "/icon_pesquisar.png"));
 		this.txtPesquisa = new JTextField();
 		this.scrTabela = new JScrollPane();
 		this.tblCliente = new JTable();
-		this.clientes = new ArrayList<Cliente>();
-		this.modeloTabelaCrud = new TabelaCrudCliente(COLUNAS, clientes);
+		this.modeloTabelaCrud = new TabelaCrudTransportadora(COLUNAS, transportadoras);
 		
 		iniciarComponentes();
 		iniciarTabela();
 		iniciarEventos();
 		preencherTabela();
-		
-	}
-	
-	public JPanel getPanel() {
-		return this.panel;
 	}
 	
 	private void iniciarComponentes(){
@@ -119,16 +114,16 @@ public class FrameListarCliente {
 		tblCliente.setModel(modeloTabelaCrud);
 		
 		TableColumn colunaDoc = tblCliente.getColumnModel().getColumn(DOCUMENTO);
+		TableColumn colunaInscEst = tblCliente.getColumnModel().getColumn(INSCRICAO_ESTADUAL);
 		TableColumn colunaNome = tblCliente.getColumnModel().getColumn(NOME);
 		TableColumn colunaEnd = tblCliente.getColumnModel().getColumn(ENDERECO);
-		TableColumn colunaTel = tblCliente.getColumnModel().getColumn(TELEFONE);
 		TableColumn colunaEdit = tblCliente.getColumnModel().getColumn(EDITAR);
 		TableColumn colunaExcl = tblCliente.getColumnModel().getColumn(EXCLUIR);
 		
 		colunaDoc.setPreferredWidth(20);
+		colunaInscEst.setPreferredWidth(40);
 		colunaNome.setPreferredWidth(150);
 		colunaEnd.setPreferredWidth(150);
-		colunaTel.setPreferredWidth(20);
 		
 		colunaEdit.setMaxWidth(50);
 		colunaEdit.setMinWidth(35);
@@ -141,7 +136,8 @@ public class FrameListarCliente {
 	
 	private void iniciarEventos(){
 		
-		ListarClienteController controller = new ListarClienteController();
+		ListarTransportadoraController controller = new ListarTransportadoraController();
+		
 		
 		txtPesquisa.addKeyListener(controller.getKeyListener(AbstractListarController.PESQUISAR));
 		lblIconPesquisa.addMouseListener(controller.getMouseListener(AbstractListarController.PESQUISAR));
@@ -150,40 +146,46 @@ public class FrameListarCliente {
 	
 	private void preencherTabela(){
 	
-		for (int i = 1; i <= 10; i++){
+		for (int i = 1; i <= 5; i++){
 			
 			//TODO: Alterar o método para buscar os clientes do banco e salvar num ArrayList();
-			Cliente c = new Cliente(i, "NOME #" + i, false, i * 100, "Tel #" + i, "Email #" + i, new Endereco(), i * 10, false);
-			modeloTabelaCrud.salvar(c);	
+			
+			Transportadora t = new Transportadora(i, "NOME #" + i, false, i *10, i * 100, false, new Endereco());
+			modeloTabelaCrud.salvar(t);	
 		}
 	}
 	
-	private class TabelaCrudCliente extends AbstractTabelaCrud<Cliente>{
+	public JPanel getPanel() {
+		return panel;
+	}
+	
+	private class TabelaCrudTransportadora extends AbstractTabelaCrud<Transportadora>{
 
 		private static final long serialVersionUID = 1L;
-
-		public TabelaCrudCliente(String[] colunas, ArrayList<Cliente> elementos) {
+		
+		
+		public TabelaCrudTransportadora(String[] colunas, ArrayList<Transportadora> elementos) {
 			super(colunas, elementos);
 		}
 
 		@Override
-		public Object getCampo(Cliente c, int coluna) {
+		public Object getCampo(Transportadora t, int coluna) {
 			switch(coluna){
 				case DOCUMENTO:{
 					
-					return c.getDocumento();
+					return t.getDocumento();
+					
+				} case INSCRICAO_ESTADUAL:{
+					
+					return t.getInscricaoEstadual();
 					
 				} case NOME:{
 					
-					return c.getNome();
+					return t.getNome();
 					
 				} case ENDERECO:{
 					
-					return c.getEndereco();
-					
-				} case TELEFONE:{
-					
-					return c.getTelefone();
+					return t.getEndereco();
 					
 				} case EDITAR:{
 					
@@ -198,11 +200,15 @@ public class FrameListarCliente {
 		}
 
 		@Override
-		public void setCampo(Cliente c, Object valor, int coluna) {
+		public void setCampo(Transportadora c, Object valor, int coluna) {
 			switch(coluna){
 				case DOCUMENTO:{
 					
 					c.setDocumento((int) valor);
+					
+				} case INSCRICAO_ESTADUAL:{
+					
+					c.setInscricaoEstadual((int) valor);
 					
 				} case NOME:{
 					
@@ -211,12 +217,8 @@ public class FrameListarCliente {
 				} case ENDERECO:{
 					
 					c.setEndereco((Endereco) valor);
-					
-				} case TELEFONE:{
-					
-					c.setTelefone((String) valor);
 				}
 			}
-		}
+		}		
 	}
 }

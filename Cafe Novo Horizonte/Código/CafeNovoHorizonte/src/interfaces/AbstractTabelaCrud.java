@@ -7,32 +7,89 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
-	
-	public static final ImageIcon ICON_EDITAR = new ImageIcon("Imagens/edit-user-icon-32.png");
-	public static final ImageIcon ICON_EXCLUIR = new ImageIcon("Imagens/remove-user-icon-32.png");
-	
+
 	private static final long serialVersionUID = 1L;
+	
+	public static final ImageIcon ICON_EDITAR = new ImageIcon("Imagens/icon_editar.png");
+	public static final ImageIcon ICON_EXCLUIR = new ImageIcon("Imagens/icon_remover.png");
+	
+	private ArrayList<E> elementos;
+	private String[] colunas;
+	
+	public AbstractTabelaCrud(String [] colunas, ArrayList<E> elementos) {
+		
+		this.colunas = colunas;
+		this.elementos = elementos;
+	}
+	
+	public abstract Object getCampo(E e, int coluna);
+	
+	public abstract void setCampo(E e, Object valor, int coluna);
+	
+	public int getColumnCount(){
+		return colunas.length;
+	}
 
 	@Override
-	public abstract int getColumnCount();
+	public int getRowCount(){
+		return this.elementos.size();
+	}
+	
 	@Override
-	public abstract int getRowCount();
+	public Object getValueAt(int linha, int coluna){
+		
+		return getCampo(elementos.get(linha), coluna);
+	}
+	
 	@Override
-	public abstract Object getValueAt(int linha, int coluna);
+	public  void setValueAt(Object valor, int linha, int coluna){
+		
+		setCampo(elementos.get(linha), valor, coluna);
+	}
+	
 	@Override
-	public abstract void setValueAt(Object valor, int linha, int coluna);
+	public  Class<?> getColumnClass(int coluna) {
+		return Object.class;
+	}
+	
 	@Override
-	public abstract Class<?> getColumnClass(int coluna) ;
+	public String getColumnName(int coluna) {
+		return this.colunas[coluna];		
+	}
+	
 	@Override
-	public abstract String getColumnName(int coluna) ;
-	@Override
-	public abstract boolean isCellEditable(int linha, int coluna);
+	public boolean isCellEditable(int linha, int coluna){
+		return false;
+	}
 
-	public abstract E get(int linha);
-	public abstract void salvar(E e);
-	public abstract void salvar(ArrayList<E> e);
-	public abstract E alterar (int linha, E e);
-	public abstract E excluir (int indice);
+	public E get(int linha){
+		return elementos.get(linha);
+	}
+	
+	public void salvar(E e){
+		elementos.add(e);
+		int indiceLinha = elementos.size() -1;
+		fireTableRowsInserted(indiceLinha, indiceLinha);
+	}
+	
+	public void salvar(ArrayList<E> e){
+		elementos.addAll(e);
+		int ultimoRegistro = getRowCount();
+		fireTableRowsInserted(ultimoRegistro, getRowCount() - 1);
+	}
+	
+	public E alterar (int linha, E e){
+		
+		elementos.set(linha, e);
+		fireTableRowsUpdated(linha, linha);
+		return e;
+	}
+	
+	public E excluir (int indice){
+		E e = elementos.remove(indice);
+		fireTableRowsDeleted(indice, indice);
+		return e;
+	}
 	
 	public static class IconTableRenderer extends DefaultTableCellRenderer  {  
 		 
@@ -51,7 +108,5 @@ public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
 	            super.setValue(value);  
 	        }     
 	    }
-	}
-
-	
+	}	
 }

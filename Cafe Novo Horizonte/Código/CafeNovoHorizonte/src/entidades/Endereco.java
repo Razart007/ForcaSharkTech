@@ -108,6 +108,16 @@ public class Endereco {
 
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		
+		String endereco;
+		endereco = "Rua: " + logradouro + ", " + numero + ".";
+		endereco += "Bairro: " + bairro + ", " + municipio + " - " + uf + ".";
+		endereco += "CEP: " + cep + ".";
+		return endereco;
+	}
 }
 
