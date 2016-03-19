@@ -1,518 +1,167 @@
 package controllers;
 
 import java.awt.Dimension;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import interfaces.AbstractMenuLateral;
-import views.FrameCadastroCliente;
-import views.FrameCadastroFornecedor;
-import views.FrameCadastroProduto;
-import views.FrameCadastroTransportadora;
-import views.FrameListarCliente;
-import views.FrameListarFornecedor;
-import views.FrameListarProduto;
-import views.FrameListarTransportadora;
+import entidades.MenuLateral;
+import interfaces.MenuLateralListener;
+import views.FrameHome;
+import views.FrameLogin;
 import views.FramePrincipal;
 
-public class MenuLateralController {
-	
-	private static final String CADASTRO_CLIENTE = "Cadastro de cliente";
-	private static final String CADASTRO_TRANSPORTADORA = "Cadastro de transportadora";
-	private static final String CADASTRO_FORNECEDOR = "Cadastro de fornecedor";
-	private static final String CADASTRO_PRODUTO = "Cadastro de produto";
-	private static final String LISTAR_CLIENTE = "Lista dos clientes cadastrados";
-	private static final String LISTAR_TRANSPORTADORA = "Lista das transportadoras cadastradas";
-	private static final String LISTAR_FORNECEDOR = "Lista dos fornecedores cadastrados";
-	private static final String LISTAR_PRODUTO = "Lista dos produtos cadastrados";
-	
+public class MenuLateralController implements MenuLateralListener {
+
 	private JFrame frame;
 	
-	public MenuLateralController() { }
-	
 	public MenuLateralController(JFrame frame) {
+
 		this.frame = frame;
 	}
 	
-	public FocusListener getFocusListener(JDialog dialog){
-		return new AddFocusListener(dialog);
-	}
-	
-	public MouseListener getMouseListener(int menu, AbstractMenuLateral menuLateral){
-		return new AddMouseListener(menu, menuLateral);
-	}
-	
-	private void alterarIcone(JLabel label, String urlIcone){
-		label.setIcon(new ImageIcon(FramePrincipal.URL_IMAGENS + urlIcone));
-	}
-	
-	private void atualizarTela(JPanel panel, String titulo){
+	private void atualizarTela(JPanel panel, String titulo) {
 		
-		if(panel != null && frame != null){
-			FramePrincipal.setPanel(panel);
-			frame.setTitle(titulo);
-			frame.setMinimumSize(new Dimension(840, 510));
-			frame.repaint();
+		if(panel != null){
+			FramePrincipal.setPanel(panel);	
 		}
+		frame.setTitle(titulo);
+		frame.setMinimumSize(new Dimension(840, 510));
+		frame.repaint();
 	}
 	
-	private void cliente(String titulo){
-		JPanel panel = new FrameCadastroCliente(titulo).getPanel();
-		atualizarTela(panel, titulo);
+	private void home(){
+		JPanel panel = new FrameHome();
+		atualizarTela(panel, "Café Novo Horizonte");
 	}
-	
-	private void transportadora(String titulo){
-		JPanel panel = new FrameCadastroTransportadora(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
-	
-	private void fornecedor(String titulo){
-		JPanel panel = new FrameCadastroFornecedor(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
-	
-	private void produto(String titulo){
-		JPanel panel = new FrameCadastroProduto(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
-	
-	private void listarCliente(String titulo){
-		JPanel panel = new FrameListarCliente(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
-	
-	private void listarTransportadora(String titulo){
-		JPanel panel = new FrameListarTransportadora(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
-	
-	private void listarFornecedor(String titulo){
-		JPanel panel = new FrameListarFornecedor(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
-	
-	private void listarProduto(String titulo){
 
-		JPanel panel = new FrameListarProduto(titulo).getPanel();
-		atualizarTela(panel, titulo);
-	}
+	private void estoque() {
+		atualizarTela(null, "Verificar estoque");
+	}	
 	
-	private void pagamento(){
-		atualizarTela(null, "Realizar pagamento");
-	}
-	
-	private void recebimento(){
-		atualizarTela(null, "Debitar recebimento");
-	}
-	
-	private void balanco(){
-		atualizarTela(null, "Verificar balanço");
-	}
-	
-	private void realizarVenda(){
-		atualizarTela(null, "Realizar venda");
-	}
-	
-	private void listarVendasAVista(){
-		atualizarTela(null, "Listar vendas à vista");
-	}
-	
-	private void listarVendasComDuplicata(){
-		atualizarTela(null, "Listar vendas por duplicata");
-	}
-	
-	private void listarTodasVendas(){
-		atualizarTela(null, "Listar todas as vendas");
-	}
-	
-	private class AddFocusListener implements FocusListener{
-
-		private JDialog dialog;
-		public AddFocusListener(JDialog dialog) {
-			this.dialog = dialog;
-		}
+	private void sair() {
 		
-		@Override
-		public void focusGained(FocusEvent arg0) { }
-
-		@Override
-		public void focusLost(FocusEvent arg0) {
-			dialog.dispose();
+		int result = JOptionPane.showConfirmDialog(frame, "Você realmente deseja sair do aplicativo?", 
+				"Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		
+		if (result == JOptionPane.YES_OPTION){
+			frame.dispose();
+			new FrameLogin();
+		} else {
+			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}
 	}
 	
-	private class AddMouseListener implements MouseListener{
+	
+	@Override
+	public void menuSelecionado(MenuLateral menuLateral) {
 		
-		private int menu;
-		private AbstractMenuLateral menuLateral;
+		String nome = menuLateral.getNome();
 		
-		public AddMouseListener(int menu, AbstractMenuLateral menuLateral) {
-			this.menu = menu;
-			this.menuLateral = menuLateral;
+		if(nome.equals(FramePrincipal.HOME)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/home_item.png");
+			
+		} else if(nome.equals(FramePrincipal.CADASTRAR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/cadastrar_item.png");
+			
+		} else if(nome.equals(FramePrincipal.LISTAR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/listar_item.png");
+			
+		} else if(nome.equals(FramePrincipal.RELATORIOS)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/relatorios_item.png");
+			
+		} else if(nome.equals(FramePrincipal.ESTOQUE)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/estoque_item.png");
+			
+		} else if(nome.equals(FramePrincipal.VENDAS)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/vendas_item.png");
+			
+		} else if(nome.equals(FramePrincipal.SAIR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/sair_item.png");			
 		}
+	}
+
+	@Override
+	public void menuDescelecionado(MenuLateral menuLateral) {
 		
-		@Override
-		public void mouseClicked(MouseEvent e) { }
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
+		String nome = menuLateral.getNome();
+		
+		if(nome.equals(FramePrincipal.HOME)){
 			
-			JLabel label = (JLabel) e.getSource();
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/home.png");
 			
-			switch(menu){
-				case FramePrincipal.CLIENTE : {
-					
-					alterarIcone(label, "/cliente_item.png");
-					break;
-					
-				} case FramePrincipal.TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora_item.png");
-					break;
-					
-				} case FramePrincipal.FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor_item.png");
-					break;
-					
-				} case FramePrincipal.PRODUTO : {
-					
-					alterarIcone(label, "/produto_item.png");
-					break;
-					
-				}case FramePrincipal.LISTAR_CLIENTE : {
-					
-					alterarIcone(label, "/cliente_item.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora_item.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor_item.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_PRODUTO : {
-					
-					alterarIcone(label, "/produto_item.png");
-					break;
-					
-				} case FramePrincipal.PAGAMENTO : {
-					
-					alterarIcone(label, "/pagamento_item.png");
-					break;
-					
-				}  case FramePrincipal.RECEBIMENTO : {
-					
-					alterarIcone(label, "/recebimento_item.png");
-					break;
-					
-				} case FramePrincipal.BALANCO : {
-					
-					alterarIcone(label, "/balanco_item.png");
-					break;
-					
-				} case FramePrincipal.REALIZAR_VENDA : {
-					
-					alterarIcone(label, "/realizar_venda_item.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_A_VISTA : {
-					
-					alterarIcone(label, "/listar_a_vista_item.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_DUPLICATA : {
-					
-					alterarIcone(label, "/listar_duplicata_item.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS : {
-					
-					alterarIcone(label, "/listar_vendas_item.png");
-					break;
-					
-				}
-			}
+		} else if(nome.equals(FramePrincipal.CADASTRAR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/cadastrar.png");
+			
+		} else if(nome.equals(FramePrincipal.LISTAR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/listar.png");
+			
+		} else if(nome.equals(FramePrincipal.RELATORIOS)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/relatorios.png");
+			
+		} else if(nome.equals(FramePrincipal.ESTOQUE)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/estoque.png");
+			
+		} else if(nome.equals(FramePrincipal.VENDAS)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/vendas.png");
+			
+		} else if(nome.equals(FramePrincipal.SAIR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/sair.png");			
 		}
+	}
 
-		@Override
-		public void mouseExited(MouseEvent e) {
+	@Override
+	public void menuPressionado(MenuLateral menuLateral) {
+		
+		String nome = menuLateral.getNome();
+		
+		if(nome.equals(FramePrincipal.HOME)){
 			
-			JLabel label = (JLabel) e.getSource();
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/home_press.png");
+			home();
 			
-			switch(menu){
-				case FramePrincipal.CLIENTE : {
-					
-					alterarIcone(label, "/cliente.png");
-					break;
-					
-				} case FramePrincipal.TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora.png");
-					break;
-					
-				} case FramePrincipal.FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor.png");
-					break;
-					
-				} case FramePrincipal.PRODUTO : {
-					
-					alterarIcone(label, "/produto.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_CLIENTE : {
-					
-					alterarIcone(label, "/cliente.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_PRODUTO : {
-					
-					alterarIcone(label, "/produto.png");
-					break;
-					
-				} case FramePrincipal.PAGAMENTO : {
-					
-					alterarIcone(label, "/pagamento.png");
-					break;
-					
-				}  case FramePrincipal.RECEBIMENTO : {
-					
-					alterarIcone(label, "/recebimento.png");
-					break;
-					
-				} case FramePrincipal.BALANCO : {
-					
-					alterarIcone(label, "/balanco.png");
-					break;
-					
-				} case FramePrincipal.REALIZAR_VENDA : {
-					
-					alterarIcone(label, "/realizar_venda.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_A_VISTA : {
-					
-					alterarIcone(label, "/listar_a_vista.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_DUPLICATA : {
-					
-					alterarIcone(label, "/listar_duplicata.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS : {
-					
-					alterarIcone(label, "/listar_vendas.png");
-					break;
-				}
-			}
+		} else if(nome.equals(FramePrincipal.ESTOQUE)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/estoque_press.png");
+			estoque();
+			
+		} else if(nome.equals(FramePrincipal.SAIR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/sair_press.png");
+			sair();
 		}
+	}
 
-		@Override
-		public void mousePressed(MouseEvent e) { 
+	@Override
+	public void menuLiberado(MenuLateral menuLateral) {
+		
+		String nome = menuLateral.getNome();
+		
+		if(nome.equals(FramePrincipal.HOME)){
 			
-			JLabel label = (JLabel) e.getSource();
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/home_item.png");
 			
-			switch(menu){
-				case FramePrincipal.CLIENTE : {
-					
-					alterarIcone(label, "/cliente_press.png");
-					break;
-					
-				} case FramePrincipal.TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora_press.png");
-					break;
-					
-				} case FramePrincipal.FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor_press.png");
-					break;
-					
-				} case FramePrincipal.PRODUTO : {
-					
-					alterarIcone(label, "/produto_press.png");
-					break;
-					
-				}  case FramePrincipal.LISTAR_CLIENTE : {
-					
-					alterarIcone(label, "/cliente_press.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora_press.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor_press.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_PRODUTO : {
-					
-					alterarIcone(label, "/produto_press.png");
-					break;
-					
-				} case FramePrincipal.PAGAMENTO : {
-					
-					alterarIcone(label, "/pagamento_press.png");
-					break;
-					
-				}  case FramePrincipal.RECEBIMENTO : {
-					
-					alterarIcone(label, "/recebimento_press.png");
-					break;
-					
-				} case FramePrincipal.BALANCO : {
-					
-					alterarIcone(label, "/balanco_press.png");
-					break;
-					
-				} case FramePrincipal.REALIZAR_VENDA : {
-					
-					alterarIcone(label, "/realizar_venda_press.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_A_VISTA : {
-					
-					alterarIcone(label, "/listar_a_vista_press.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_DUPLICATA : {
-					
-					alterarIcone(label, "/listar_duplicata_press.png");
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS : {
-					
-					alterarIcone(label, "/listar_vendas_press.png");
-					break;
-				}
-			}
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
+		} else if(nome.equals(FramePrincipal.ESTOQUE)){
 			
-			JLabel label = (JLabel) e.getSource();
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/estoque_item.png");
 			
-			switch(menu){
-				case FramePrincipal.CLIENTE : {
-					
-					alterarIcone(label, "/cliente_item.png");
-					cliente(CADASTRO_CLIENTE);
-					break;
-					
-				} case FramePrincipal.TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora_item.png");
-					transportadora(CADASTRO_TRANSPORTADORA);
-					break;
-					
-				} case FramePrincipal.FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor_item.png");
-					fornecedor(CADASTRO_FORNECEDOR);
-					break;
-					
-				} case FramePrincipal.PRODUTO : {
-					
-					alterarIcone(label, "/produto_item.png");
-					produto(CADASTRO_PRODUTO);
-					break;
-					
-				} case FramePrincipal.LISTAR_CLIENTE : {
-					
-					alterarIcone(label, "/cliente_item.png");
-					listarCliente(LISTAR_CLIENTE);
-					break;
-					
-				} case FramePrincipal.LISTAR_TRANSPORTADORA : {
-					
-					alterarIcone(label, "/transportadora_item.png");
-					listarTransportadora(LISTAR_TRANSPORTADORA);
-					break;
-					
-				} case FramePrincipal.LISTAR_FORNECEDOR : {
-					
-					alterarIcone(label, "/fornecedor_item.png");
-					listarFornecedor(LISTAR_FORNECEDOR);
-					break;
-					
-				} case FramePrincipal.LISTAR_PRODUTO : {
-					
-					alterarIcone(label, "/produto_item.png");
-					listarProduto(LISTAR_PRODUTO);
-					break;
-					
-				}case FramePrincipal.PAGAMENTO : {
-					
-					alterarIcone(label, "/pagamento_item.png");
-					pagamento();
-					break;
-					
-				}  case FramePrincipal.RECEBIMENTO : {
-					
-					alterarIcone(label, "/recebimento_item.png");
-					recebimento();
-					break;
-					
-				} case FramePrincipal.BALANCO : {
-					
-					alterarIcone(label, "/balanco_item.png");
-					balanco();
-					break;
-					
-				} case FramePrincipal.REALIZAR_VENDA : {
-					
-					alterarIcone(label, "/realizar_venda_item.png");
-					realizarVenda();
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_A_VISTA : {
-					
-					alterarIcone(label, "/listar_a_vista_item.png");
-					listarVendasAVista();
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS_DUPLICATA : {
-					
-					alterarIcone(label, "/listar_duplicata_item.png");
-					listarVendasComDuplicata();
-					break;
-					
-				} case FramePrincipal.LISTAR_VENDAS : {
-					
-					alterarIcone(label, "/listar_vendas_item.png");
-					listarTodasVendas();
-					break;
-				}
-			}
-			menuLateral.dispose();
-		}
+		} else if(nome.equals(FramePrincipal.SAIR)){
+			
+			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/sair_item.png");			
+		}		
 	}
 }

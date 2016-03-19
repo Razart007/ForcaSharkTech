@@ -20,9 +20,11 @@ import controllers.ListarTransportadoraController;
 import entidades.Endereco;
 import entidades.Transportadora;
 import interfaces.AbstractListarController;
-import interfaces.AbstractTabelaCrud;
+import interfaces.AbstractTableCrud;
 
-public class FrameListarTransportadora {
+public class FrameListarTransportadora extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	
 	public static final int DOCUMENTO = 0;
 	public static final int INSCRICAO_ESTADUAL = 1;
@@ -34,7 +36,6 @@ public class FrameListarTransportadora {
 	private static final String[] COLUNAS = new String[]{"Documento", "Inscrição Estadual", "Nome", "Endereço", "Editar", "Excluir"};
 
 	private ArrayList<Transportadora> transportadoras;
-	private JPanel panel;
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;
 	private JScrollPane scrTabela;
@@ -44,7 +45,6 @@ public class FrameListarTransportadora {
 	public FrameListarTransportadora(String titulo) {
 		
 		this.transportadoras = new ArrayList<Transportadora>();
-		this.panel = new JPanel();
 		this.lblTitulo = new JLabel(titulo);
 		this.lblIconPesquisa = new JLabel(new ImageIcon(FramePrincipal.URL_IMAGENS + "/icon_pesquisar.png"));
 		this.txtPesquisa = new JTextField();
@@ -64,15 +64,15 @@ public class FrameListarTransportadora {
 		
 		scrTabela.setViewportView(tblCliente);
 		
-		panel.setBackground(Color.WHITE);
-		panel.add(scrTabela, BorderLayout.CENTER);
-		panel.setLayout(getLayout());
+		this.setBackground(Color.WHITE);
+		this.add(scrTabela, BorderLayout.CENTER);
+		this.setLayout(getPanelLayout());
 		
 	}
 	
-	private LayoutManager getLayout(){
+	private LayoutManager getPanelLayout(){
 		
-		GroupLayout layout = new GroupLayout(panel);
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -126,11 +126,11 @@ public class FrameListarTransportadora {
 		
 		colunaEdit.setMaxWidth(50);
 		colunaEdit.setMinWidth(35);
-		colunaEdit.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
+		colunaEdit.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
 		
 		colunaExcl.setMaxWidth(50);
 		colunaExcl.setMinWidth(35);
-		colunaExcl.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
+		colunaExcl.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
 	}
 	
 	private void iniciarEventos(){
@@ -154,11 +154,7 @@ public class FrameListarTransportadora {
 		}
 	}
 	
-	public JPanel getPanel() {
-		return panel;
-	}
-	
-	private class TabelaCrudTransportadora extends AbstractTabelaCrud<Transportadora>{
+	private class TabelaCrudTransportadora extends AbstractTableCrud<Transportadora>{
 
 		private static final long serialVersionUID = 1L;
 		
@@ -188,11 +184,11 @@ public class FrameListarTransportadora {
 					
 				} case EDITAR:{
 					
-					return AbstractTabelaCrud.ICON_EDITAR;
+					return AbstractTableCrud.ICON_EDITAR;
 					
 				} case EXCLUIR:{
 					
-					return AbstractTabelaCrud.ICON_EXCLUIR;
+					return AbstractTableCrud.ICON_EXCLUIR;
 				}
 			}
 			return null;

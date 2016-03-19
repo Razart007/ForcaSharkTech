@@ -5,11 +5,11 @@ import javax.swing.JTextField;
 
 import entidades.Transportadora;
 import interfaces.AbstractListarController;
-import interfaces.AbstractTabelaCrud;
+import interfaces.AbstractTableCrud;
 
 public class ListarTransportadoraController extends AbstractListarController <Transportadora>{
 	
-	public ListarTransportadoraController(JTextField text, JTable tabela, AbstractTabelaCrud<Transportadora> modelo) {
+	public ListarTransportadoraController(JTextField text, JTable tabela, AbstractTableCrud<Transportadora> modelo) {
 		super(text, tabela, modelo);
 	}
 }

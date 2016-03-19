@@ -17,12 +17,15 @@ import controllers.CadastroFornecedorController;
 import controllers.CadastroTransportadoraController;
 import interfaces.AbstractCadastroController;
 
-public class FrameCadastroFornecedor {
+public class FrameCadastroFornecedor extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
+	
 	public static final String[] UF = new String []{" - ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", 
 			"MA", "MT", "MS", "MG", "PA", "PB", "PR", "PR", "PI", "RJ", "RN", "RO", "RS", "RR", "RS", "SP", "SE", "TO"};
 	public static final String[] TIPO_DOCUMENTO = new String[]{" - - ", "CPF", "CNPJ"};
 		
-	private JPanel panel, pnlEndereco;
+	private JPanel pnlEndereco;
 	
 	private JLabel lbTitulo, lbNome, lbTipoDocumento, lbDocumento, lbInscricaoEstadual, lbLogradouro, 
 		lbNumero, lbComplemento, lbBairro, lbCep, lbPais, lbUf, lbMunicipio, lbEmail, lbTelefone;
@@ -36,7 +39,6 @@ public class FrameCadastroFornecedor {
 
 	public FrameCadastroFornecedor(String titulo) {
 		
-		panel = new JPanel();
 		pnlEndereco = new JPanel();
 		
 		lbTitulo = new JLabel (titulo);
@@ -80,14 +82,10 @@ public class FrameCadastroFornecedor {
 		iniciarEventos();
 	}
 	
-	public JPanel getPanel(){
-		return this.panel;
-	}
-	
 	private void iniciarComponentes(){
 
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(gePanelLayout());
+		this.setBackground(Color.WHITE);
+		this.setLayout(gePanelLayout());
 		
 		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
@@ -132,7 +130,7 @@ public class FrameCadastroFornecedor {
 		pnlBotoes.setBackground(Color.WHITE);
 		pnlBotoes.setLayout(getLayoutPnlBotoes(pnlBotoes));
 		
-		GroupLayout layout = new GroupLayout(panel);
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
 	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -15,12 +15,14 @@ import javax.swing.LayoutStyle;
 import controllers.CadastroClienteController;
 import interfaces.AbstractCadastroController;
 
-public class FrameCadastroCliente {
+public class FrameCadastroCliente extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+	
 	private static final String[] IMPOSTOS = new String[]{"Simples", "- - -"};
 	private static final String[] ESTADOS = new String []{"SE", "BA"};
 
-	private JPanel panel, panelBotoes;	
+	private JPanel panelBotoes;	
 	private JLabel lbTitulo, lbNomeFantasia, lbEmail, lbTelefone, lbRua, lbNumero,
 				lbBairro,lbCidade, lbEstado, lbCep, lbCpfCnpj, lbNInscricao, lbTipoImposto;
 	private JButton btCadastrar, btLimpar, btCancelar;
@@ -30,7 +32,6 @@ public class FrameCadastroCliente {
 	
 	public FrameCadastroCliente(String titulo) {
 
-		panel = new JPanel();
 		panelBotoes = new JPanel();
 		lbTitulo = new JLabel(titulo);
 		
@@ -69,14 +70,10 @@ public class FrameCadastroCliente {
 		configurarEventos();
 	}
 	
-	public JPanel getPanel(){
-		return panel;
-	}
-	
 	private void configurarComponentes(){
 		
-		panel.setLayout(getLayout());
-		panel.setBackground(Color.WHITE);
+		this.setLayout(getLayoutPanel());
+		this.setBackground(Color.WHITE);
 		
 		panelBotoes.setLayout(getLayoutPnlBotoes());
 		panelBotoes.setBackground(Color.WHITE);
@@ -87,9 +84,9 @@ public class FrameCadastroCliente {
 		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 	}
 	
-	private LayoutManager getLayout(){
+	private LayoutManager getLayoutPanel(){
 		
-		GroupLayout layout = new GroupLayout(panel);
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
 	        layout.createParallelGroup(GroupLayout.Alignment.LEADING)

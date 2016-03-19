@@ -19,9 +19,11 @@ import javax.swing.table.TableColumn;
 import controllers.ListarProdutoController;
 import entidades.Produto;
 import interfaces.AbstractListarController;
-import interfaces.AbstractTabelaCrud;
+import interfaces.AbstractTableCrud;
 
-public class FrameListarProduto {
+public class FrameListarProduto extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	
 	public static final int CODIGO = 0;
 	public static final int DESCRICAO = 1;
@@ -32,7 +34,6 @@ public class FrameListarProduto {
 
 	private static final String[] COLUNAS = new String[]{"Código", "Descrição", "Valor (R$)", "Quantidade", "Editar", "Excluir"};
 	
-	private JPanel panel;
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;
 	private JScrollPane scrTabela;
@@ -42,7 +43,6 @@ public class FrameListarProduto {
 	
 	public FrameListarProduto(String titulo){
 		
-		this.panel = new JPanel();
 		this.lblTitulo = new JLabel(titulo);
 		this.lblIconPesquisa = new JLabel(new ImageIcon(FramePrincipal.URL_IMAGENS + "/icon_pesquisar.png"));
 		this.txtPesquisa = new JTextField();
@@ -58,24 +58,20 @@ public class FrameListarProduto {
 		
 	}
 	
-	public JPanel getPanel() {
-		return this.panel;
-	}
-	
 	private void iniciarComponentes(){
 
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		scrTabela.setViewportView(tblCliente);
 		
-		panel.setBackground(Color.WHITE);
-		panel.add(scrTabela, BorderLayout.CENTER);
-		panel.setLayout(getLayout());	
+		this.setBackground(Color.WHITE);
+		this.add(scrTabela, BorderLayout.CENTER);
+		this.setLayout(getPanelLayout());	
 	}
 	
-	private LayoutManager getLayout(){
+	private LayoutManager getPanelLayout(){
 		
-		GroupLayout layout = new GroupLayout(panel);
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -129,11 +125,11 @@ public class FrameListarProduto {
 		
 		colunaEdit.setMaxWidth(50);
 		colunaEdit.setMinWidth(35);
-		colunaEdit.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
+		colunaEdit.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
 		
 		colunaExcl.setMaxWidth(50);
 		colunaExcl.setMinWidth(35);
-		colunaExcl.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
+		colunaExcl.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
 	}
 	
 	private void iniciarEventos(){
@@ -156,7 +152,7 @@ public class FrameListarProduto {
 	}
 	
 	
-	private class TabelaCrudProduto extends AbstractTabelaCrud<Produto>{
+	private class TabelaCrudProduto extends AbstractTableCrud<Produto>{
 
 		private static final long serialVersionUID = 1L;
 
@@ -187,11 +183,11 @@ public class FrameListarProduto {
 					
 				} case EDITAR:{
 					
-					return AbstractTabelaCrud.ICON_EDITAR;
+					return AbstractTableCrud.ICON_EDITAR;
 					
 				} case EXCLUIR:{
 					
-					return AbstractTabelaCrud.ICON_EXCLUIR;
+					return AbstractTableCrud.ICON_EXCLUIR;
 				}
 			}
 			return null;

@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
+public abstract class AbstractTableCrud <E> extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -16,7 +16,7 @@ public abstract class AbstractTabelaCrud <E> extends AbstractTableModel{
 	private ArrayList<E> elementos;
 	private String[] colunas;
 	
-	public AbstractTabelaCrud(String [] colunas, ArrayList<E> elementos) {
+	public AbstractTableCrud(String [] colunas, ArrayList<E> elementos) {
 		
 		this.colunas = colunas;
 		this.elementos = elementos;

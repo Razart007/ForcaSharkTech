@@ -20,9 +20,11 @@ import controllers.ListarClienteController;
 import entidades.Cliente;
 import entidades.Endereco;
 import interfaces.AbstractListarController;
-import interfaces.AbstractTabelaCrud;
+import interfaces.AbstractTableCrud;
 
-public class FrameListarCliente {
+public class FrameListarCliente extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	
 	public static final int DOCUMENTO = 0;
 	public static final int NOME = 1;
@@ -33,7 +35,6 @@ public class FrameListarCliente {
 
 	private static final String[] COLUNAS = new String[]{"Documento", "Nome", "Endereço", "Telefone", "Editar", "Excluir"};
 	
-	private JPanel panel;
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;
 	private JScrollPane scrTabela;
@@ -43,7 +44,6 @@ public class FrameListarCliente {
 	
 	public FrameListarCliente(String titulo){
 		
-		this.panel = new JPanel();
 		this.lblTitulo = new JLabel(titulo);
 		this.lblIconPesquisa = new JLabel(new ImageIcon(FramePrincipal.URL_IMAGENS + "/icon_pesquisar.png"));
 		this.txtPesquisa = new JTextField();
@@ -59,25 +59,20 @@ public class FrameListarCliente {
 		
 	}
 	
-	public JPanel getPanel() {
-		return this.panel;
-	}
-	
 	private void iniciarComponentes(){
 
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		scrTabela.setViewportView(tblCliente);
 		
-		panel.setBackground(Color.WHITE);
-		panel.add(scrTabela, BorderLayout.CENTER);
-		panel.setLayout(getLayout());
-		
+		this.setBackground(Color.WHITE);
+		this.add(scrTabela, BorderLayout.CENTER);
+		this.setLayout(getPanelLayout());
 	}
 	
-	private LayoutManager getLayout(){
+	private LayoutManager getPanelLayout(){
 		
-		GroupLayout layout = new GroupLayout(panel);
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
 	            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -131,11 +126,11 @@ public class FrameListarCliente {
 		
 		colunaEdit.setMaxWidth(50);
 		colunaEdit.setMinWidth(35);
-		colunaEdit.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
+		colunaEdit.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
 		
 		colunaExcl.setMaxWidth(50);
 		colunaExcl.setMinWidth(35);
-		colunaExcl.setCellRenderer(AbstractTabelaCrud.getIconCellRenderer());
+		colunaExcl.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
 	}
 	
 	private void iniciarEventos(){
@@ -157,7 +152,7 @@ public class FrameListarCliente {
 		}
 	}
 	
-	private class TabelaCrudCliente extends AbstractTabelaCrud<Cliente>{
+	private class TabelaCrudCliente extends AbstractTableCrud<Cliente>{
 
 		private static final long serialVersionUID = 1L;
 
@@ -186,11 +181,11 @@ public class FrameListarCliente {
 					
 				} case EDITAR:{
 					
-					return AbstractTabelaCrud.ICON_EDITAR;
+					return AbstractTableCrud.ICON_EDITAR;
 					
 				} case EXCLUIR:{
 					
-					return AbstractTabelaCrud.ICON_EXCLUIR;
+					return AbstractTableCrud.ICON_EXCLUIR;
 				}
 			}
 			return null;

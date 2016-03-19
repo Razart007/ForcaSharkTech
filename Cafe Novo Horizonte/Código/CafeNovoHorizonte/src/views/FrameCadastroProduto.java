@@ -13,9 +13,11 @@ import javax.swing.JTextField;
 import controllers.CadastroProdutoController;
 import interfaces.AbstractCadastroController;
 
-public class FrameCadastroProduto {
-
-	private JPanel panel, panelBotoes;
+public class FrameCadastroProduto extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel panelBotoes;
 	private JLabel lbTitulo, lbCodigo, lbDescricao, lbQuant, lbEan, lbEanUnidTrib, lbExIpi, 
 			lbGenero, lbNcm, lbQntTrib, lbUnidCom, lbUnidTrib,  lbValorUnidCom,  lbValorUnidTrib;
 	
@@ -25,7 +27,6 @@ public class FrameCadastroProduto {
 
 	public FrameCadastroProduto(String titulo) {
 		
-		panel = new JPanel();
 		panelBotoes = new JPanel();
 		
 		lbTitulo = new JLabel(titulo);
@@ -67,8 +68,8 @@ public class FrameCadastroProduto {
 	
 	private void configurarCompomentes(){
 		
-		panel.setBackground(Color.white);
-		panel.setLayout(getLayoutPrincipal());
+		this.setBackground(Color.white);
+		this.setLayout(getLayoutPrincipal());
 		
 		panelBotoes.setBackground(Color.white);
 		panelBotoes.setLayout(getLayoutPnlBotoes());
@@ -78,7 +79,7 @@ public class FrameCadastroProduto {
 	
 	public GroupLayout getLayoutPrincipal(){
 		
-		GroupLayout layout = new GroupLayout(panel);
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,8 +221,4 @@ public class FrameCadastroProduto {
 		btLimpar.addActionListener(controller.getActionListener(AbstractCadastroController.LIMPAR));
 		btCancelar.addActionListener(controller.getActionListener(AbstractCadastroController.CANCELAR));
 	}
-	
-	public JPanel getPanel() {
-		return panel;
-	}	
 }

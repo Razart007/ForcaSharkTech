@@ -58,7 +58,7 @@ public abstract class AbstractCadastroController {
 		
 		if (result == JOptionPane.YES_OPTION){
 
-			FramePrincipal.setPanel(new FrameHome().getPanel());
+			FramePrincipal.setPanel(new FrameHome());
 		}	
 	}
 	

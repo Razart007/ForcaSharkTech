@@ -17,11 +17,11 @@ public abstract class AbstractListarController<E> {
 	public static final int PESQUISAR = 0;
 
 	private JTable tabela;
-	private AbstractTabelaCrud<E> modelo;
+	private AbstractTableCrud<E> modelo;
 	private JTextField text;
 		
 	public AbstractListarController(JTextField text, 
-			JTable tabela, AbstractTabelaCrud<E> modelo) {
+			JTable tabela, AbstractTableCrud<E> modelo) {
 		super();
 		this.tabela = tabela;
 		this.modelo = modelo;
@@ -45,7 +45,7 @@ public abstract class AbstractListarController<E> {
 	}
 	
 	public ArrayList<E> pesquisar(JTextField text, JTable tabela, 
-			AbstractTabelaCrud<E> modelo){
+			AbstractTableCrud<E> modelo){
 		
 		resetarTextField(text);
 		

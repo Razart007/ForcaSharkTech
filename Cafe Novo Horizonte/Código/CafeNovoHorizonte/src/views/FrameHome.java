@@ -10,34 +10,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class FrameHome {
+public class FrameHome extends JPanel{
 
-	private JPanel panel;
+	private static final long serialVersionUID = 1L;
+	
 	private JLabel lblImagem; 
 	private ImageIcon iconLogo;
 	
 	public FrameHome() {
-		
-		panel = new JPanel();		
+				
 		iconLogo = new ImageIcon(FramePrincipal.URL_IMAGENS + "/logo.png");
 		lblImagem = new JLabel(iconLogo, SwingConstants.RIGHT);
 	
 		configurarComponentes();		
 	}
 
-	public JPanel getPanel() {
-		return this.panel;
-	}
-
 	private void configurarComponentes() {
 		
-		panel.setBackground(Color.WHITE);
-		panel.setMinimumSize(new Dimension(840, 510));
-		panel.setLayout(getLayout());
+		this.setBackground(Color.WHITE);
+		this.setMinimumSize(new Dimension(840, 510));
+		this.setLayout(getPanelLayout());
 	}
 
-	private LayoutManager getLayout() {
-		GroupLayout layout = new GroupLayout(panel);
+	private LayoutManager getPanelLayout() {
+		GroupLayout layout = new GroupLayout(this);
 		
 		layout.setHorizontalGroup(
 				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
