@@ -60,7 +60,7 @@ public class FramePrincipal{
 	public static final String REALIZAR_VENDA = "Realizar venda";
 	public static final String LISTAR_VENDAS_A_VISTA  = "Listar vendas à vista";
 	public static final String LISTAR_VENDAS_DUPLICATA  = "Listar vendas duplicata";
-	public static final String LISTAR_VENDAS = "Listar todas as vendas";
+	public static final String LIS_VENDAS = "Listar todas as vendas";
 	public static final String SAIR = "Sair";
 	
 	private static JFrame frame;
@@ -166,15 +166,15 @@ public class FramePrincipal{
 		listar.addMenuFlutuante(LIS_FORNECEDOR, new JLabel(new ImageIcon(URL_IMAGENS + "/fornecedor.png")));
 		listar.addMenuFlutuante(LIS_TRANSPORTADORA, new JLabel(new ImageIcon(URL_IMAGENS + "/transportadora.png")));
 		listar.addMenuFlutuante(LIS_PRODUTO, new JLabel(new ImageIcon(URL_IMAGENS + "/produto.png")));
+		listar.addMenuFlutuante(LIS_VENDAS, new JLabel(new ImageIcon(URL_IMAGENS + "/lis_vendas.png")));
 		
 		relatorios.addMenuFlutuante(PAGAMENTO, new JLabel(new ImageIcon(URL_IMAGENS + "/pagamento.png")));
 		relatorios.addMenuFlutuante(RECEBIMENTO, new JLabel(new ImageIcon(URL_IMAGENS + "/recebimento.png")));
 		relatorios.addMenuFlutuante(BALANCO, new JLabel(new ImageIcon(URL_IMAGENS + "/balanco.png")));
 		
-		vendas.addMenuFlutuante(REALIZAR_VENDA, new JLabel(new ImageIcon(URL_IMAGENS + "/realizar_venda.png")));
+//		vendas.addMenuFlutuante(REALIZAR_VENDA, new JLabel(new ImageIcon(URL_IMAGENS + "/realizar_venda.png")));
 		vendas.addMenuFlutuante(LISTAR_VENDAS_A_VISTA, new JLabel(new ImageIcon(URL_IMAGENS + "/listar_a_vista.png")));
 		vendas.addMenuFlutuante(LISTAR_VENDAS_DUPLICATA, new JLabel(new ImageIcon(URL_IMAGENS + "/listar_duplicata.png")));
-		vendas.addMenuFlutuante(LISTAR_VENDAS, new JLabel(new ImageIcon(URL_IMAGENS + "/listar_vendas.png")));
 		
         pnlMenuLateral.addMenuLateral(home);
         pnlMenuLateral.addMenuLateral(cadastrar);

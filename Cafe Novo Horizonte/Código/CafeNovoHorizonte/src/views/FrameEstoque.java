@@ -16,57 +16,56 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.table.TableColumn;
 
-import controllers.ListarProdutoController;
 import entidades.Produto;
-import interfaces.AbstractListarController;
 import interfaces.AbstractTableCrud;
 
-public class FrameListarProduto extends JPanel{
-	
+public class FrameEstoque extends JPanel {
 	private static final long serialVersionUID = 1L;
-	
-	public static final int CODIGO = 0;
-	public static final int DESCRICAO = 1;
-	public static final int VALOR_UNITARIO = 2;
-	public static final int QUANTIDADE = 3;
-	public static final int EDITAR = 4;
-	public static final int EXCLUIR = 5;
 
-	private static final String[] COLUNAS = new String[]{"Código", "Descrição", "Valor (R$)", "Quantidade", "Editar", "Excluir"};
-	
+	public static final String FILTRAR = "Filtrar";
+
+	private static final int CODIGO = 0;
+	private static final int DESCRICAO = 1;
+	private static final int QUANTIDADE = 2;
+	private static final int VALOR_UNIT = 3;
+	private static final int VALOR_SUB = 4;
+
+	private static final String[] COLUNAS = new String[] { "Codigo", "Descricao", "Quantidade", 
+			"Valor unitário (R$)", "Subtotal (R$)" };
+
 	private JLabel lblTitulo, lblIconPesquisa;
-	private JTextField txtPesquisa;
+	private TableModelProduto tblModelProduto;
+	private ArrayList<Produto> produtos;
+	private JTable tblProduto;
 	private JScrollPane scrTabela;
-	private JTable tblCliente;
-	private TabelaCrudProduto modeloTabelaCrud;
-	private ArrayList<Produto> clientes;
+	private JTextField txtPesquisa;
 	
-	public FrameListarProduto(String titulo){
-		
+	public FrameEstoque(String titulo) {
+
 		this.lblTitulo = new JLabel(titulo);
 		this.lblIconPesquisa = new JLabel(new ImageIcon(FramePrincipal.URL_IMAGENS + "/icon_pesquisar.png"));
+
 		this.txtPesquisa = new JTextField();
-		this.clientes = new ArrayList<Produto>();
-		this.modeloTabelaCrud = new TabelaCrudProduto(COLUNAS, clientes);
 		this.scrTabela = new JScrollPane();
-		this.tblCliente = new JTable(modeloTabelaCrud);
+		this.tblProduto = new JTable();
+		this.produtos = new ArrayList<Produto>();
+		this.tblModelProduto = new TableModelProduto(COLUNAS, produtos);
 		
 		iniciarComponentes();
 		iniciarTabela();
 		iniciarEventos();
-		preencherTabela();
-		
 	}
 	
 	private void iniciarComponentes(){
 
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
-		scrTabela.setViewportView(tblCliente);
+		scrTabela.setViewportView(tblProduto);
+		tblProduto.setModel(tblModelProduto);
 		
 		this.setBackground(Color.WHITE);
 		this.add(scrTabela, BorderLayout.CENTER);
-		this.setLayout(getPanelLayout());	
+		this.setLayout(getPanelLayout());
 	}
 	
 	private LayoutManager getPanelLayout(){
@@ -99,7 +98,8 @@ public class FrameListarProduto extends JPanel{
                     .addComponent(txtPesquisa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblIconPesquisa))
                 .addGap(17, 17, 17)
-                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
+                .addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addContainerGap())
         );
         
         return layout;
@@ -107,110 +107,103 @@ public class FrameListarProduto extends JPanel{
 	
 	private void iniciarTabela(){
 		
-		tblCliente.setAutoCreateRowSorter(true);  
-	    tblCliente.setRowHeight(35);
-		tblCliente.setModel(modeloTabelaCrud);
+		tblProduto.setAutoCreateRowSorter(true);  
+	    tblProduto.setRowHeight(35);
 		
-		TableColumn colunaCod = tblCliente.getColumnModel().getColumn(CODIGO);
-		TableColumn colunaDesc = tblCliente.getColumnModel().getColumn(DESCRICAO);
-		TableColumn colunaVal = tblCliente.getColumnModel().getColumn(VALOR_UNITARIO);
-		TableColumn colunaQuant = tblCliente.getColumnModel().getColumn(QUANTIDADE);
-		TableColumn colunaEdit = tblCliente.getColumnModel().getColumn(EDITAR);
-		TableColumn colunaExcl = tblCliente.getColumnModel().getColumn(EXCLUIR);
+		TableColumn colunaDoc = tblProduto.getColumnModel().getColumn(CODIGO);
+		TableColumn colunaDes = tblProduto.getColumnModel().getColumn(DESCRICAO);
+		TableColumn colunaQuant = tblProduto.getColumnModel().getColumn(QUANTIDADE);
+		TableColumn colunaValUni = tblProduto.getColumnModel().getColumn(VALOR_UNIT);
+		TableColumn colunaValSub = tblProduto.getColumnModel().getColumn(VALOR_SUB);
 		
-		colunaCod.setPreferredWidth(20);
-		colunaDesc.setPreferredWidth(300);
-		colunaVal.setPreferredWidth(20);
+		colunaDoc.setPreferredWidth(15);
+		colunaDes.setPreferredWidth(300);
 		colunaQuant.setPreferredWidth(20);
+		colunaValUni.setPreferredWidth(20);
+		colunaValSub.setPreferredWidth(20);
 		
-		colunaEdit.setMaxWidth(50);
-		colunaEdit.setMinWidth(35);
-		colunaEdit.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
-		
-		colunaExcl.setMaxWidth(50);
-		colunaExcl.setMinWidth(35);
-		colunaExcl.setCellRenderer(AbstractTableCrud.getIconCellRenderer());
-	}
-	
-	private void iniciarEventos(){
-		
-		ListarProdutoController controller = new ListarProdutoController(txtPesquisa, tblCliente, modeloTabelaCrud);
-		
-		txtPesquisa.addKeyListener(controller.getKeyListener(AbstractListarController.PESQUISAR));
-		lblIconPesquisa.addMouseListener(controller.getMouseListener(AbstractListarController.PESQUISAR));
-		tblCliente.addMouseListener(controller.getMouseListener());
+		preencherTabela();
 	}
 	
 	private void preencherTabela(){
 	
-		for (int i = 1; i <= 10; i++){
+			for (int i = 1; i <= 10; i++){
 			
 			//TODO: Alterar o método para buscar os clientes do banco e salvar num ArrayList();
 			Produto p = new Produto(i, i * 100, "Prduto# " + i, i, "Genero# " + i, -1, -1, -1, -1, -1, -1, -1, -1, i * 10);
-			modeloTabelaCrud.salvar(p);	
+			tblModelProduto.salvar(p);	
 		}
 	}
 	
+	private void iniciarEventos(){
+		
+//		ListarClienteController controller = new ListarClienteController(txtPesquisa, tblCliente, modeloTabelaCrud);
+//		
+//		txtPesquisa.addKeyListener(controller.getKeyListener(AbstractListarController.PESQUISAR));
+//		lblIconPesquisa.addMouseListener(controller.getMouseListener(AbstractListarController.PESQUISAR));
+//		tblCliente.addMouseListener(controller.getMouseListener());
+	}
 	
-	private class TabelaCrudProduto extends AbstractTableCrud<Produto>{
+	
+
+	
+	private class TableModelProduto extends AbstractTableCrud<Produto>{
 
 		private static final long serialVersionUID = 1L;
 
-		public TabelaCrudProduto(String[] colunas, ArrayList<Produto> elementos) {
+		public TableModelProduto(String[] colunas, ArrayList<Produto> elementos) {
 			super(colunas, elementos);
 		}
 
 		@Override
 		public Object getCampo(Produto p, int coluna) {
-			
-			
+
 			switch(coluna){
-				case CODIGO:{
-					
-					return p.getCodigo();
-					
-				} case DESCRICAO:{
-					
-					return p.getDescricao();
-					
-				} case VALOR_UNITARIO:{
-					
-					return p.getValorUnit();
-					
-				} case QUANTIDADE:{
-					
-					return p.getQuant();
-					
-				} case EDITAR:{
-					
-					return AbstractTableCrud.ICON_EDITAR;
-					
-				} case EXCLUIR:{
-					
-					return AbstractTableCrud.ICON_EXCLUIR;
-				}
+			case CODIGO:
+				
+				return p.getCodigo();
+				
+			case DESCRICAO:
+				
+				return p.getDescricao();
+				
+			case QUANTIDADE:
+				
+				return p.getQuant();
+				
+			case VALOR_UNIT:
+				
+				return p.getValorUnit();
+				
+			case VALOR_SUB:
+				
+				return p.getValorUnit() * p.getQuant();
 			}
 			return null;
 		}
 
 		@Override
 		public void setCampo(Produto p, Object valor, int coluna) {
+			
 			switch(coluna){
 			case CODIGO:
 				
-				p.getCodigo();
-				break;	
+				p.setCodigo((int) valor);
+				break;
+				
 			case DESCRICAO:
 				
-				p.getDescricao();
+				p.setDescricao((String) valor);
 				break;
-			case VALOR_UNITARIO:
 				
-				p.getValorUnit();
-				break;	
 			case QUANTIDADE:
 				
-				p.getQuant();
+				p.setQuant((int) valor);
+				break;
+				
+			case VALOR_UNIT:
+				
+				p.setValorUnit((float) valor);
 				break;
 			}
 		}
@@ -221,17 +214,24 @@ public class FrameListarProduto extends JPanel{
 			case CODIGO:
 				
 				return Integer.class;
+				
 			case DESCRICAO:
 				
 				return String.class;
-			case VALOR_UNITARIO:
 				
-				return Float.class;
 			case QUANTIDADE:
 				
 				return Integer.class;
+				
+			case VALOR_UNIT:
+				
+				return Float.class;
+				
+			case VALOR_SUB:
+				
+				return Float.class;
 			}
-			return super.getColumnClass(coluna);
+			return null;
 		}
-	}
-}	
+	}	
+}

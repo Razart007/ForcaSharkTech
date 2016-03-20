@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.table.TableColumn;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -57,16 +58,16 @@ public class FrameRelatorioPagamento extends JPanel{
 		this.panelCampos = new JPanel();
 		this.lblTitulo = new JLabel(titulo);
 		this.cmbFiltro = new JComboBox<String>(FILTRO);
-		this.pagamentos = new ArrayList<Pagamento>();
-		this.tblModelPagamento = new TableModelPagamento(COLUNAS, pagamentos);
-		this.tblPagamento = new JTable(tblModelPagamento);
-		this.scrTabela = new JScrollPane();
 		this.txtNome = new JTextField();
 		this.lblAntes = new JLabel("Entre");
 		this.lblDepois = new JLabel("e");
 		this.dateAntes = new JDateChooser();
 		this.dateDepois = new JDateChooser(Date.from(Instant.now()));
 		this.btnFiltro = new JButton(FILTRAR);
+		this.pagamentos = new ArrayList<Pagamento>();
+		this.tblModelPagamento = new TableModelPagamento(COLUNAS, pagamentos);
+		this.tblPagamento = new JTable(tblModelPagamento);
+		this.scrTabela = new JScrollPane();
 		
 		iniciarComponentes();
 		iniciarTabela();
@@ -90,7 +91,6 @@ public class FrameRelatorioPagamento extends JPanel{
 		
 		panelCampos.setLayout(getLayoutCampos());
 		panelCampos.setBackground(Color.WHITE);
-		panelCampos.setSize(500,50);
 		
 		this.setBackground(Color.WHITE);
 		this.setLayout(getPanelLayout());
@@ -149,7 +149,7 @@ public class FrameRelatorioPagamento extends JPanel{
                 .addComponent(btnFiltro)
                 .addGap(0, 78, Short.MAX_VALUE))
         );
-	layout.setVerticalGroup(
+		layout.setVerticalGroup(
 			layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -173,10 +173,15 @@ public class FrameRelatorioPagamento extends JPanel{
 		tblPagamento.setAutoCreateRowSorter(true);  
 		tblPagamento.setRowHeight(35);
 		
-//		TableColumn colunaQuem = tblPagamento.getColumnModel().getColumn(QUEM);
-//		TableColumn colunaOQue = tblPagamento.getColumnModel().getColumn(O_QUE);
-//		TableColumn colunaQuando = tblPagamento.getColumnModel().getColumn(QUANDO);
-//		TableColumn colunaQuanto = tblPagamento.getColumnModel().getColumn(QUANTO);
+		TableColumn colunaQuem = tblPagamento.getColumnModel().getColumn(QUEM);
+		TableColumn colunaOQue = tblPagamento.getColumnModel().getColumn(O_QUE);
+		TableColumn colunaQuando = tblPagamento.getColumnModel().getColumn(QUANDO);
+		TableColumn colunaQuanto = tblPagamento.getColumnModel().getColumn(QUANTO);
+		
+		colunaQuem.setPreferredWidth(250);
+		colunaOQue.setPreferredWidth(250);
+		colunaQuando.setPreferredWidth(50);
+		colunaQuanto.setPreferredWidth(20);
 		
 		preencherTabela();
 	}
@@ -238,21 +243,41 @@ public class FrameRelatorioPagamento extends JPanel{
 			case QUEM:
 				
 				p.setQuem((String) valor);
-				
+				break;
 			case O_QUE:
 				
 				p.setoQue((String) valor);
-				
+				break;
 			case QUANDO:
 				
 				p.setQuando((Date) valor);
-				
+				break;
 			case QUANTO:
 				
 				p.setQuanto((double) valor);
-			default:
-					
+				break;
 			}
+		}
+
+		@Override
+		public Class<?> getColumnClass(int coluna) {
+			
+			switch(coluna){
+			case QUEM:
+				
+				return String.class;
+			case O_QUE:
+				
+				return String.class;
+			case QUANDO:
+				
+				return String.class;
+				
+			case QUANTO:
+				
+				return Float.class;
+			}
+			return null;
 		}
 	}	
 }

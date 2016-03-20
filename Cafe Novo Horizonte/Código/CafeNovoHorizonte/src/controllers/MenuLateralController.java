@@ -8,12 +8,16 @@ import javax.swing.JPanel;
 
 import entidades.MenuLateral;
 import interfaces.MenuLateralListener;
+import views.FrameEstoque;
 import views.FrameHome;
 import views.FrameLogin;
 import views.FramePrincipal;
 
 public class MenuLateralController implements MenuLateralListener {
 
+	private final String HOME = "Café Novo Horizonte";
+	private final String ESTOQUE = "Verificar estoque";
+	
 	private JFrame frame;
 	
 	public MenuLateralController(JFrame frame) {
@@ -31,13 +35,12 @@ public class MenuLateralController implements MenuLateralListener {
 		frame.repaint();
 	}
 	
-	private void home(){
-		JPanel panel = new FrameHome();
-		atualizarTela(panel, "Café Novo Horizonte");
+	private void home(String titulo){
+		atualizarTela(new FrameHome(), titulo);
 	}
 
-	private void estoque() {
-		atualizarTela(null, "Verificar estoque");
+	private void estoque(String titulo) {
+		atualizarTela(new FrameEstoque(titulo), titulo);
 	}	
 	
 	private void sair() {
@@ -132,12 +135,12 @@ public class MenuLateralController implements MenuLateralListener {
 		if(nome.equals(FramePrincipal.HOME)){
 			
 			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/home_press.png");
-			home();
+			home(HOME);
 			
 		} else if(nome.equals(FramePrincipal.ESTOQUE)){
 			
 			FramePrincipal.alterarIcone(menuLateral.getLabel(), "/estoque_press.png");
-			estoque();
+			estoque(ESTOQUE);
 			
 		} else if(nome.equals(FramePrincipal.SAIR)){
 			

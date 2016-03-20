@@ -16,7 +16,9 @@ import views.FrameListarFornecedor;
 import views.FrameListarProduto;
 import views.FrameListarTransportadora;
 import views.FramePrincipal;
+import views.FrameRealizarVendaVista;
 import views.FrameRelatorioPagamento;
+import views.FrameRelatorioRecebimento;
 
 public class MenuFlutuanteController implements MenuFlutuanteListener {
 
@@ -29,6 +31,8 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 	private static final String LISTAR_FORNECEDOR = "Lista dos fornecedores cadastrados";
 	private static final String LISTAR_PRODUTO = "Lista dos produtos cadastrados";
 	private static final String RELATORIO_PAGAMENTO = "Relatório de pagamentos";
+	private static final String RELATORIO_RECBIMENTO = "Relatório de recebimentos";
+	private static final String VENDAS_A_VISTA = "Realizar venda à vista";
 	
 	private JFrame frame;
 
@@ -88,9 +92,21 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 		atualizarTela(panel, titulo);
 	}
 	
-	private void relatoriPagamento(String titulo){
+	private void relatorioPagamento(String titulo){
 		
 		JPanel panel = new FrameRelatorioPagamento(titulo);
+		atualizarTela(panel, titulo);
+	}
+	
+	private void relatorioRecebimento(String titulo){
+		
+		JPanel panel = new FrameRelatorioRecebimento(titulo);
+		atualizarTela(panel, titulo);
+	}
+	
+	private void vendaAVista(String titulo){
+		
+		JPanel panel = new FrameRealizarVendaVista(titulo);
 		atualizarTela(panel, titulo);
 	}
 
@@ -119,6 +135,10 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/produto_item.png");			
 			
+		} else if(nome.equals(FramePrincipal.LIS_VENDAS)){
+			
+			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/lis_vendas_item.png");
+			
 		} else if(nome.equals(FramePrincipal.PAGAMENTO)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/pagamento_item.png");
@@ -141,11 +161,7 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 			
 		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS_DUPLICATA)){
 			
-			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_duplicata_item.png");
-			
-		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS)){
-			
-			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_vendas_item.png");			
+			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_duplicata_item.png");	
 		}
 	}
 
@@ -174,6 +190,10 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/produto.png");			
 			
+		} else if(nome.equals(FramePrincipal.LIS_VENDAS)){
+			
+			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/lis_vendas.png");
+			
 		} else if(nome.equals(FramePrincipal.PAGAMENTO)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/pagamento.png");
@@ -196,11 +216,7 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 			
 		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS_DUPLICATA)){
 			
-			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_duplicata.png");
-			
-		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS)){
-			
-			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_vendas.png");			
+			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_duplicata.png");	
 		}
 	}
 
@@ -229,6 +245,10 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/produto_press.png");
 			
+		} else if(nome.equals(FramePrincipal.LIS_VENDAS)){
+			
+			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/lis_vendas_press.png");	
+			
 		} else if(nome.equals(FramePrincipal.PAGAMENTO)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/pagamento_press.png");
@@ -252,12 +272,7 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS_DUPLICATA)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_duplicata_press.png");
-			
-		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS)){
-			
-			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_vendas_press.png");			
 		}
-		
 	}
 
 	@Override
@@ -305,14 +320,19 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/produto.png");
 			listarProduto(LISTAR_PRODUTO);			
 			
+		} else if(nome.equals(FramePrincipal.LIS_VENDAS)){
+			
+			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/lis_vendas.png");
+			
 		} else if(nome.equals(FramePrincipal.PAGAMENTO)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/pagamento.png");
-			relatoriPagamento(RELATORIO_PAGAMENTO);
+			relatorioPagamento(RELATORIO_PAGAMENTO);
 			
 		} else if(nome.equals(FramePrincipal.RECEBIMENTO)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/recebimento.png");
+			relatorioRecebimento(RELATORIO_RECBIMENTO);
 			
 		} else if(nome.equals(FramePrincipal.BALANCO)){
 			
@@ -325,14 +345,12 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS_A_VISTA)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_a_vista.png");
+			vendaAVista(VENDAS_A_VISTA);
 			
 		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS_DUPLICATA)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_duplicata.png");
 			
-		} else if(nome.equals(FramePrincipal.LISTAR_VENDAS)){
-			
-			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/listar_vendas.png");			
 		}
 	}	
 }

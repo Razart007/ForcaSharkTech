@@ -23,8 +23,8 @@ public abstract class AbstractRelatorioController<E> {
 	
 	public static final int FILTRAR = 0;
 
-	private JTable tabela;
-	private AbstractTableCrud<E> modelo;
+//	private JTable tabela;
+//	private AbstractTableCrud<E> modelo;
 	private JComboBox<String> cmbFiltro;
 	private JTextField txtNome;
 	private JLabel lblAntes, lblDepois;
@@ -35,8 +35,8 @@ public abstract class AbstractRelatorioController<E> {
 			JComboBox<String> cmbFiltro, JTextField txtNome, JLabel lblAntes, JLabel lblDepois, 
 			JDateChooser dateAntes, JDateChooser dateDepois, JButton btnFiltro) {
 
-		this.tabela = tabela;
-		this.modelo = modelo;
+//		this.tabela = tabela;
+//		this.modelo = modelo;
 		this.cmbFiltro = cmbFiltro;
 		this.txtNome = txtNome;
 		this.lblAntes = lblAntes;
@@ -57,8 +57,11 @@ public abstract class AbstractRelatorioController<E> {
 	private void filtroAlterado(JComboBox<String> comboBox){
 		
 		String item = (String) comboBox.getSelectedItem();
+
+		System.out.println(item);
 		
 		if (item.equals(FILTRO)){
+			
 			
 			txtNome.setVisible(false);
 			lblAntes.setVisible(false);

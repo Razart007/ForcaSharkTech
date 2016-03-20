@@ -3,17 +3,16 @@ package entidades;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Pagamento {
-	
+public class Recebimento {
 	private String quem, oque;
 	private Date quando;
 	private double quanto;
 	
-	public Pagamento() {
+	public Recebimento() {
 		this("", "", null, -1);
 	}
 
-	public Pagamento(String quem, String oQue, Date quando, double quanto) {
+	public Recebimento(String quem, String oQue, Date quando, double quanto) {
 
 		this.quem = quem;
 		this.oque = oQue;
