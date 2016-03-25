@@ -16,22 +16,27 @@ import controllers.CadastroClienteController;
 import interfaces.AbstractCadastroController;
 
 public class FrameCadastroCliente extends JPanel {
-
+	
+	//Gambiarra do java para extender quqlquer coisa da biblioteca swing
 	private static final long serialVersionUID = 1L;
 	
+	//Tipos de impostos e estados definidos como final para utilizar nos JComboBox do frame
 	private static final String[] IMPOSTOS = new String[]{"Simples", "- - -"};
 	private static final String[] ESTADOS = new String []{"SE", "BA"};
 
+	//JPanel dos botões logo abaixo da tela
 	private JPanel panelBotoes;	
+	
 	private JLabel lbTitulo, lbNomeFantasia, lbEmail, lbTelefone, lbRua, lbNumero,
 				lbBairro,lbCidade, lbEstado, lbCep, lbCpfCnpj, lbNInscricao, lbTipoImposto;
 	private JButton btCadastrar, btLimpar, btCancelar;
 	private JTextField tfNomeFantasia, tfEmail, tfTelefone, tfRua, tfNumero, tfBairro, 
 					   tfCidade, tfCep, tfCpfCnpj, tfNInscricao;
 	private JComboBox<String> cbEstado, cbTipoImposto;
-	
-	public FrameCadastroCliente(String titulo) {
 
+	//Construtor da classe
+	public FrameCadastroCliente(String titulo) {
+		//Inicialização dos componentes
 		panelBotoes = new JPanel();
 		lbTitulo = new JLabel(titulo);
 		
@@ -70,6 +75,7 @@ public class FrameCadastroCliente extends JPanel {
 		configurarEventos();
 	}
 	
+	//Método de configuração dos componentes
 	private void configurarComponentes(){
 		
 		this.setLayout(getLayoutPanel());
@@ -84,6 +90,7 @@ public class FrameCadastroCliente extends JPanel {
 		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 	}
 	
+	//criação do layout manager de todo o frameCadastroCliente
 	private LayoutManager getLayoutPanel(){
 		
 		GroupLayout layout = new GroupLayout(this);
@@ -195,7 +202,8 @@ public class FrameCadastroCliente extends JPanel {
 		
 		return layout;
 	}
-	
+
+	//criação do layout manager de jpanel de botões
 	private LayoutManager getLayoutPnlBotoes(){
 		
 		GroupLayout pnlBotoesLayout = new GroupLayout(panelBotoes);
@@ -224,6 +232,7 @@ public class FrameCadastroCliente extends JPanel {
         return pnlBotoesLayout;
 	}
 	
+	//Método que cria a classe controller vinculada ao frame e adiciona as ações dos botões com este controller
 	private void configurarEventos(){
 		
 		CadastroClienteController controller = new CadastroClienteController(tfNomeFantasia, tfEmail, tfTelefone, 

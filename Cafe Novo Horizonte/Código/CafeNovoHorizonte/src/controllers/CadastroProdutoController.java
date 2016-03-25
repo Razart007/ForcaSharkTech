@@ -13,5 +13,11 @@ public class CadastroProdutoController extends AbstractCadastroController{
 		
 		super(txCodigo,  txDescricao, txQuant, txEan, txEanUnidTrib, txExIpi, txGenero, txNcm, 
 				txQntTrib, txUnidCom, txUnidTrib, txValorUnidCom, txValorUnidTrib);
+	}
+
+	@Override
+	protected void cadastrar() {
+		// TODO Auto-generated method stub
+		
 	}	
 }

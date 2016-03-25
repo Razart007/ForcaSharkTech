@@ -3,33 +3,30 @@ package entidades;
 public class Endereco {
 	
 	private int id;
-	private String logradouro;
-	private int numero;
-	private String complemento;
-	private String bairro;
-	private int cep;
-	private String pais;
-	private String uf;
-	private String municipio;
-	private int telefone;
+	private String logradouro, numero, bairro, cep, uf, municipio;
 	
 	public Endereco() { }
 	
-	public Endereco(int id, String logradouro, int numero, String complemento, String bairro, int cep, String pais,
-			String uf, String municipio, int telefone) {
-		
+	public Endereco(int id, String logradouro, String numero, String bairro, String cep, String uf, String municipio) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
-		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
-		this.pais = pais;
 		this.uf = uf;
 		this.municipio = municipio;
-		this.telefone = telefone;
 	}
 
+	public Endereco(String logradouro, String numero, String bairro, String cep, String uf, String municipio) {		
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cep = cep;
+		this.uf = uf;
+		this.municipio = municipio;
+	}
+
+	
 	public int getId() {
 		return id;
 	}
@@ -46,20 +43,12 @@ public class Endereco {
 		this.logradouro = logradouro;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
 	}
 
 	public String getBairro() {
@@ -70,20 +59,12 @@ public class Endereco {
 		this.bairro = bairro;
 	}
 
-	public int getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(int cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
 	}
 
 	public String getUf() {
@@ -100,24 +81,6 @@ public class Endereco {
 
 	public void setMunicipio(String municipio) {
 		this.municipio = municipio;
-	}
-
-	public int getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(int telefone) {
-		this.telefone = telefone;
-	}
-	
-	@Override
-	public String toString() {
-		
-		String endereco;
-		endereco = "Rua: " + logradouro + ", " + numero + ".";
-		endereco += "Bairro: " + bairro + ", " + municipio + " - " + uf + ".";
-		endereco += "CEP: " + cep + ".";
-		return endereco;
 	}
 }
 

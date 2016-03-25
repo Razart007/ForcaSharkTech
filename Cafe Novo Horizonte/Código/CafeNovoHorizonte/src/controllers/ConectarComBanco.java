@@ -2,13 +2,10 @@ package controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 
 public class ConectarComBanco {
 	
 	private Connection con;
-	private Connection oConn;
-	private Statement sStmt;
 		
 	public Connection abrirBDConn(){
 		try{

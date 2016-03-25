@@ -143,8 +143,8 @@ public class FrameListarCliente extends JPanel {
 
 			// TODO: Alterar o método para buscar os clientes do banco e salvar
 			// num ArrayList();
-			Cliente c = new Cliente(i, "CLIENTE #" + i, false, i * 100, "Tel #" + i, "Email #" + i, new Endereco(),
-					i * 10, false);
+			Cliente c = new Cliente(i, "CLIENTE #" + i, false, String.valueOf(i * 100), "Tel #" + i, "Email #" + i, new Endereco(),
+					String.valueOf(i * 10), false);
 			modeloTabelaCrud.salvar(c);
 		}
 	}
@@ -187,7 +187,7 @@ public class FrameListarCliente extends JPanel {
 			switch (coluna) {
 			case DOCUMENTO: 
 
-				c.setDocumento((int) valor);
+				c.setDocumento((String) valor);
 				break;
 			case NOME: 
 

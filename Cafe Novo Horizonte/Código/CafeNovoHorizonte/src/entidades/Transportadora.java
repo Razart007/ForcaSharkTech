@@ -81,10 +81,5 @@ public class Transportadora {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
-	@Override
-	public String toString() {		
-		return "Documento: " + documento + " Nome: " + nome + 
-				" Endereco: " + endereco;
-	}
+	
 }

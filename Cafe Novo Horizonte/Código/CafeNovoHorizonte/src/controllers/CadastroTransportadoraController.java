@@ -82,4 +82,10 @@ public class CadastroTransportadoraController extends AbstractCadastroController
 			}	
 		}		
 	}
+
+	@Override
+	protected void cadastrar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

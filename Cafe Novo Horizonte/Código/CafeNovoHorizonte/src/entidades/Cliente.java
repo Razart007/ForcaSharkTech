@@ -1,27 +1,44 @@
 package entidades;
 
 public class Cliente {
-	
+
 	private int id;
-	private String nome;
-	private boolean fisico;
-	private int documento; //CPF ou CNPJ
-	private String telefone;
-	private String email;
+	private String nome, documento, telefone, email, inscricaoEstadual, tipoImposto;
 	private Endereco endereco;
-	private int inscricaoEstadual;
-	private boolean isentoIcms;
-	
-	
-	public Cliente() {
-		this(-1, "", false, -1, "", "", new Endereco(), -1, false);
+	private boolean fisico, isentoIcms;
+
+
+	public String getTipoImposto() {
+		return tipoImposto;
 	}
 
 
-	public Cliente(int id, String nome, boolean fisico, int documento, String telefone, String email, Endereco endereco,
-			int inscricaoEstadual, boolean isentoIcms) {
-		
+	public void setTipoImposto(String tipoImposto) {
+		this.tipoImposto = tipoImposto;
+	}
+
+
+	public Cliente() {
+		this(-1, "", false, "-1", "", "", new Endereco(), "-1", false);
+	}
+
+
+	public Cliente(int id, String nome, boolean fisico, String documento, String telefone, String email, Endereco endereco,
+			String inscricaoEstadual, boolean isentoIcms) {
+
 		this.id = id;
+		this.nome = nome;
+		this.fisico = fisico;
+		this.documento = documento;
+		this.telefone = telefone;
+		this.email = email;
+		this.endereco = endereco;
+		this.inscricaoEstadual = inscricaoEstadual;
+		this.isentoIcms = isentoIcms;
+	}
+
+	public Cliente(String nome, boolean fisico, String documento, String telefone, String email, Endereco endereco,
+			String inscricaoEstadual, boolean isentoIcms) {		
 		this.nome = nome;
 		this.fisico = fisico;
 		this.documento = documento;
@@ -63,12 +80,12 @@ public class Cliente {
 	}
 
 
-	public Integer getDocumento() {
+	public String getDocumento() {
 		return documento;
 	}
 
 
-	public void setDocumento(int documento) {
+	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
 
@@ -103,12 +120,12 @@ public class Cliente {
 	}
 
 
-	public int getInscricaoEstadual() {
+	public String getInscricaoEstadual() {
 		return inscricaoEstadual;
 	}
 
 
-	public void setInscricaoEstadual(int inscricaoEstadual) {
+	public void setInscricaoEstadual(String inscricaoEstadual) {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
@@ -121,11 +138,10 @@ public class Cliente {
 	public void setIsentoIcms(boolean isentoIcms) {
 		this.isentoIcms = isentoIcms;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Documento: " + documento + ", Nome: " + nome + 
-				", Endereco: " + endereco + " Telefone: " + telefone;
+		return "Documento: " + documento + ", Nome: " + nome + ", Endereco: " + endereco ;
 	}
-	
+
 }

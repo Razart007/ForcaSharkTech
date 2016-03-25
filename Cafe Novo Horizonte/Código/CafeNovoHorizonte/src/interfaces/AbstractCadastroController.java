@@ -20,20 +20,20 @@ public abstract class AbstractCadastroController {
 	
 	private Container [] containers;
 	
+	//Construtor da classe recebendo um array de objetos que pode ser flexível tanto nos tipos de dados quanto na quantidade
 	public AbstractCadastroController(Container... containers) {
-		
 		this.containers = containers;
 	}
-	
+
+	//Método public para acessar as ações dos botões nos frames
 	public ActionListener getActionListener(int id){
 		return new AddActionListener(id);
 	}
 	
-	protected void cadastrar(){
-		JOptionPane.showMessageDialog(null, "btnCadastrar clickado", "cadastrar", 
-				JOptionPane.INFORMATION_MESSAGE);
-	}
+	//Método genérico para cadastrar, é necessário a reescrita do mesmo na classe filha
+	protected abstract void cadastrar();
 	
+	//Método genérico para limpar os campos
 	protected void limpar(){
 		
 		for(int i = 0; i < containers.length; i++){
@@ -51,7 +51,8 @@ public abstract class AbstractCadastroController {
 			}
 		}
 	}
-	
+
+	//Método genérico para cancelar o cadastro
 	protected void cancelar(){
 		int result = JOptionPane.showConfirmDialog(null, "Você realmente deseja cancelar esse cadastro?", 
 				"Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -62,6 +63,7 @@ public abstract class AbstractCadastroController {
 		}	
 	}
 	
+	//Métodos usados na ação LIMPAR
 	private void resetarTextField(JTextField textField){
 		textField.setText("");
 	}
@@ -74,6 +76,7 @@ public abstract class AbstractCadastroController {
 		checkBox.setSelected(false);
 	}
 	
+	//Classe privada que extende o ActionListener para adicionar as ações aos botões
 	private class AddActionListener implements ActionListener{
 		
 		private int id;

@@ -1,7 +1,6 @@
 package entidades;
 
-public class Produto {
-	
+public class Produto {	
 	private int id;
 	private int codigo;
 	private String descricao;
@@ -20,7 +19,7 @@ public class Produto {
 	public Produto() { 
 		this(-1, -1, "des", -1, "gen", -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	}
-
+	
 	public Produto(int id, int codigo, String descricao, int quant, String genero, 
 			int ncm, int ean, int eanUnidTrib, int exIpi, int unidCom, float valorUnidCom, 
 			int unidTrib, int quantUnidTrib, float valorUnit) {
@@ -42,7 +41,6 @@ public class Produto {
 		this.quantUnidTrib = quantUnidTrib;
 		this.valorUnit = valorUnit;
 	}
-
 	public int getId() {
 		return id;
 	}
@@ -159,5 +157,5 @@ public class Produto {
 	public String toString() {
 		return "Codigo: " + codigo + " Descricao: " +descricao +
 				" Valor: " + valorUnit + " Quantidade: " + quant;
-	}
+	}	
 }

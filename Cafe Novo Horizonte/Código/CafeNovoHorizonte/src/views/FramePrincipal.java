@@ -20,6 +20,7 @@ import javax.swing.UIManager;
 import controllers.MenuFlutuanteController;
 import controllers.MenuLateralController;
 import controllers.PrincipalController;
+import entidades.Configs;
 import entidades.MenuLateral;
 
 public class FramePrincipal{
@@ -176,6 +177,8 @@ public class FramePrincipal{
 		vendas.addMenuFlutuante(LISTAR_VENDAS_A_VISTA, new JLabel(new ImageIcon(URL_IMAGENS + "/listar_a_vista.png")));
 		vendas.addMenuFlutuante(LISTAR_VENDAS_DUPLICATA, new JLabel(new ImageIcon(URL_IMAGENS + "/listar_duplicata.png")));
 		
+		//pnlMenuLateral.setPosicaoRelativa(Configs.ACIMA);
+		//pnlMenuLateral.setOrientacao(Configs.HORIZONTAL);
         pnlMenuLateral.addMenuLateral(home);
         pnlMenuLateral.addMenuLateral(cadastrar);
         pnlMenuLateral.addMenuLateral(listar);
