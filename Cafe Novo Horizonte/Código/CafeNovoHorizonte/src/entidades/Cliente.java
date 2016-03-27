@@ -23,8 +23,8 @@ public class Cliente {
 	}
 
 
-	public Cliente(int id, String nome, boolean fisico, String documento, String telefone, String email, Endereco endereco,
-			String inscricaoEstadual, boolean isentoIcms) {
+	public Cliente(int id, String nome, boolean fisico, String documento, String telefone, String email,
+			Endereco endereco, String inscricaoEstadual, boolean isentoIcms) {
 
 		this.id = id;
 		this.nome = nome;

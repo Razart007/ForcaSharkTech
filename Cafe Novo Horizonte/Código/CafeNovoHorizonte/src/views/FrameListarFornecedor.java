@@ -34,7 +34,7 @@ public class FrameListarFornecedor extends JPanel {
 	public static final int EXCLUIR = 5;
 
 	private static final String[] COLUNAS = new String[] { "Documento", "Ins Estadual","Nome", 
-			"Endereço", "Editar", "Excluir" };
+			"Endereço", AbstractTableCrud.COL_EDITAR, AbstractTableCrud.COL_EXCLUIR };
 
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;

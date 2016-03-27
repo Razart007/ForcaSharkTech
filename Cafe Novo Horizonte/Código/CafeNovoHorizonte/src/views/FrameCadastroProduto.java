@@ -2,48 +2,25 @@ package views;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.LayoutManager;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 
 import controllers.CadastroProdutoController;
 import interfaces.AbstractCadastroController;
+import net.miginfocom.swing.MigLayout;
 
 public class FrameCadastroProduto extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
-	private JPanel pnlBotoes;
-	private JLabel lbTitulo, lbCodigo, lbDescricao, lbQuant, lbEan, lbEanUnidTrib, lbExIpi, lbGenero, lbNcm, lbQntTrib,
-			lbUnidCom, lbUnidTrib, lbValorUnidCom, lbValorUnidTrib;
 
 	private JTextField tfCodigo, tfDescricao, tfQuant, tfEan, tfEanUnidTrib, tfExIpi, tfGenero, tfNcm, tfQntTrib,
 			tfUnidCom, tfUnidTrib, tfValorUnidCom, tfValorUnidTrib;
 	private JButton btCadastrar, btCancelar, btLimpar;
 
 	public FrameCadastroProduto(String titulo) {
-
-		pnlBotoes = new JPanel();
-
-		lbTitulo = new JLabel(titulo);
-		lbCodigo = new JLabel("Codigo:");
-		lbDescricao = new JLabel("Descricao:");
-		lbQuant = new JLabel("Quantidade:");
-		lbEan = new JLabel("EAN:");
-		lbEanUnidTrib = new JLabel("EAN Unid. Trib.:");
-		lbExIpi = new JLabel("EX IPI:");
-		lbGenero = new JLabel("Genero:");
-		lbNcm = new JLabel("NCM:");
-		lbQntTrib = new JLabel("Quant. Trib.:");
-		lbUnidCom = new JLabel("Unid. Comp.:");
-		lbUnidTrib = new JLabel("Unid. Trib.:");
-		lbValorUnidCom = new JLabel("Valor Unid. Com.:");
-		lbValorUnidTrib = new JLabel("Valor Unid. Trb.:");
 
 		tfCodigo = new JTextField();
 		tfDescricao = new JTextField();
@@ -63,149 +40,92 @@ public class FrameCadastroProduto extends JPanel {
 		btLimpar = new JButton(FramePrincipal.BTN_LIMPAR);
 		btCancelar = new JButton(FramePrincipal.BTN_CANCELAR);
 
-		configurarEventos();
 		configurarCompomentes();
+		configurarLayout(titulo);
+		configurarEventos();
 	}
 
 	private void configurarCompomentes() {
 
+		this.setBackground(Color.white);
+	}
+
+	public void configurarLayout(String titulo) {
+
+		setLayout(new MigLayout("", "[grow]", "[100px:n][][grow][40px:n][5px:n]"));
+
+		JPanel pnlProduto = new JPanel();
+		JPanel pnlBotoes = new JPanel();
+		JLabel lbTitulo = new JLabel(titulo);
+		JLabel lbCodigo = new JLabel("Codigo:");
+		JLabel lbDescricao = new JLabel("Descricao:");
+		JLabel lbQuant = new JLabel("Quantidade:");
+		JLabel lbEan = new JLabel("EAN:");
+		JLabel lbEanUnidTrib = new JLabel("EAN Unid. Trib.:");
+		JLabel lbExIpi = new JLabel("EX IPI:");
+		JLabel lbGenero = new JLabel("Genero:");
+		JLabel lbNcm = new JLabel("NCM:");
+		JLabel lbQntTrib = new JLabel("Quant. Trib.:");
+		JLabel lbUnidCom = new JLabel("Unid. Comp.:");
+		JLabel lbUnidTrib = new JLabel("Unid. Trib.:");
+		JLabel lbValorUnidCom = new JLabel("Valor Unid. Com.:");
+		JLabel lbValorUnidTrib = new JLabel("Valor Unid. Trb.:");
+
 		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 
-		pnlBotoes.setBackground(Color.white);
-		pnlBotoes.setLayout(getLayoutPnlBotoes());
+		add(lbTitulo, "cell 0 0");
+		add(pnlProduto, "cell 0 1,grow");
+		add(pnlBotoes, "cell 0 3,grow");
 
-		this.setBackground(Color.white);
-		this.setLayout(getLayoutPrincipal());
-	}
+		pnlProduto.setLayout(new MigLayout("", "[5px:n][][100px:n][15px:n][][100px:n][15px:n][][100px:n][grow][5px:n]",
+				"[5px:n][40px:n][40px:n][40px:n][40px:n][40px:n][5px:n]"));
 
-	public GroupLayout getLayoutPrincipal() {
+		pnlProduto.add(lbDescricao, "cell 1 1,alignx trailing");
+		pnlProduto.add(tfDescricao, "cell 2 1 8 1,grow");
+		pnlProduto.add(lbCodigo, "cell 1 2");
+		pnlProduto.add(tfCodigo, "cell 2 2,grow");
+		pnlProduto.add(lbQuant, "cell 4 2");
+		pnlProduto.add(tfQuant, "cell 5 2,grow");
+		pnlProduto.add(lbGenero, "cell 7 2");
+		pnlProduto.add(tfGenero, "cell 8 2 2 1,grow");
+		pnlProduto.add(lbEan, "cell 1 3");
+		pnlProduto.add(tfEan, "cell 2 3,grow");
+		pnlProduto.add(lbEanUnidTrib, "cell 4 3");
+		pnlProduto.add(tfEanUnidTrib, "cell 5 3,grow");
+		pnlProduto.add(lbExIpi, "cell 7 3");
+		pnlProduto.add(tfExIpi, "cell 8 3,grow");
+		pnlProduto.add(lbNcm, "cell 1 4");
+		pnlProduto.add(tfNcm, "cell 2 4,grow");
+		pnlProduto.add(lbUnidCom, "cell 4 4");
+		pnlProduto.add(tfUnidCom, "cell 5 4,grow");
+		pnlProduto.add(lbValorUnidCom, "cell 7 4");
+		pnlProduto.add(tfValorUnidCom, "cell 8 4,grow");
+		pnlProduto.add(lbUnidTrib, "cell 1 5");
+		pnlProduto.add(tfUnidTrib, "cell 2 5,grow");
+		pnlProduto.add(lbQntTrib, "cell 4 5");
+		pnlProduto.add(tfQntTrib, "cell 5 5,grow");
+		pnlProduto.add(lbValorUnidTrib, "cell 7 5");
+		pnlProduto.add(tfValorUnidTrib, "cell 8 5,grow");
 
-		GroupLayout layout = new GroupLayout(this);
+		tfDescricao.setColumns(10);
+		tfCodigo.setColumns(10);
+		tfQuant.setColumns(10);
+		tfGenero.setColumns(10);
+		tfEan.setColumns(10);
+		tfEanUnidTrib.setColumns(10);
+		tfExIpi.setColumns(10);
+		tfNcm.setColumns(10);
+		tfUnidCom.setColumns(10);
+		tfValorUnidCom.setColumns(10);
+		tfUnidTrib.setColumns(10);
+		tfUnidTrib.setColumns(10);
+		tfValorUnidTrib.setColumns(10);
 
-		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addContainerGap()
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(pnlBotoes, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(layout.createSequentialGroup().addComponent(lbTitulo).addGap(0, 0, Short.MAX_VALUE))
-						.addGroup(
-								layout.createSequentialGroup()
-										.addGroup(layout.createParallelGroup(
-												GroupLayout.Alignment.LEADING).addComponent(lbDescricao)
-										.addComponent(lbCodigo).addComponent(lbEan).addComponent(lbNcm)
-										.addComponent(lbUnidTrib))
-								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addGroup(layout.createSequentialGroup().addGroup(layout
-												.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-												.addComponent(tfNcm, GroupLayout.Alignment.LEADING,
-														GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-												.addComponent(tfCodigo, GroupLayout.Alignment.LEADING)
-												.addComponent(tfEan, GroupLayout.Alignment.LEADING)
-												.addComponent(tfUnidTrib))
-												.addGap(18, 18, 18)
-												.addGroup(layout
-														.createParallelGroup(GroupLayout.Alignment.LEADING)
-														.addComponent(lbQntTrib).addComponent(lbEanUnidTrib)
-														.addComponent(lbQuant).addComponent(lbUnidCom))
-												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-												.addGroup(layout
-														.createParallelGroup(GroupLayout.Alignment.LEADING,
-																false)
-														.addComponent(tfQuant, GroupLayout.DEFAULT_SIZE, 86,
-																Short.MAX_VALUE)
-														.addComponent(tfEanUnidTrib).addComponent(tfUnidCom)
-														.addComponent(tfQntTrib))
-												.addGap(18, 18, 18)
-												.addGroup(layout
-														.createParallelGroup(GroupLayout.Alignment.LEADING)
-														.addComponent(lbValorUnidTrib).addComponent(lbGenero)
-														.addComponent(lbExIpi).addComponent(lbValorUnidCom))
-												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-												.addGroup(layout
-														.createParallelGroup(GroupLayout.Alignment.LEADING,
-																false)
-														.addComponent(tfGenero, GroupLayout.DEFAULT_SIZE,
-																92, Short.MAX_VALUE)
-														.addComponent(tfExIpi).addComponent(tfValorUnidCom)
-														.addComponent(tfValorUnidTrib))
-												.addGap(0, 0, Short.MAX_VALUE))
-										.addComponent(tfDescricao))))
-						.addContainerGap()));
-		
-		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-				GroupLayout.Alignment.TRAILING,
-				layout.createSequentialGroup().addGap(30, 30, 30).addComponent(lbTitulo).addGap(30, 30, 30)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(tfDescricao, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbDescricao))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(tfCodigo, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbQuant).addComponent(lbCodigo)
-								.addComponent(tfQuant, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbGenero).addComponent(tfGenero, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(tfEan, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbEan, GroupLayout.PREFERRED_SIZE, 14,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfEanUnidTrib, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbEanUnidTrib)
-								.addComponent(tfExIpi, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbExIpi))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(tfNcm, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbNcm)
-								.addComponent(tfUnidCom, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbUnidCom)
-								.addComponent(tfValorUnidCom, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbValorUnidCom))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(tfUnidTrib, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfQntTrib, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfValorUnidTrib, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbUnidTrib, GroupLayout.PREFERRED_SIZE, 14,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lbQntTrib).addComponent(lbValorUnidTrib))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
-						.addComponent(pnlBotoes, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap()));
-
-		return layout;
-	}
-
-	private LayoutManager getLayoutPnlBotoes() {
-
-		GroupLayout pnlBotoesLayout = new GroupLayout(pnlBotoes);
-
-		pnlBotoesLayout.setHorizontalGroup(pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(pnlBotoesLayout.createSequentialGroup().addGap(200, 200, 200).addComponent(btCadastrar)
-						.addGap(18, 18, 18).addComponent(btLimpar).addGap(18, 18, 18).addComponent(btCancelar)
-						.addContainerGap(142, Short.MAX_VALUE)));
-		pnlBotoesLayout.setVerticalGroup(pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-				GroupLayout.Alignment.TRAILING,
-				pnlBotoesLayout.createSequentialGroup().addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(pnlBotoesLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(btCadastrar).addComponent(btLimpar).addComponent(btCancelar))
-						.addContainerGap()));
-		return pnlBotoesLayout;
+		pnlBotoes.setLayout(new MigLayout("", "[grow][][][][grow]", "[40px:n]"));
+		pnlBotoes.add(btCadastrar, "cell 1 0,growy");
+		pnlBotoes.add(btLimpar, "cell 2 0,growy");
+		;
+		pnlBotoes.add(btCancelar, "cell 3 0,growy");
 	}
 
 	private void configurarEventos() {

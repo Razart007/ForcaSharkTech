@@ -15,6 +15,7 @@ import views.FrameListarCliente;
 import views.FrameListarFornecedor;
 import views.FrameListarProduto;
 import views.FrameListarTransportadora;
+import views.FrameListarVenda;
 import views.FramePrincipal;
 import views.FrameRealizarVendaVista;
 import views.FrameRelatorioPagamento;
@@ -30,6 +31,7 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 	private static final String LISTAR_TRANSPORTADORA = "Lista das transportadoras cadastradas";
 	private static final String LISTAR_FORNECEDOR = "Lista dos fornecedores cadastrados";
 	private static final String LISTAR_PRODUTO = "Lista dos produtos cadastrados";
+	private static final String LISTAR_VENDA = "Lista das vendas realizadas";
 	private static final String RELATORIO_PAGAMENTO = "Relatório de pagamentos";
 	private static final String RELATORIO_RECBIMENTO = "Relatório de recebimentos";
 	private static final String VENDAS_A_VISTA = "Realizar venda à vista";
@@ -89,6 +91,12 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 	private void listarProduto(String titulo){
 
 		JPanel panel = new FrameListarProduto(titulo);
+		atualizarTela(panel, titulo);
+	}
+	
+	private void listarVenda(String titulo){
+
+		JPanel panel = new FrameListarVenda(titulo);
 		atualizarTela(panel, titulo);
 	}
 	
@@ -323,6 +331,7 @@ public class MenuFlutuanteController implements MenuFlutuanteListener {
 		} else if(nome.equals(FramePrincipal.LIS_VENDAS)){
 			
 			FramePrincipal.alterarIcone(menuFlutuante.getLabel(), "/lis_vendas.png");
+			listarVenda(LISTAR_VENDA);		
 			
 		} else if(nome.equals(FramePrincipal.PAGAMENTO)){
 			

@@ -26,15 +26,15 @@ public class FrameListarCliente extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int DOCUMENTO = 0;
-	public static final int NOME = 1;
-	public static final int ENDERECO = 2;
-	public static final int TELEFONE = 3;
-	public static final int EDITAR = 4;
-	public static final int EXCLUIR = 5;
+	private static final int DOCUMENTO = 0;
+	private static final int NOME = 1;
+	private static final int ENDERECO = 2;
+	private static final int TELEFONE = 3;
+	private static final int EDITAR = 4;
+	private static final int EXCLUIR = 5;
 
-	private static final String[] COLUNAS = new String[] { "Documento", "Nome", "Endereço", "Telefone", "Editar",
-			"Excluir" };
+	private static final String[] COLUNAS = new String[] { "Documento", "Nome", "Endereço", "Telefone", 
+			AbstractTableCrud.COL_EDITAR, AbstractTableCrud.COL_EXCLUIR};
 
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;

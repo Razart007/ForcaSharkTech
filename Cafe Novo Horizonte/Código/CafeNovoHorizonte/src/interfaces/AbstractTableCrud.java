@@ -9,7 +9,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 public abstract class AbstractTableCrud <E> extends AbstractTableModel{
 
 	private static final long serialVersionUID = 1L;
-	
+
+	public static final String COL_DETALHES = "Detalhes"; 
+	public static final String COL_EDITAR = "Editar";
+	public static final String COL_EXCLUIR = "Excluir";
+
+	public static final ImageIcon ICON_DETALHES = new ImageIcon("Imagens/icon_detalhe.png");
 	public static final ImageIcon ICON_EDITAR = new ImageIcon("Imagens/icon_editar.png");
 	public static final ImageIcon ICON_EXCLUIR = new ImageIcon("Imagens/icon_remover.png");
 	

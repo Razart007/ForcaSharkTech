@@ -1,12 +1,13 @@
 package entidades;
 
 public class Endereco {
-	
+
 	private int id;
 	private String logradouro, numero, bairro, cep, uf, municipio;
-	
-	public Endereco() { }
-	
+
+	public Endereco() {
+	}
+
 	public Endereco(int id, String logradouro, String numero, String bairro, String cep, String uf, String municipio) {
 		this.id = id;
 		this.logradouro = logradouro;
@@ -17,7 +18,7 @@ public class Endereco {
 		this.municipio = municipio;
 	}
 
-	public Endereco(String logradouro, String numero, String bairro, String cep, String uf, String municipio) {		
+	public Endereco(String logradouro, String numero, String bairro, String cep, String uf, String municipio) {
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.bairro = bairro;
@@ -26,7 +27,6 @@ public class Endereco {
 		this.municipio = municipio;
 	}
 
-	
 	public int getId() {
 		return id;
 	}
@@ -82,5 +82,14 @@ public class Endereco {
 	public void setMunicipio(String municipio) {
 		this.municipio = municipio;
 	}
-}
 
+	@Override
+	public String toString() {
+
+		String endereco;
+		endereco = "Rua: " + logradouro + ", " + numero + ".";
+		endereco += "Bairro: " + bairro + ", " + municipio + " - " + uf + ".";
+		endereco += "CEP: " + cep + ".";
+		return endereco;
+	}
+}

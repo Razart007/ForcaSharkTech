@@ -32,7 +32,8 @@ public class FrameListarProduto extends JPanel{
 	public static final int EDITAR = 4;
 	public static final int EXCLUIR = 5;
 
-	private static final String[] COLUNAS = new String[]{"Código", "Descrição", "Valor (R$)", "Quantidade", "Editar", "Excluir"};
+	private static final String[] COLUNAS = new String[]{"Código", "Descrição", "Valor (R$)", "Quantidade", 
+			AbstractTableCrud.COL_EDITAR, AbstractTableCrud.COL_EXCLUIR};
 	
 	private JLabel lblTitulo, lblIconPesquisa;
 	private JTextField txtPesquisa;

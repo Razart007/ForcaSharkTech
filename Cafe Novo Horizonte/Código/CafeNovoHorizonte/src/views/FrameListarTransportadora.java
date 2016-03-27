@@ -34,7 +34,7 @@ public class FrameListarTransportadora extends JPanel {
 	public static final int EXCLUIR = 5;
 
 	private static final String[] COLUNAS = new String[] { "Documento", "Inscrição Estadual", "Nome", "Endereço",
-			"Editar", "Excluir" };
+			AbstractTableCrud.COL_EDITAR, AbstractTableCrud.COL_EXCLUIR };
 
 	private ArrayList<Transportadora> transportadoras;
 	private JLabel lblTitulo, lblIconPesquisa;
