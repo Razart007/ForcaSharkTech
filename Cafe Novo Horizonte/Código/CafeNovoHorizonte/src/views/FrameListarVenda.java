@@ -16,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 
-import controllers.ListarFornecedorController;
 import controllers.ListarVendaController;
 import entidades.Cliente;
 import entidades.Endereco;
@@ -63,28 +62,29 @@ public class FrameListarVenda extends JPanel {
 	
 	private void configurarComponentes(){
 		
-		tblVenda.setAutoCreateRowSorter(true);
-		tblVenda.setRowHeight(35);
-		
 		this.setBackground(Color.WHITE);
 	}
 	
 	private void configurarLayout(String titulo){
 		
-		setLayout(new MigLayout("", "[300px:n][grow]", "[100px:n][][grow]"));
+		setLayout(new MigLayout("", "[300px:n][grow][5px:n]", "[100px:n][][10px:n][grow]"));
 		
 		JLabel lbTitulo = new JLabel(titulo);
-		JScrollPane scpTabela = new JScrollPane();
+		JScrollPane scrTabela = new JScrollPane();
+//		JPanel pnlTabela = new JPanel();
 		
 		lbTitulo.setFont(new Font("Trebuchet Ms", Font.PLAIN, 16));
-		scpTabela.setViewportView(tblVenda);
+		scrTabela.setViewportView(tblVenda);
 		
 		add(lbTitulo, "cell 0 0");
 		add(tfPesquisa, "cell 0 1,growx");
 		add(lbPesquisar, "cell 1 1");
-		add(scpTabela, "cell 0 3 2 1,grow");
+		add(scrTabela, "cell 0 3 2 1,grow");
 		
 		tfPesquisa.setColumns(10);
+		
+
+		
 	}
 	
 	private void configurarEventos(){
@@ -97,6 +97,9 @@ public class FrameListarVenda extends JPanel {
 	}
 	
 	private void configurarTabela(){
+		
+		tblVenda.setAutoCreateRowSorter(true);
+		tblVenda.setRowHeight(35);
 		
 		TableColumn colunaCod = tblVenda.getColumnModel().getColumn(CODIGO);
 		TableColumn colunaCli = tblVenda.getColumnModel().getColumn(CLIENTE);
@@ -124,7 +127,7 @@ public class FrameListarVenda extends JPanel {
 
 		ArrayList<Produto> produtos = new ArrayList<>();
 		
-		for (int i = 1; i <= 10; i++){
+		for (int i = 1; i <= 5; i++){
 			
 			//TODO: Alterar o método para buscar os clientes do banco e salvar num ArrayList();
 			Produto p = new Produto(i, i * 100, "Prduto# " + i, i, "Genero# " + i, -1, -1, -1, -1, -1, -1, -1, -1, i * 10);
@@ -132,7 +135,7 @@ public class FrameListarVenda extends JPanel {
 		}
 		
 		
-		for (int i = 1; i <= 10; i++) {
+		for (int i = 1; i <= 100; i++) {
 
 			// TODO: Alterar o método para buscar os clientes do banco e salvar
 			// num ArrayList();

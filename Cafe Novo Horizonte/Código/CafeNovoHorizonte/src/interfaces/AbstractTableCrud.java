@@ -100,6 +100,10 @@ public abstract class AbstractTableCrud <E> extends AbstractTableModel{
 		return e;
 	}
 	
+	public ArrayList<E> buscarTodos(){
+		return elementos;
+	}
+	
 	
 	
 	private static class IconCellRenderer extends DefaultTableCellRenderer  {  

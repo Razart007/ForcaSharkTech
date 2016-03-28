@@ -19,7 +19,7 @@ public class Cliente {
 
 
 	public Cliente() {
-		this(-1, "", false, "-1", "", "", new Endereco(), "-1", false);
+		this(-1, "nome", false, "-1", "", "", new Endereco(), "-1", false);
 	}
 
 

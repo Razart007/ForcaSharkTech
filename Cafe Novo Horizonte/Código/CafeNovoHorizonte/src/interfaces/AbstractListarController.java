@@ -73,13 +73,13 @@ public abstract class AbstractListarController<E> {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
+			if (id == PESQUISAR && e.getKeyCode() == KeyEvent.VK_ENTER) {
+				pesquisar(text, tabela, modelo);
+			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (id == PESQUISAR && e.getKeyCode() == KeyEvent.VK_ENTER) {
-				pesquisar(text, tabela, modelo);
-			}
 		}
 
 		@Override

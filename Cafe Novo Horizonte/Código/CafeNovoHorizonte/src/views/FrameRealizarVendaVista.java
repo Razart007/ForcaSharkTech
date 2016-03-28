@@ -1,14 +1,11 @@
 package views;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.LayoutManager;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,11 +15,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 import javax.swing.table.TableColumn;
 
+import controllers.RealizarVendaVistaController;
+import entidades.Cliente;
 import entidades.Produto;
 import interfaces.AbstractTableCrud;
+import interfaces.AbstractVendaController;
+import net.miginfocom.swing.MigLayout;
 
 public class FrameRealizarVendaVista extends JPanel {
 
@@ -39,233 +39,147 @@ public class FrameRealizarVendaVista extends JPanel {
 
 	private static final String[] COLUNAS = new String[] { "Codigo", "Descricção", "Genero", "Valor", "Quantidade",
 			"Subtotal" };
-	private static final Integer[] FILTRO_COD = new Integer[] { 0, 1, 2 };
-	private static final String[] FILTRO_DESC = new String[] { "Nome do produto", "Produto #1", "Produto #2" };
 
-	private JPanel panelCampos, panelBotoes;
-	private JLabel lblTitulo;
 	private ArrayList<Produto> produtos;
-	private TableModelVendasVista tblModelVendasVista;
+	private TableModelVendasVista modelTabela;
 	private JTable tblVendas;
-	private JScrollPane scrTabela;
-	private ButtonGroup rbtnGroup;
-	private JRadioButton rbtnCodigo, rbtnDescricao;
-	private JComboBox<Integer> cmbCodigo;
-	private JComboBox<String> cmbDescricao;
-	private JLabel lblCodigo, lblDescricao, lblQuant, lblValor, lblGenero;
+	private JRadioButton rdbCodCli, rdbDescCli, rdbCodPro, rdbDescPro;
+	private JComboBox<Cliente> cmbCliente;
+	private JComboBox<Produto> cmbProduto;
 	private JSpinner spnQuant;
-	private JTextField txfCodigo, txfDescricao, txfValor, txfGenero;
+	private JTextField tfCliente, tfProduto, tfValorUnit, tfGenero;
 	private JButton btnCancelar, btnFinalizar, btnAdicionar;
 
 	public FrameRealizarVendaVista(String titulo) {
 
-		this.panelCampos = new JPanel();
-		this.panelBotoes = new JPanel();
-		this.lblTitulo = new JLabel(titulo);
-		this.rbtnGroup = new ButtonGroup();
-		this.rbtnCodigo = new JRadioButton("Codigo");
-		this.rbtnDescricao = new JRadioButton("Descricao");
-		this.cmbCodigo = new JComboBox<Integer>(FILTRO_COD);
-		this.cmbDescricao = new JComboBox<String>(FILTRO_DESC);
-		this.lblCodigo = new JLabel("Codigo");
-		this.lblDescricao = new JLabel("Descricao");
-		this.lblQuant = new JLabel("Quantidade");
-		this.lblValor = new JLabel("Valor");
-		this.lblGenero = new JLabel("Genero");
+		this.produtos = new ArrayList<Produto>();
+		this.modelTabela = new TableModelVendasVista(COLUNAS, produtos);
+		this.tblVendas = new JTable(modelTabela);
+
+		this.rdbCodCli = new JRadioButton("Codigo:");
+		this.rdbDescCli = new JRadioButton("Nome:");
+		this.rdbCodPro = new JRadioButton("Codigo:");
+		this.rdbDescPro = new JRadioButton("Descrição:");
+
+		this.cmbCliente = new JComboBox<Cliente>();
+		this.cmbProduto = new JComboBox<Produto>();
+
+		this.tfCliente = new JTextField();
+		this.tfProduto = new JTextField();
+		this.tfValorUnit = new JTextField();
+		this.tfGenero = new JTextField();
+
 		this.spnQuant = new JSpinner();
-		this.txfCodigo = new JTextField();
-		this.txfDescricao = new JTextField();
-		this.txfValor = new JTextField();
-		this.txfGenero = new JTextField();
+
 		this.btnAdicionar = new JButton("+");
 		this.btnFinalizar = new JButton("Finalizar venda");
 		this.btnCancelar = new JButton("Cancelar");
-		this.produtos = new ArrayList<Produto>();
-		this.tblModelVendasVista = new TableModelVendasVista(COLUNAS, produtos);
-		this.tblVendas = new JTable(tblModelVendasVista);
-		this.scrTabela = new JScrollPane();
 
 		iniciarComponentes();
+		iniciarLayout(titulo);
 		iniciarTabela();
 		iniciarEventos();
 	}
 
 	private void iniciarComponentes() {
 
-		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-
-		cmbCodigo.setVisible(false);
-		cmbDescricao.setVisible(false);
-		txfCodigo.setEnabled(false);
-		txfDescricao.setEnabled(false);
-		txfValor.setEnabled(false);
-		txfGenero.setEnabled(false);
-
-		rbtnCodigo.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-
-				boolean flag = rbtnCodigo.isSelected();
-				cmbCodigo.setVisible(flag);
-			}
-		});
-
-		rbtnDescricao.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-
-				boolean flag = rbtnDescricao.isSelected();
-				cmbDescricao.setVisible(flag);
-			}
-		});
-
-		rbtnCodigo.setSelected(false);
-		rbtnDescricao.setSelected(false);
-		rbtnGroup.add(rbtnCodigo);
-		rbtnGroup.add(rbtnDescricao);
-
-		scrTabela.setViewportView(tblVendas);
-		panelCampos.setLayout(getLayoutCampos());
-		panelCampos.setBackground(Color.WHITE);
-
-		panelBotoes.setLayout(getLayoutBotoes());
-		panelBotoes.setBackground(Color.WHITE);
+		tfCliente.setEditable(false);
+		tfProduto.setEditable(false);
+		tfValorUnit.setEditable(false);
+		tfGenero.setEditable(false);
+		
+		cmbCliente.setRenderer(AbstractVendaController.getCellRenderer());
+		cmbCliente.setEnabled(false);
+		cmbProduto.setRenderer(AbstractVendaController.getCellRenderer());
+		cmbProduto.setEnabled(false);
 
 		this.setBackground(Color.WHITE);
-		this.setLayout(getPanelLayout());
 	}
 
-	private LayoutManager getPanelLayout() {
+	private void iniciarLayout(String titulo) {
 
-		GroupLayout layout = new GroupLayout(this);
+		setLayout(new MigLayout("", "[grow]", "[100px:n][][::5px][][::5px][grow][]"));
 
-		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addContainerGap()
-						.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addComponent(panelCampos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
-								.addComponent(scrTabela)
-								.addComponent(panelBotoes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
-						.addGroup(layout.createSequentialGroup().addComponent(lblTitulo).addGap(0, 0, Short.MAX_VALUE)))
-				.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup().addGap(30, 30, 30).addComponent(lblTitulo).addGap(30, 30, 30)
-						.addComponent(panelCampos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(scrTabela, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addComponent(panelBotoes,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap()));
-		return layout;
-	}
+		JPanel pnlDadosGerais = new JPanel();
+		JPanel pnlDetalhes = new JPanel();
+		JPanel pnlBotoes = new JPanel();
+		JScrollPane scrTabela = new JScrollPane();
+		JLabel lbTitulo = new JLabel(titulo);
+		JLabel lbCliente = new JLabel("Cliente:");
+		JLabel lbProduto = new JLabel("Produto:");
+		JLabel lbDadosCliente = new JLabel("Dados do cliente:");
+		JLabel lbDadosProduto = new JLabel("Dados do produto:");
+		JLabel lbQuant = new JLabel("Quantidade:");
+		JLabel lbValorUnit = new JLabel("Valor unitário:");
+		JLabel lbGenero = new JLabel("Genero:");
 
-	private LayoutManager getLayoutCampos() {
+		ButtonGroup btGroupCli = new ButtonGroup();
+		ButtonGroup btGroupPro = new ButtonGroup();
 
-		GroupLayout panelCamposLayout = new GroupLayout(panelCampos);
+		lbTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		btGroupCli.add(rdbCodCli);
+		btGroupCli.add(rdbDescCli);
+		btGroupPro.add(rdbCodPro);
+		btGroupPro.add(rdbDescPro);
+		scrTabela.setViewportView(tblVendas);
+		scrTabela.setPreferredSize(new Dimension(0, 400));
 
-		panelCamposLayout.setHorizontalGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(panelCamposLayout.createSequentialGroup().addGroup(panelCamposLayout
-						.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addGroup(panelCamposLayout.createSequentialGroup().addComponent(rbtnCodigo)
-								.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addComponent(rbtnDescricao))
-						.addGroup(panelCamposLayout.createSequentialGroup()
-								.addComponent(cmbCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(cmbDescricao,
-										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(
-						panelCamposLayout.createSequentialGroup()
-								.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(lblCodigo).addComponent(lblQuant))
-								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-										.addComponent(txfCodigo, GroupLayout.PREFERRED_SIZE, 70,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(spnQuant))
-								.addGap(18, 18, 18)
-								.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addComponent(lblDescricao).addComponent(lblValor))
-								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-										.addGroup(panelCamposLayout.createSequentialGroup()
-												.addComponent(txfValor, GroupLayout.PREFERRED_SIZE, 82,
-														GroupLayout.PREFERRED_SIZE)
-												.addGap(18, 18, 18).addComponent(lblGenero)
-												.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-												.addComponent(txfGenero, GroupLayout.PREFERRED_SIZE, 89,
-														GroupLayout.PREFERRED_SIZE)
-												.addGap(18, 18, 18).addComponent(btnAdicionar)
-												.addGap(0, 68, Short.MAX_VALUE))
-										.addComponent(txfDescricao))));
-		panelCamposLayout.setVerticalGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(panelCamposLayout.createSequentialGroup()
-						.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(rbtnCodigo).addComponent(rbtnDescricao))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(cmbCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(cmbDescricao, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(lblCodigo)
-								.addComponent(txfCodigo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDescricao).addComponent(txfDescricao, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addGroup(
-								panelCamposLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-										.addComponent(lblQuant)
-										.addGroup(panelCamposLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-												.addComponent(spnQuant, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblValor)
-												.addComponent(txfValor, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblGenero)
-												.addComponent(txfGenero, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(btnAdicionar)))));
+		add(lbTitulo, "cell 0 0");
+		add(pnlDadosGerais, "cell 0 1,grow");
+		add(pnlDetalhes, "cell 0 3,grow");
+		add(scrTabela, "cell 0 5,grow");
+		add(pnlBotoes, "cell 0 6,grow");
 
-		return panelCamposLayout;
-	}
+		pnlDadosGerais.setBackground(Color.WHITE);
+		pnlDadosGerais.setLayout(new MigLayout("", "[][][][grow]", "[][]"));
 
-	private LayoutManager getLayoutBotoes() {
-		GroupLayout panelBotoesLayout = new GroupLayout(panelBotoes);
+		pnlDadosGerais.add(lbCliente, "cell 0 0");
+		pnlDadosGerais.add(rdbCodCli, "cell 1 0");
+		pnlDadosGerais.add(rdbDescCli, "cell 2 0");
+		pnlDadosGerais.add(cmbCliente, "cell 3 0");
+		pnlDadosGerais.add(lbProduto, "cell 0 1");
+		pnlDadosGerais.add(rdbCodPro, "cell 1 1");
+		pnlDadosGerais.add(rdbDescPro, "cell 2 1");
+		pnlDadosGerais.add(cmbProduto, "cell 3 1");
+		
+		pnlDetalhes.setBackground(Color.WHITE);
+		pnlDetalhes.setLayout(new MigLayout("", "[][60px:n][::15px][][100px:n][::15px][][100px:n][::15px][grow]", "[][][]"));
+		
+		pnlDetalhes.add(lbDadosCliente, "cell 0 0");
+		pnlDetalhes.add(tfCliente, "cell 1 0 9 1,growx");
+		pnlDetalhes.add(lbDadosProduto, "cell 0 1");
+		pnlDetalhes.add(tfProduto, "cell 1 1 9 1,growx");
+		pnlDetalhes.add(lbQuant, "cell 0 2");
+		pnlDetalhes.add(spnQuant, "cell 1 2,growx");
+		pnlDetalhes.add(lbValorUnit, "cell 3 2,alignx trailing");
+		pnlDetalhes.add(tfValorUnit, "cell 4 2,growx");
+		pnlDetalhes.add(lbGenero, "cell 6 2,alignx trailing");
+		pnlDetalhes.add(tfGenero, "cell 7 2,growx");
+		pnlDetalhes.add(btnAdicionar, "cell 9 2");
+		
+		tfCliente.setColumns(10);
+		tfProduto.setColumns(10);
+		tfValorUnit.setColumns(10);
+		tfGenero.setColumns(10);
+		pnlBotoes.setBackground(Color.WHITE);
+		pnlBotoes.setLayout(new MigLayout("", "[grow][][][grow]", "[]"));
 
-		panelBotoesLayout.setHorizontalGroup(panelBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(panelBotoesLayout.createSequentialGroup().addGap(300).addComponent(btnFinalizar)
-						.addGap(18, 18, 18).addComponent(btnCancelar)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-		panelBotoesLayout
-				.setVerticalGroup(
-						panelBotoesLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-								.addGroup(GroupLayout.Alignment.TRAILING,
-										panelBotoesLayout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-												.addGroup(panelBotoesLayout
-														.createParallelGroup(GroupLayout.Alignment.BASELINE)
-														.addComponent(btnFinalizar).addComponent(btnCancelar))));
-
-		return panelBotoesLayout;
+		pnlBotoes.add(btnFinalizar, "cell 1 0");
+		pnlBotoes.add(btnCancelar, "cell 2 0");
 	}
 
 	private void iniciarTabela() {
 
 		tblVendas.setAutoCreateRowSorter(true);
 		tblVendas.setRowHeight(35);
-		
+
 		TableColumn colunaCod = tblVendas.getColumnModel().getColumn(CODIGO);
 		TableColumn colunaDes = tblVendas.getColumnModel().getColumn(DESCRICAO);
 		TableColumn colunaGen = tblVendas.getColumnModel().getColumn(GENERO);
 		TableColumn colunaValUni = tblVendas.getColumnModel().getColumn(VALOR);
 		TableColumn colunaQuant = tblVendas.getColumnModel().getColumn(QUANTIDADE);
 		TableColumn colunaValSub = tblVendas.getColumnModel().getColumn(SUB_TOTAL);
-		
+
 		colunaCod.setPreferredWidth(15);
 		colunaDes.setPreferredWidth(300);
 		colunaGen.setPreferredWidth(20);
@@ -284,18 +198,26 @@ public class FrameRealizarVendaVista extends JPanel {
 			// num ArrayList();
 			Produto p = new Produto(i, i * 100, "Prduto# " + i, i, "Genero# " + i, -1, -1, -1, -1, -1, -1, -1, -1,
 					i * 10);
-			tblModelVendasVista.salvar(p);
+			modelTabela.salvar(p);
 		}
 	}
 
 	private void iniciarEventos() {
-		// RelatorioPagamentoController controller = new
-		// RelatorioPagamentoController(tblPagamento,tblModelPagamento,
-		// cmbFiltro, txtNome, lblAntes, lblDepois, dateAntes, dateDepois,
-		// btnFiltro);
-		//
-		// btnFiltro.addActionListener(controller.getActionListener(AbstractRelatorioController.FILTRAR));
-		// cmbFiltro.addItemListener(controller.getItemListener(AbstractRelatorioController.FILTRAR));
+
+		RealizarVendaVistaController controller = new RealizarVendaVistaController(rdbCodCli, rdbDescCli, rdbCodPro,
+				rdbDescPro, cmbCliente, cmbProduto, spnQuant, tfCliente, tfProduto, tfValorUnit, tfGenero);
+
+		rdbCodCli.addItemListener(controller.getItemListener(AbstractVendaController.COD_CLI));
+		rdbDescCli.addItemListener(controller.getItemListener(AbstractVendaController.DESC_CLI));
+		rdbCodPro.addItemListener(controller.getItemListener(AbstractVendaController.COD_PROD));
+		rdbDescPro.addItemListener(controller.getItemListener(AbstractVendaController.DESC_PROD));
+		cmbCliente.addItemListener(controller.getItemListener(AbstractVendaController.CLIENTE));
+		cmbProduto.addItemListener(controller.getItemListener(AbstractVendaController.PRODUTO));
+
+		btnAdicionar.addActionListener(controller.getActionListener(AbstractVendaController.ADICIONAR));
+		btnFinalizar.addActionListener(controller.getActionListener(AbstractVendaController.FINALIZAR));
+		btnCancelar.addActionListener(controller.getActionListener(AbstractVendaController.CANCELAR));
+
 	}
 
 	private class TableModelVendasVista extends AbstractTableCrud<Produto> {
@@ -313,23 +235,18 @@ public class FrameRealizarVendaVista extends JPanel {
 			case CODIGO:
 
 				return p.getCodigo();
-
 			case DESCRICAO:
 
 				return p.getDescricao();
-
 			case GENERO:
 
 				return p.getGenero();
-
 			case VALOR:
 
 				return p.getValorUnit();
-
 			case QUANTIDADE:
 
 				return p.getQuant();
-
 			case SUB_TOTAL:
 
 				return p.getQuant() * p.getValorUnit();
