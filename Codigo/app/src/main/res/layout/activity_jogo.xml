@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.sharktech.forca.JogoActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/layoutJogoImagem">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/layoutJogoTeclado">
+
+
+        <!--
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Q"
+            android:id="@+id/tvJogoQ"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:fontFamily="casual" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="W"
+            android:id="@+id/tvJogoW"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoQ"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R"
+            android:id="@+id/tvJogoR"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoE"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="T"
+            android:id="@+id/tvJogoT"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoR"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Y"
+            android:id="@+id/tvJogoY"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoT"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="U"
+            android:id="@+id/tvJogoU"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoY"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I"
+            android:id="@+id/tvJogoI"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoU"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O"
+            android:id="@+id/tvJogoO"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoI"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E"
+            android:id="@+id/tvJogoE"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvJogoW"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="casual"/>
+
+
+
+-->
+    </RelativeLayout>
+</LinearLayout>

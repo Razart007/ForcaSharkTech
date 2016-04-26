@@ -12,15 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class CategoriaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private ListView lvListaCayegorias;
+    private ArrayAdapter<String> aaCategorias;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        lvListaCayegorias = (ListView) findViewById(R.id.lvListaCategorias);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -31,6 +35,20 @@ public class CategoriaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        aaCategorias = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        lvListaCayegorias.setAdapter(aaCategorias);
+
+        aaCategorias.add("Alimentos");
+        aaCategorias.add("Animais");
+        aaCategorias.add("Artes");
+        aaCategorias.add("Ciência");
+        aaCategorias.add("Diversos");
+        aaCategorias.add("Entretenimento");
+        aaCategorias.add("Esportes");
+        aaCategorias.add("Geografia");
+        aaCategorias.add("História");
+        //lvListaCayegorias.add
     }
 
     @Override

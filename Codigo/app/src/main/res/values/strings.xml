@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Forca</string>
     <string name="splash">Tela Splash</string>
+    <string name="appname_categorias">Forca - Categorias</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
