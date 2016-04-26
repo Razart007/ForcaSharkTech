@@ -28,22 +28,5 @@ public class InicialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
-/*
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.gallows, "Exemplo", "Exemplo1") {
-            public void onDrawerClosed(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    getActionBar().setTitle("Exemplo1");
-                }
-            }
-
-            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle("ooo");
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-   */
     }
 }
