@@ -34,9 +34,13 @@
             android:label="@string/appname_categorias"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".InicialLogadoActivity" />
-
-        <activity android:name=".JogoActivity"
-                  android:theme="@style/AppTheme" />
+        <activity
+            android:name=".JogoActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".RankingActivity"
+            android:label="@string/title_activity_ranking"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
