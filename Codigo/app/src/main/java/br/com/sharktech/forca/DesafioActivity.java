@@ -14,13 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class RankingActivity extends AppCompatActivity
+public class DesafioActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
+        setContentView(R.layout.activity_desafio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,27 +49,27 @@ public class RankingActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_categoria) {
+        if (id == R.id.nav_ranking) {
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, CategoriaActivity.class);
+            intent.setClass(DesafioActivity.this, RankingActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_desafio) {
+        } else if (id == R.id.nav_categoria) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, DesafioActivity.class);
+            intent.setClass(DesafioActivity.this, CategoriaActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_meuperfil) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, MeuPerfilActivity.class);
+            intent.setClass(DesafioActivity.this, MeuPerfilActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_amigos) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, AmigosActivity.class);
+            intent.setClass(DesafioActivity.this, AmigosActivity.class);
             startActivity(intent);
         }
 

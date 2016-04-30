@@ -5,9 +5,21 @@
     <string name="title_activity_ranking">Forca - Ranking</string>
     <string name="action_configuracoes">Configurações</string>
 
+    <string name="nome">Nome</string>
+    <string name="email">E-Mail</string>
+    <string name="pontuação">Pontuação</string>
+    <string name="palavras_descobertas">Palavras Descobertas</string>
+    <string name="palavras_enviadas">Palavras Enviadas</string>
+    <string name="editar">Editar</string>
+    <string name="amigos">Amigos</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_meu_perfil">MeuPerfilActivity</string>
+    <string name="title_activity_desafio">DesafioActivity</string>
 
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_amigos">AmigosActivity</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package br.com.sharktech.forca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,10 +20,12 @@ public class CategoriaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ListView lvListaCayegorias;
     private ArrayAdapter<String> aaCategorias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         lvListaCayegorias = (ListView) findViewById(R.id.lvListaCategorias);
         setSupportActionBar(toolbar);
@@ -48,7 +51,6 @@ public class CategoriaActivity extends AppCompatActivity
         aaCategorias.add("Esportes");
         aaCategorias.add("Geografia");
         aaCategorias.add("História");
-        //lvListaCayegorias.add
     }
 
     @Override
@@ -67,16 +69,28 @@ public class CategoriaActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_categoria) {
-
-        } else if (id == R.id.nav_ranking) {
-
+        if (id == R.id.nav_ranking) {
+            Intent intent = new Intent();
+            intent.setClass(CategoriaActivity.this, RankingActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_desafio) {
+            finish();
 
+            Intent intent = new Intent();
+            intent.setClass(CategoriaActivity.this, DesafioActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_meuperfil) {
+            finish();
 
+            Intent intent = new Intent();
+            intent.setClass(CategoriaActivity.this, MeuPerfilActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_amigos) {
+            finish();
 
+            Intent intent = new Intent();
+            intent.setClass(CategoriaActivity.this, AmigosActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

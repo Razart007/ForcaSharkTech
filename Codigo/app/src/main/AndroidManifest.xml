@@ -40,6 +40,18 @@
         <activity
             android:name=".RankingActivity"
             android:label="@string/title_activity_ranking"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MeuPerfilActivity"
+            android:label="@string/title_activity_meu_perfil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DesafioActivity"
+            android:label="@string/title_activity_desafio"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AmigosActivity"
+            android:label="@string/title_activity_amigos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -2,25 +2,25 @@ package br.com.sharktech.forca;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class RankingActivity extends AppCompatActivity
+public class AmigosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private ListView lvwAmigos;
+    private ArrayAdapter<String> aaAmigos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
+        setContentView(R.layout.activity_amigos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,6 +32,14 @@ public class RankingActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        lvwAmigos = (ListView) findViewById(R.id.lvwAmigos);
+
+        aaAmigos = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        lvwAmigos.setAdapter(aaAmigos);
+
+        aaAmigos.add("Anailson");
+        aaAmigos.add("Rafael");
     }
 
     @Override
@@ -49,27 +57,27 @@ public class RankingActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_categoria) {
+        if (id == R.id.nav_ranking) {
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, CategoriaActivity.class);
+            intent.setClass(AmigosActivity.this, RankingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_desafio) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, DesafioActivity.class);
+            intent.setClass(AmigosActivity.this, DesafioActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_meuperfil) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, MeuPerfilActivity.class);
+            intent.setClass(AmigosActivity.this, MeuPerfilActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_amigos) {
+        } else if (id == R.id.nav_categoria) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, AmigosActivity.class);
+            intent.setClass(AmigosActivity.this, CategoriaActivity.class);
             startActivity(intent);
         }
 

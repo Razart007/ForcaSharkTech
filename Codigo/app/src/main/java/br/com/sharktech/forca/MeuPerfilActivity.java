@@ -2,25 +2,22 @@ package br.com.sharktech.forca;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
-public class RankingActivity extends AppCompatActivity
+public class MeuPerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ranking);
+        setContentView(R.layout.activity_meu_perfil);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,32 +41,33 @@ public class RankingActivity extends AppCompatActivity
         }
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_categoria) {
+        if (id == R.id.nav_ranking) {
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, CategoriaActivity.class);
+            intent.setClass(MeuPerfilActivity.this, RankingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_desafio) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, DesafioActivity.class);
+            intent.setClass(MeuPerfilActivity.this, DesafioActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_meuperfil) {
+        } else if (id == R.id.nav_categoria) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, MeuPerfilActivity.class);
+            intent.setClass(MeuPerfilActivity.this, CategoriaActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_amigos) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(RankingActivity.this, AmigosActivity.class);
+            intent.setClass(MeuPerfilActivity.this, AmigosActivity.class);
             startActivity(intent);
         }
 
