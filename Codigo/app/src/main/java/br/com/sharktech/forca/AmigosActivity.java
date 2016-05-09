@@ -1,6 +1,7 @@
 package br.com.sharktech.forca;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,10 +13,16 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import br.com.sharktech.forca.bancodados.BancoDeDados;
+import br.com.sharktech.forca.bancodados.RepositorioForca;
+
 public class AmigosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ListView lvwAmigos;
     private ArrayAdapter<String> aaAmigos;
+    private BancoDeDados banco;
+    private RepositorioForca model;
+    private SQLiteDatabase conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +30,11 @@ public class AmigosActivity extends AppCompatActivity
         setContentView(R.layout.activity_amigos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        banco = new BancoDeDados(this);
+        conn = banco.getReadableDatabase();
+
+        model = new RepositorioForca(conn);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -35,11 +47,11 @@ public class AmigosActivity extends AppCompatActivity
 
         lvwAmigos = (ListView) findViewById(R.id.lvwAmigos);
 
-        aaAmigos = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        //aaAmigos = model.buscaAmigos();
         lvwAmigos.setAdapter(aaAmigos);
 
-        aaAmigos.add("Anailson");
-        aaAmigos.add("Rafael");
+        //aaAmigos.add("Anailson");
+        //aaAmigos.add("Rafael");
     }
 
     @Override
