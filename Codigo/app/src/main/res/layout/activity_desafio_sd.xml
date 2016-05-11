@@ -7,24 +7,28 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.sharktech.forca.activitys.DesafioSDActivity">
-
+    tools:context="br.com.sharktech.forca.activitys.DesafioActivitySD">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
     <ProgressBar
         style="?android:attr/progressBarStyleInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/txvEsperandoDesafianteDesafioSD"
         android:visibility="visible"
         android:id="@+id/progressBarDesafioSD"
+        android:layout_centerHorizontal="true"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Esperando no desafiante..."
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/progressBarDesafioSD"
         android:typeface="serif"
         android:id="@+id/txvEsperandoDesafianteDesafioSD" />
+    </RelativeLayout>
 </RelativeLayout>

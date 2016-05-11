@@ -53,7 +53,7 @@
             android:name=".activitys.AmigosActivity"
             android:label="@string/title_activity_amigos"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activitys.DesafioSDActivity"></activity>
+        <activity android:name=".activitys.DesafioActivitySD"></activity>
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ public class InicialActivity extends AppCompatActivity implements View.OnClickLi
         edtNome = (EditText) findViewById(R.id.etNomeTelaInicial);
         btnEntrarJogo = (Button) findViewById(R.id.btEntrarJogoTelaInicial);
 
+        //edtNome.setOnClickListener(this);
         btnEntrarJogo.setOnClickListener(this);
 
 
@@ -33,8 +34,11 @@ public class InicialActivity extends AppCompatActivity implements View.OnClickLi
         if(v == btnEntrarJogo){
             finish();
             TratamentoDeBancoDeDados.criarOuAtualizarUsuario(edtNome.getText().toString(),"",true);
-            Intent intent = new Intent(InicialActivity.this, DesafioActivity.class);
+            Intent intent = new Intent(InicialActivity.this, DesafioActivitySD.class);
             startActivity(intent);
+        }
+        else {
+               //edtNome.setFocusable(true);
         }
     }
 }

@@ -27,14 +27,13 @@ public class SplashActivity extends Activity {
                 finish();
 
                 Intent intent = new Intent();
-                if(TratamentoDeBancoDeDados.buscarUsuario() == null){
-                    intent.setClass(SplashActivity.this, InicialLogadoActivity.class);
-                    startActivity(intent);
+                if(TratamentoDeBancoDeDados.buscarUsuario().getNome().equalsIgnoreCase("")){
+                    intent.setClass(SplashActivity.this, InicialActivity.class);
                 }
                 else {
-                    intent.setClass(SplashActivity.this, InicialActivity.class);
-                    startActivity(intent);
+                    intent.setClass(SplashActivity.this, InicialLogadoActivity.class);
                 }
+                startActivity(intent);
             }
         }, 6000);
     }

@@ -22,7 +22,8 @@
                 android:src="@drawable/gallowssplash"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                />
 
 
             <TextView
@@ -56,7 +57,7 @@
                 android:layout_alignParentEnd="true"
                 android:textAlignment="center"
                 android:layout_marginTop="10pt"
-                android:focusable="false"/>
+                />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

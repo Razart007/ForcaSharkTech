@@ -27,7 +27,13 @@ public class TratamentoDeBancoDeDados {
     public static Usuario buscarUsuario() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        return (Usuario) realm.where(Usuario.class).findFirst();
+        Usuario usuario = (Usuario) realm.where(Usuario.class).findFirst();
+        if(usuario == null){
+            usuario = new Usuario();
+            usuario.setNome("");
+            usuario.setEmail("");
+        }
+        return usuario;
     }
 
     //Útil para o projeto de SD

@@ -21,16 +21,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Configurações"
-        android:id="@+id/btConfiguracoesTelaInicialLogado"
+        android:id="@+id/btnConfiguracoesTelaInicialLogado"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/btEntarjogoTelaInicialLogado" />
+        android:layout_below="@+id/btnEntrarjogoTelaInicialLogado" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Entrar no Jogo"
-        android:id="@+id/btEntarjogoTelaInicialLogado"
+        android:id="@+id/btnEntrarjogoTelaInicialLogado"
         android:layout_below="@+id/ivTelaInicialLogado"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
