@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
-    tools:context="br.com.sharktech.forca.CategoriaActivity"
+    tools:context=".activitys.CategoriaActivity"
     tools:showIn="@layout/app_bar_categoria">
 
 

@@ -10,8 +10,19 @@ import io.realm.annotations.PrimaryKey;
 public class Usuario extends RealmObject{
     @PrimaryKey
     private int id;
-    private String nome, email, pontuacaoGeral, pontuacaoDiaria;
+    private String nome, email;
+    private int pontuacaoGeral, pontuacaoDiaria;
     private RealmList<Palavra> palavrasEnviadas;
+    private RealmList<Usuario> amigosUsuario;
+    private RealmList<Palavra> palavrasRespondidas;
+
+    public RealmList<Palavra> getPalavrasRespondidas() {
+        return palavrasRespondidas;
+    }
+
+    public void setPalavrasRespondidas(RealmList<Palavra> palavrasRespondidas) {
+        this.palavrasRespondidas = palavrasRespondidas;
+    }
 
     public RealmList<Usuario> getAmigosUsuario() {
         return amigosUsuario;
@@ -20,8 +31,6 @@ public class Usuario extends RealmObject{
     public void setAmigosUsuario(RealmList<Usuario> amigosUsuario) {
         this.amigosUsuario = amigosUsuario;
     }
-
-    private RealmList<Usuario> amigosUsuario;
 
     public int getId() {
         return id;
@@ -47,19 +56,19 @@ public class Usuario extends RealmObject{
         this.email = email;
     }
 
-    public String getPontuacaoGeral() {
+    public int getPontuacaoGeral() {
         return pontuacaoGeral;
     }
 
-    public void setPontuacaoGeral(String pontuacaoGeral) {
+    public void setPontuacaoGeral(int pontuacaoGeral) {
         this.pontuacaoGeral = pontuacaoGeral;
     }
 
-    public String getPontuacaoDiaria() {
+    public int getPontuacaoDiaria() {
         return pontuacaoDiaria;
     }
 
-    public void setPontuacaoDiaria(String pontuacaoDiaria) {
+    public void setPontuacaoDiaria(int pontuacaoDiaria) {
         this.pontuacaoDiaria = pontuacaoDiaria;
     }
 

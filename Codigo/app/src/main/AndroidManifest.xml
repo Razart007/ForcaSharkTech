@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".activitys.SplashActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InicialActivity"
+            android:name=".activitys.InicialActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <!--
@@ -30,27 +30,27 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".CategoriaActivity"
+            android:name=".activitys.CategoriaActivity"
             android:label="@string/appname_categorias"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InicialLogadoActivity" />
+        <activity android:name=".activitys.InicialLogadoActivity" />
         <activity
-            android:name=".JogoActivity"
+            android:name=".activitys.JogoActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".RankingActivity"
+            android:name=".activitys.RankingActivity"
             android:label="@string/title_activity_ranking"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MeuPerfilActivity"
+            android:name=".activitys.MeuPerfilActivity"
             android:label="@string/title_activity_meu_perfil"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DesafioActivity"
+            android:name=".activitys.DesafioActivity"
             android:label="@string/title_activity_desafio"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AmigosActivity"
+            android:name=".activitys.AmigosActivity"
             android:label="@string/title_activity_amigos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

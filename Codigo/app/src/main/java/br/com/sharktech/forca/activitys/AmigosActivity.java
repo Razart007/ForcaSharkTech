@@ -1,4 +1,4 @@
-package br.com.sharktech.forca;
+package br.com.sharktech.forca.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,15 +9,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class MeuPerfilActivity extends AppCompatActivity
+import java.util.List;
+
+import br.com.sharktech.forca.R;
+import br.com.sharktech.forca.entidades.Usuario;
+import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
+
+public class AmigosActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private ListView lvwAmigos;
+    private ArrayAdapter<String> aaAmigos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meu_perfil);
-
+        setContentView(R.layout.activity_amigos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -29,6 +38,19 @@ public class MeuPerfilActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        lvwAmigos = (ListView) findViewById(R.id.lvwAmigos);
+
+        List<Usuario> listaAmigos = TratamentoDeBancoDeDados.buscarAmigos(TratamentoDeBancoDeDados.buscarUsuario().getId());
+
+        for(int i = 0; i < listaAmigos.size(); i++){
+            aaAmigos.add(listaAmigos.get(i).getNome());
+        }
+
+        lvwAmigos.setAdapter(aaAmigos);
+
+        //aaAmigos.add("Anailson");
+        //aaAmigos.add("Rafael");
     }
 
     @Override
@@ -41,7 +63,6 @@ public class MeuPerfilActivity extends AppCompatActivity
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -49,25 +70,25 @@ public class MeuPerfilActivity extends AppCompatActivity
 
         if (id == R.id.nav_ranking) {
             Intent intent = new Intent();
-            intent.setClass(MeuPerfilActivity.this, RankingActivity.class);
+            intent.setClass(AmigosActivity.this, RankingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_desafio) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(MeuPerfilActivity.this, DesafioActivity.class);
+            intent.setClass(AmigosActivity.this, DesafioActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_meuperfil) {
+            finish();
+
+            Intent intent = new Intent();
+            intent.setClass(AmigosActivity.this, MeuPerfilActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_categoria) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(MeuPerfilActivity.this, CategoriaActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_amigos) {
-            finish();
-
-            Intent intent = new Intent();
-            intent.setClass(MeuPerfilActivity.this, AmigosActivity.class);
+            intent.setClass(AmigosActivity.this, CategoriaActivity.class);
             startActivity(intent);
         }
 

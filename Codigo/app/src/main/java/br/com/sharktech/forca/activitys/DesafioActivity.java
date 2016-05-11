@@ -1,7 +1,6 @@
-package br.com.sharktech.forca;
+package br.com.sharktech.forca.activitys;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,31 +9,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import br.com.sharktech.forca.bancodados.BancoDeDados;
-import br.com.sharktech.forca.bancodados.RepositorioForca;
+import br.com.sharktech.forca.R;
 
-public class AmigosActivity extends AppCompatActivity
+public class DesafioActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private ListView lvwAmigos;
-    private ArrayAdapter<String> aaAmigos;
-    private BancoDeDados banco;
-    private RepositorioForca model;
-    private SQLiteDatabase conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_amigos);
+        setContentView(R.layout.activity_desafio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        banco = new BancoDeDados(this);
-        conn = banco.getReadableDatabase();
-
-        model = new RepositorioForca(conn);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,14 +30,6 @@ public class AmigosActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        lvwAmigos = (ListView) findViewById(R.id.lvwAmigos);
-
-        //aaAmigos = model.buscaAmigos();
-        lvwAmigos.setAdapter(aaAmigos);
-
-        //aaAmigos.add("Anailson");
-        //aaAmigos.add("Rafael");
     }
 
     @Override
@@ -71,25 +49,25 @@ public class AmigosActivity extends AppCompatActivity
 
         if (id == R.id.nav_ranking) {
             Intent intent = new Intent();
-            intent.setClass(AmigosActivity.this, RankingActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_desafio) {
-            finish();
-
-            Intent intent = new Intent();
-            intent.setClass(AmigosActivity.this, DesafioActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_meuperfil) {
-            finish();
-
-            Intent intent = new Intent();
-            intent.setClass(AmigosActivity.this, MeuPerfilActivity.class);
+            intent.setClass(DesafioActivity.this, RankingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_categoria) {
             finish();
 
             Intent intent = new Intent();
-            intent.setClass(AmigosActivity.this, CategoriaActivity.class);
+            intent.setClass(DesafioActivity.this, CategoriaActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_meuperfil) {
+            finish();
+
+            Intent intent = new Intent();
+            intent.setClass(DesafioActivity.this, MeuPerfilActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_amigos) {
+            finish();
+
+            Intent intent = new Intent();
+            intent.setClass(DesafioActivity.this, AmigosActivity.class);
             startActivity(intent);
         }
 

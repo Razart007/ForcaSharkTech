@@ -1,7 +1,9 @@
-package br.com.sharktech.forca;
+package br.com.sharktech.forca.activitys;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import br.com.sharktech.forca.R;
 
 public class InicialLogadoActivity extends AppCompatActivity {
 
