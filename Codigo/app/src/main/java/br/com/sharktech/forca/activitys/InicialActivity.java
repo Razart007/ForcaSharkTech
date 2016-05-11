@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import br.com.sharktech.forca.R;
+import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
 
 public class InicialActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText edtNome;
@@ -31,10 +32,9 @@ public class InicialActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         if(v == btnEntrarJogo){
             finish();
-
-            Intent intent = new Intent(InicialActivity.this, CategoriaActivity.class);
+            TratamentoDeBancoDeDados.criarOuAtualizarUsuario(edtNome.getText().toString(),"",true);
+            Intent intent = new Intent(InicialActivity.this, DesafioActivity.class);
             startActivity(intent);
-
         }
     }
 }

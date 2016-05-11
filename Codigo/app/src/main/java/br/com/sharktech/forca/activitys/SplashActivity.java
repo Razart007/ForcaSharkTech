@@ -18,6 +18,8 @@ public class SplashActivity extends Activity {
 
         TratamentoDeBancoDeDados.criarBanco(this);
 
+        //efetuar o update das palavras do servidor caso haja alguma que não existe no telefone
+
         new Timer().schedule(new TimerTask() {
 
             @Override

@@ -52,7 +52,8 @@
         <activity
             android:name=".activitys.AmigosActivity"
             android:label="@string/title_activity_amigos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activitys.DesafioSDActivity"></activity>
     </application>
 
 </manifest>
