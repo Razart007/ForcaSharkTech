@@ -14,210 +14,328 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/layoutJogoImagem">
+        android:id="@+id/layoutJogoImagem"
+        android:layout_marginBottom="15dp">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/gallows"
+            android:id="@+id/imgForcaJogo"/>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.2">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+            android:typeface="serif"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/layoutJogoTeclado">
+        android:id="@+id/layoutJogoTeclado"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
 
-
-        <!--
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Q"
-            android:id="@+id/tvJogoQ"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:fontFamily="casual" />
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoQ"
+                android:text="Q"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoW"
+                android:text="W"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoE"
+                android:text="E"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoR"
+                android:text="R"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoT"
+                android:text="T"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoY"
+                android:text="Y"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoU"
+                android:text="U"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogo"
+                android:text="I"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoO"
+                android:text="O"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoP"
+                android:text="P"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="W"
-            android:id="@+id/tvJogoW"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoQ"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoA"
+                android:text="A"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoS"
+                android:text="S"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoD"
+                android:text="D"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoF"
+                android:text="F"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoG"
+                android:text="G"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoH"
+                android:text="H"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoJ"
+                android:text="J"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoK"
+                android:text="K"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoL"
+                android:text="L"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoÇ"
+                android:text="Ç"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            android:orientation="horizontal"
+            android:layout_weight="1">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="R"
-            android:id="@+id/tvJogoR"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoE"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoZ"
+                android:text="Z"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary"
+                android:layout_marginLeft="45dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="T"
-            android:id="@+id/tvJogoT"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoR"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoX"
+                android:text="X"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Y"
-            android:id="@+id/tvJogoY"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoT"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoC"
+                android:text="C"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="U"
-            android:id="@+id/tvJogoU"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoY"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoV"
+                android:text="V"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I"
-            android:id="@+id/tvJogoI"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoU"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoB"
+                android:text="B"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="O"
-            android:id="@+id/tvJogoO"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoI"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoN"
+                android:text="N"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnJogoM"
+                android:text="M"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:background="@color/colorPrimary"
+                android:layout_marginRight="45dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E"
-            android:id="@+id/tvJogoE"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvJogoW"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="casual"/>
-
-
-
--->
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

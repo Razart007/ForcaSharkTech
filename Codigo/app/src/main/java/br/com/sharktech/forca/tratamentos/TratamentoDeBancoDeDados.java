@@ -16,14 +16,12 @@ public class TratamentoDeBancoDeDados {
     private TratamentoDeBancoDeDados (){ }
 
     //Útil para o projeto de SD
-
     public static void criarBanco(Context context){
         RealmConfiguration configuration = new RealmConfiguration.Builder(context).build();
         Realm.setDefaultConfiguration(configuration);
     }
 
     //Útil para o projeto de SD
-
     public static Usuario buscarUsuario() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -37,7 +35,6 @@ public class TratamentoDeBancoDeDados {
     }
 
     //Útil para o projeto de SD
-
     public static void criarOuAtualizarUsuario(String nome, String email, boolean criarUsuario){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -64,7 +61,6 @@ public class TratamentoDeBancoDeDados {
     }
 
     //Útil para o projeto de SD
-
     public static boolean verificarUsuarioRespondeu(String palavra){
         Usuario usuario = buscarUsuario();
         for(int i = 0; i < usuario.getPalavrasRespondidas().size(); i++){
@@ -75,15 +71,25 @@ public class TratamentoDeBancoDeDados {
         return false;
     }
 
-    //Não é útil para o projeto de SD apenas para depois para implementa-lo
+    //Útil para o projeto de SD
+    public static void inserePalavra(Palavra palavra){
 
+    }
+
+    //Usado apenas para o projeto de SD
+    public static List<Palavra> buscaPalarasAleatoriasNaoRespondida(){
+
+
+        return null;
+    }
+
+    //Não é útil para o projeto de SD apenas para depois para implementa-lo
     public static List<Usuario> buscarAmigos(int id){
         Usuario usuario = buscarUsuario();
         return usuario.getAmigosUsuario();
     }
 
     //Não é útil para o projeto de SD apenas para depois para implementa-lo
-
     public static List<Categoria> buscarCategorias(){
         Realm realm = Realm.getDefaultInstance();
         RealmResults results;
@@ -94,7 +100,6 @@ public class TratamentoDeBancoDeDados {
     }
 
     //Não é útil para o projeto de SD apenas para depois e implementa-lo e jogá-lo na googlePlay
-
     public static void inserirPalavra(String descricao, int idUsuarioCriador, int idCategoria){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -111,7 +116,6 @@ public class TratamentoDeBancoDeDados {
     }
 
     //Não é útil para o projeto de SD apenas para depois e implementa-lo e jogá-lo na googlePlay
-
     public static List<Palavra> buscarPalavrasMaisDificeisGeralOuDiario(boolean geral){
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Palavra> results;

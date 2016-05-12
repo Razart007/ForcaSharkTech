@@ -32,9 +32,9 @@ public class InicialActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if(v == btnEntrarJogo){
-            finish();
             TratamentoDeBancoDeDados.criarOuAtualizarUsuario(edtNome.getText().toString(),"",true);
             Intent intent = new Intent(InicialActivity.this, DesafioActivitySD.class);
+            finish();
             startActivity(intent);
         }
         else {

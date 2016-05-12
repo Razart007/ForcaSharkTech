@@ -24,8 +24,6 @@ public class SplashActivity extends Activity {
 
             @Override
             public void run() {
-                finish();
-
                 Intent intent = new Intent();
                 if(TratamentoDeBancoDeDados.buscarUsuario().getNome().equalsIgnoreCase("")){
                     intent.setClass(SplashActivity.this, InicialActivity.class);
@@ -33,6 +31,7 @@ public class SplashActivity extends Activity {
                 else {
                     intent.setClass(SplashActivity.this, InicialLogadoActivity.class);
                 }
+                finish();
                 startActivity(intent);
             }
         }, 6000);
