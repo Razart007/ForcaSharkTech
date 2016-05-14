@@ -1,5 +1,7 @@
 package br.com.sharktech.forca.entidades;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -7,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by Rafael on 09/05/2016.
  */
 
-public class Palavra extends RealmObject{
+public class Palavra extends RealmObject implements Serializable{
     @PrimaryKey
         private int id;
     private int pontuacaoGeral, pontuacaoDiaria, idCategoria, idUsuarioCriador;

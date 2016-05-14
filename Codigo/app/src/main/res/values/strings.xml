@@ -21,5 +21,8 @@
     <string name="action_settings">Configurações</string>
     <string name="title_activity_amigos">Amigos</string>
 
+    <string name="iniciar_outro_desafio">Iniciar outro desafio</string>
+    <string name="perdeu_desafio">Você perdeu esse desafio</string>
+    <string name="venceu_desafio">Você venceu esse desafio</string>
 
 </resources>

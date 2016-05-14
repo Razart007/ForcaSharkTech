@@ -2,7 +2,10 @@ package br.com.sharktech.forca.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import br.com.sharktech.forca.R;
@@ -27,6 +30,9 @@ public class SplashActivity extends Activity {
                 Intent intent = new Intent();
                 if(TratamentoDeBancoDeDados.buscarUsuario().getNome().equalsIgnoreCase("")){
                     intent.setClass(SplashActivity.this, InicialActivity.class);
+                    Log.d("Mensagem","chegou antes de inserir as palavras");
+                    TratamentoDeBancoDeDados.inserePalavrasDoServidor();
+                    Log.d("Mensagem","depois de inserir as palavras");
                 }
                 else {
                     intent.setClass(SplashActivity.this, InicialLogadoActivity.class);

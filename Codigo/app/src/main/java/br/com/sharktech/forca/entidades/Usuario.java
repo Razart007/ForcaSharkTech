@@ -11,7 +11,9 @@ public class Usuario extends RealmObject{
     @PrimaryKey
     private int id;
     private String nome, email;
-    private int pontuacaoGeral, pontuacaoDiaria;
+    private int pontuacaoGeral;
+    private int pontuacaoDiaria;
+    private int pontuacaoDesafios;
     private RealmList<Palavra> palavrasEnviadas;
     private RealmList<Usuario> amigosUsuario;
     private RealmList<Palavra> palavrasRespondidas;
@@ -79,4 +81,13 @@ public class Usuario extends RealmObject{
     public void setPalavrasEnviadas(RealmList<Palavra> palavrasEnviadas) {
         this.palavrasEnviadas = palavrasEnviadas;
     }
+
+    public int getPontuacaoDesafios() {
+        return pontuacaoDesafios;
+    }
+
+    public void setPontuacaoDesafios(int pontuacaoDesafios) {
+        this.pontuacaoDesafios = pontuacaoDesafios;
+    }
+
 }
