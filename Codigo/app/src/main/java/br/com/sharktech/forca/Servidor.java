@@ -19,7 +19,6 @@ public class Servidor {
 		return ++codClientes;
 	}
 	
-	
 	public void aceitarClientes() throws IOException{
 		
 		if(serverSocket != null){

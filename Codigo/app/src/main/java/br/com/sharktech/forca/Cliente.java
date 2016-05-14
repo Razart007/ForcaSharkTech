@@ -23,7 +23,6 @@ public class Cliente extends AsyncTask<Void, Void, Void> {
 	protected Void doInBackground(Void... voids) {
 
 		boasVindas("Olá servidor!");
-
 		return null;
 	}
 

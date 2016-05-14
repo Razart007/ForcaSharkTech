@@ -28,7 +28,6 @@ public class ThreadConexao extends Thread{
 			enviarParaCliente.writeBytes("Ol� cliente! Sua id � " + codCliente + '\n');
 			System.out.println("Mensagem: " + recebidoDoCliente.readLine());
 			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
