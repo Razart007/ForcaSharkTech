@@ -16,8 +16,9 @@ public class Servidor {
 	}
 	
 	public static int getCodNovoCliente() {
-		return ++codClientes;
+		return codClientes;
 	}
+	
 	
 	public void aceitarClientes() throws IOException{
 		
@@ -26,7 +27,7 @@ public class Servidor {
 			while(true){
 				Socket conexao = serverSocket.accept();
 				new ThreadConexao(conexao).start();
-				System.out.println("Nova conexao");
+				System.out.println("Conexao #" + (++codClientes));
 			}
 		}
 	}

@@ -25,7 +25,7 @@ public class ThreadConexao extends Thread{
 			BufferedReader recebidoDoCliente = new BufferedReader(new InputStreamReader(conexao.getInputStream()));
 			DataOutputStream enviarParaCliente = new DataOutputStream(conexao.getOutputStream());
 
-			enviarParaCliente.writeBytes("Ol� cliente! Sua id � " + codCliente + '\n');
+			enviarParaCliente.writeBytes("Ola cliente! Sua id eh " + codCliente + '\n');
 			System.out.println("Mensagem: " + recebidoDoCliente.readLine());
 			
 		} catch (IOException e) {

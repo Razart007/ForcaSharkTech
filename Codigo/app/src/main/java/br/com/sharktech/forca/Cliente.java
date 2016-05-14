@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Cliente extends AsyncTask<Void, Void, Void> {
 
+
     private static final String IP = "192.168.0.100";
 
 	public Cliente(){
