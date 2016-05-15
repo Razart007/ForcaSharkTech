@@ -22,7 +22,7 @@ public class PerdeuDesafioActivity extends Activity implements View.OnClickListe
         btnIniciarOutroDesafio = (Button) findViewById(R.id.btnIniciaroutroDesafioPerdeuDesafio);
         txvPontuacao = (TextView) findViewById(R.id.txvPontuacaoPerdeuDesafio);
 
-        Bundle bundle = getIntent().getBundleExtra("bundle");
+        Bundle bundle = getIntent().getExtras();
         pontuacao = bundle.getInt("pontuacao");
 
         txvPontuacao.setText("Sua pontuação: "+pontuacao);

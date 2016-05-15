@@ -26,10 +26,11 @@ public class DesafioActivitySD extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(DesafioActivitySD.this, JogoActivity.class);
 
-                ArrayList<Palavra> palavras = TratamentoDeBancoDeDados.buscaPalarasAleatoriasNaoRespondida();
+                TratamentoDeBancoDeDados.buscaPalarasAleatoriasNaoRespondida();
+                //Thread para ficar enviando a lista de palavras deve estar aqui, quando os dois estiverem de acordo faz
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("palavras",palavras);
                 bundle.putInt("pontuacao",0);
+                bundle.putInt("desafios",5);
                 intent.putExtras(bundle);
 
                 finish();

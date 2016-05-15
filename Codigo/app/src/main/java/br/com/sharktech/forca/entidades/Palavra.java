@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by Rafael on 09/05/2016.
  */
 
-public class Palavra extends RealmObject implements Serializable{
+public class Palavra extends RealmObject {
     @PrimaryKey
         private int id;
     private int pontuacaoGeral, pontuacaoDiaria, idCategoria, idUsuarioCriador;

@@ -25,4 +25,7 @@
     <string name="perdeu_desafio">Você perdeu esse desafio</string>
     <string name="venceu_desafio">Você venceu esse desafio</string>
 
+    <string name="espereando_desafiante">Esperando desafiante...</string>
+
+
 </resources>

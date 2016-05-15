@@ -2,7 +2,9 @@ package br.com.sharktech.forca.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,16 +17,17 @@ import java.util.ArrayList;
 import br.com.sharktech.forca.R;
 import br.com.sharktech.forca.entidades.Palavra;
 import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
+import io.realm.RealmList;
 
 public class JogoActivity extends Activity implements View.OnClickListener {
     private Button btnQJogo, btnWJogo, btnEJogo, btnRJogo, btnTJogo, btnYJogo, btnUJogo, btnIJogo, btnOJogo,
             btnPJogo, btnAJogo, btnSJogo, btnDJogo, btnFJogo, btnGJogo, btnHJogo, btnJJogo, btnKJogo, btnLJogo,
             btnÇJogo, btnZJogo, btnXJogo, btnCJogo, btnVJogo, btnBJogo, btnNJogo, btnMJogo;
-    private TextView txvPalavra;
+    private TextView txvPalavra, txvTempoRestanteJogo, txvCategoriaPalavra;
     private ImageView imgForca;
-    private String palavra;
-    private int pontuacao, acertosPalavra, errosPalavra, acertoTotal;
-    private ArrayList<Palavra> palavras;
+    private RealmList<Palavra> palavras;
+    private Palavra palavra;
+    private int pontuacao, acertosPalavra, errosPalavra, acertoTotal, desafios;
     private boolean palavraDescoberta;
 
     @Override
@@ -90,108 +93,144 @@ public class JogoActivity extends Activity implements View.OnClickListener {
         btnMJogo.setOnClickListener(this);
 
         txvPalavra = (TextView) findViewById(R.id.txvPalavraJogo);
+        txvTempoRestanteJogo = (TextView) findViewById(R.id.txvTempoRestanteJogo);
+        txvCategoriaPalavra = (TextView) findViewById(R.id.txvCategoriaPalavraJogo);
         imgForca = (ImageView) findViewById(R.id.imgForcaJogo);
 
-        Bundle bundle = getIntent().getBundleExtra("bundle");
+        Bundle bundle = getIntent().getExtras();
 
-        palavras = (ArrayList<Palavra>) bundle.getSerializable("palavras");
-        palavra = palavras.get(0).getPalavra();
+
+        palavras = TratamentoDeBancoDeDados.buscarPalavrasDesafioList();
+        palavra = palavras.get(0);
+        txvCategoriaPalavra.setText("Categoria - "+TratamentoDeBancoDeDados.buscaDescricaoCategoria(palavra.getIdCategoria()));
+
         pontuacao = bundle.getInt("pontuacao");
+        desafios = bundle.getInt("desafios");
 
         acertosPalavra = 0;
         errosPalavra = 0;
 
-        acertoTotal = palavra.length();
+        acertoTotal = palavra.getPalavra().length();
 
         txvPalavra.setText("");
         esquemativaPalavra("");
 
         palavraDescoberta = false;
+
+        Thread tempo = new Thread(new JogoActivity.tempoThread());
+        tempo.start();
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnQJogo) {
-            adicionaLetraNaPalavra("Q");
-            btnQJogo.setEnabled(false);
+            adicionaLetraNaPalavra("q");
+            btnQJogo.setClickable(false);
+            btnQJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnWJogo) {
-            adicionaLetraNaPalavra("W");
-            btnWJogo.setEnabled(false);
+            adicionaLetraNaPalavra("w");
+            btnWJogo.setClickable(false);
+            btnWJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnEJogo) {
-            adicionaLetraNaPalavra("E");
-            btnEJogo.setEnabled(false);
+            adicionaLetraNaPalavra("e");
+            btnEJogo.setClickable(false);
+            btnEJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnRJogo) {
-            adicionaLetraNaPalavra("R");
-            btnRJogo.setEnabled(false);
+            adicionaLetraNaPalavra("r");
+            btnRJogo.setClickable(false);
+            btnRJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnTJogo) {
-            adicionaLetraNaPalavra("T");
-            btnTJogo.setEnabled(false);
+            adicionaLetraNaPalavra("t");
+            btnTJogo.setClickable(false);
+            btnTJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnYJogo) {
-            adicionaLetraNaPalavra("Y");
-            btnYJogo.setEnabled(false);
+            adicionaLetraNaPalavra("y");
+            btnYJogo.setClickable(false);
+            btnYJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnUJogo) {
-            adicionaLetraNaPalavra("U");
-            btnUJogo.setEnabled(false);
+            adicionaLetraNaPalavra("u");
+            btnUJogo.setClickable(false);
+            btnUJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnIJogo) {
-            adicionaLetraNaPalavra("I");
-            btnIJogo.setEnabled(false);
+            adicionaLetraNaPalavra("i");
+            btnIJogo.setClickable(false);
+            btnIJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnOJogo) {
-            adicionaLetraNaPalavra("O");
-            btnOJogo.setEnabled(false);
+            adicionaLetraNaPalavra("o");
+            btnOJogo.setClickable(false);
+            btnOJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnPJogo) {
-            adicionaLetraNaPalavra("P");
-            btnPJogo.setEnabled(false);
+            adicionaLetraNaPalavra("p");
+            btnPJogo.setClickable(false);
+            btnPJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnAJogo) {
-            adicionaLetraNaPalavra("A");
-            btnAJogo.setEnabled(false);
+            adicionaLetraNaPalavra("a");
+            btnAJogo.setClickable(false);
+            btnAJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnSJogo) {
-            adicionaLetraNaPalavra("S");
-            btnSJogo.setEnabled(false);
+            adicionaLetraNaPalavra("s");
+            btnSJogo.setClickable(false);
+            btnSJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnDJogo) {
-            adicionaLetraNaPalavra("D");
-            btnDJogo.setEnabled(false);
+            adicionaLetraNaPalavra("d");
+            btnDJogo.setClickable(false);
+            btnDJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnFJogo) {
-            adicionaLetraNaPalavra("F");
-            btnFJogo.setEnabled(false);
+            adicionaLetraNaPalavra("f");
+            btnFJogo.setClickable(false);
+            btnFJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnGJogo) {
-            adicionaLetraNaPalavra("G");
-            btnGJogo.setEnabled(false);
+            adicionaLetraNaPalavra("g");
+            btnGJogo.setClickable(false);
+            btnGJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnHJogo) {
-            adicionaLetraNaPalavra("H");
-            btnHJogo.setEnabled(false);
+            adicionaLetraNaPalavra("h");
+            btnHJogo.setClickable(false);
+            btnHJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnJJogo) {
-            adicionaLetraNaPalavra("J");
-            btnJJogo.setEnabled(false);
+            adicionaLetraNaPalavra("j");
+            btnJJogo.setClickable(false);
+            btnJJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnKJogo) {
-            adicionaLetraNaPalavra("K");
-            btnKJogo.setEnabled(false);
+            adicionaLetraNaPalavra("k");
+            btnKJogo.setClickable(false);
+            btnKJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnLJogo) {
-            adicionaLetraNaPalavra("L");
-            btnLJogo.setEnabled(false);
+            adicionaLetraNaPalavra("l");
+            btnLJogo.setClickable(false);
+            btnLJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnÇJogo) {
-            adicionaLetraNaPalavra("Ç");
-            btnÇJogo.setEnabled(false);
+            adicionaLetraNaPalavra("ç");
+            btnÇJogo.setClickable(false);
+            btnÇJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnZJogo) {
-            adicionaLetraNaPalavra("Z");
-            btnZJogo.setEnabled(false);
+            adicionaLetraNaPalavra("z");
+            btnZJogo.setClickable(false);
+            btnZJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnXJogo) {
-            adicionaLetraNaPalavra("X");
-            btnXJogo.setEnabled(false);
+            adicionaLetraNaPalavra("x");
+            btnXJogo.setClickable(false);
+            btnXJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnCJogo) {
-            adicionaLetraNaPalavra("C");
-            btnCJogo.setEnabled(false);
+            adicionaLetraNaPalavra("c");
+            btnCJogo.setClickable(false);
+            btnCJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnVJogo) {
-            adicionaLetraNaPalavra("V");
-            btnVJogo.setEnabled(false);
+            adicionaLetraNaPalavra("v");
+            btnVJogo.setClickable(false);
+            btnVJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnBJogo) {
-            adicionaLetraNaPalavra("B");
-            btnBJogo.setEnabled(false);
+            adicionaLetraNaPalavra("b");
+            btnBJogo.setClickable(false);
+            btnBJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnNJogo) {
-            adicionaLetraNaPalavra("N");
-            btnNJogo.setEnabled(false);
+            adicionaLetraNaPalavra("n");
+            btnNJogo.setClickable(false);
+            btnNJogo.setBackgroundColor(R.color.colorGrayBlue);
         } else if (v == btnMJogo) {
-            adicionaLetraNaPalavra("M");
-            btnMJogo.setEnabled(false);
+            adicionaLetraNaPalavra("m");
+            btnMJogo.setClickable(false);
+            btnMJogo.setBackgroundColor(R.color.colorGrayBlue);
         }
     }
 
@@ -213,9 +252,9 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 if(fim < 10){
                     tempoAux += "0";
                 }
-                tempo += fim;
+                tempoAux += fim;
 
-                txvPalavra.setText(tempoAux);
+                setTextoTextView(tempoAux);
                 try {
                     Thread.sleep(1000);
                 } catch(InterruptedException ex){
@@ -224,28 +263,41 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 tempo--;
             }
             if(!palavraDescoberta){
-                Toast.makeText(getApplicationContext(), "O tempo acabou!!!", Toast.LENGTH_SHORT).show();
+                setToastPassouTempoPalavra();
             }
         }
     }
 
-    private void adicionaLetraNaPalavra(String letra) {
-        if(palavra.contains(letra)){
-            acertosPalavra++;
-            esquemativaPalavra(letra);
+    private void setTextoTextView(final String tempo){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txvTempoRestanteJogo.setText("Tempo restante - "+tempo);
+            }
+        });
+    }
 
-            if(acertosPalavra == acertoTotal - 1){
-                TratamentoDeBancoDeDados.inserePalavraRespondida(palavras.get(0));
-                palavras.remove(0);
+    private void setToastPassouTempoPalavra(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                acertouOuErrouPalavra(false);
+            }
+        });
+    }
+
+    private void adicionaLetraNaPalavra(String letra) {
+        if(palavra.getPalavra().contains(letra)){
+            esquemativaPalavra(letra);
+            if(acertosPalavra == acertoTotal){
                 acertouOuErrouPalavra(true);
             }
         }
         else {
             errosPalavra++;
             //MudarImagem da forca
+            Toast.makeText(getApplicationContext(), "Errou uma letra", Toast.LENGTH_SHORT).show();
             if(errosPalavra == 5){
-                TratamentoDeBancoDeDados.inserePalavraRespondida(palavras.get(0));
-                palavras.remove(0);
                 acertouOuErrouPalavra(false);
             }
         }
@@ -253,37 +305,49 @@ public class JogoActivity extends Activity implements View.OnClickListener {
 
     private void esquemativaPalavra(String letra){
         if(letra.equalsIgnoreCase("")){
-            for(int i = 0; i < palavra.length(); i++){
-                if(palavra.substring(i, i+1).equalsIgnoreCase(" ")){
+            for(int i = 0; i < palavra.getPalavra().length(); i++){
+                if(palavra.getPalavra().substring(i, i+1).equalsIgnoreCase(" ")){
                     txvPalavra.setText(txvPalavra.getText()+" ");
                     acertoTotal--;
                 }
                 else {
-                    if(palavra.substring(i, i+1).equalsIgnoreCase("-")){
+                    if(palavra.getPalavra().substring(i, i+1).equalsIgnoreCase("-")){
                         txvPalavra.setText(txvPalavra.getText()+"-");
                         acertoTotal--;
                     }
                     else {
-                        txvPalavra.setText(txvPalavra.getText()+"_ ");
+                        txvPalavra.setText(txvPalavra.getText()+"_");
                     }
                 }
 
             }
         }
         else {
-            char[] letraAux = letra.toCharArray();
-            StringBuilder aux;
-            for(int i = 0; i < palavra.length(); i++){
-                if(palavra.substring(i, i+1).equalsIgnoreCase(letra)){
-                    aux = new StringBuilder(txvPalavra.getText().toString());
-                    aux.setCharAt(i,letraAux[0]);
-                    txvPalavra.setText(aux.toString());
+            StringBuilder aux = new StringBuilder(txvPalavra.getText().toString());
+            for(int i = 0; i < palavra.getPalavra().length(); i++){
+                if(palavra.getPalavra().substring(i, i+1).equalsIgnoreCase(letra)){
+                    aux.replace(i,i+1,letra);
+                    acertosPalavra++;
                 }
             }
+            txvPalavra.setText(aux.toString());
         }
     }
-
+/*
+    private ArrayList<Integer> retornaValoresDoTxView(){
+        ArrayList<Integer> retorno = new ArrayList<Integer>();
+        for(int i = 0; i < txvPalavra.getText().toString().length(); i++){
+            if((!(txvPalavra.getText().toString().substring(i,i+1).equalsIgnoreCase(" ")) || (!(txvPalavra.getText().toString().substring(i,i+1).equalsIgnoreCase("-"))))){
+                retorno.add(i);
+            }
+        }
+        return retorno;
+    }
+*/
     private void acertouOuErrouPalavra(boolean acertou){
+        TratamentoDeBancoDeDados.inserePalavraRespondida(palavra);
+        TratamentoDeBancoDeDados.removePrimeiraPalavra(palavras);
+
         if(acertou){
             Toast.makeText(getApplicationContext(), "Você acertou essa palavra!!!", Toast.LENGTH_SHORT).show();
 
@@ -292,7 +356,6 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 intent.setClass(JogoActivity.this, JogoActivity.class);
 
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("palavras",palavras);
                 bundle.putInt("pontuacao",pontuacao+1);
                 intent.putExtras(bundle);
 
@@ -302,8 +365,10 @@ public class JogoActivity extends Activity implements View.OnClickListener {
             else {
                 Intent intent = new Intent();
 
+                TratamentoDeBancoDeDados.limparPalavrasDesafio();
                 //Nessa parte aqui é para verificar quem acertou mais palavras
-                if(pontuacao >= 5){
+                pontuacao++;
+                if(pontuacao >= 4){
                     intent.setClass(JogoActivity.this, VenceuDesafioActivity.class);
                 }
                 else {
@@ -311,7 +376,7 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 }
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("pontuacao",pontuacao+1);
+                bundle.putInt("pontuacao",pontuacao);
                 intent.putExtras(bundle);
 
                 finish();
@@ -320,6 +385,7 @@ public class JogoActivity extends Activity implements View.OnClickListener {
         }
         else {
             Toast.makeText(getApplicationContext(), "Você não acertou a palavra!!!", Toast.LENGTH_SHORT).show();
+
             if(palavras.size() > 0){
                 Intent intent = new Intent();
                 intent.setClass(JogoActivity.this, JogoActivity.class);
@@ -334,8 +400,10 @@ public class JogoActivity extends Activity implements View.OnClickListener {
             else{
                 Intent intent = new Intent();
 
+                TratamentoDeBancoDeDados.limparPalavrasDesafio();
+
                 //Nessa parte aqui é para verificar quem acertou mais palavras
-                if(pontuacao >= 5){
+                if(pontuacao >= 4){
                     intent.setClass(JogoActivity.this, VenceuDesafioActivity.class);
                 }
                 else {
@@ -350,5 +418,6 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
             }
         }
+        palavraDescoberta = true;
     }
 }

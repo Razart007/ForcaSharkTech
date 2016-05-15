@@ -16,7 +16,13 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class TratamentoDeBancoDeDados {
+/*
+    public static ArrayList<Palavra> getPalavras() {
+        return palavras;
+    }
 
+    //private static ArrayList<Palavra> palavras;
+*/
     private TratamentoDeBancoDeDados (){ }
 
     //Útil para o projeto de SD
@@ -84,8 +90,8 @@ public class TratamentoDeBancoDeDados {
     }
 
     //Útil para o projeto de SD
-    public static Palavra inserePalavra(int idCategoria, int idUsuarioCriador, String palavraDescricao){
-        if(!verficaPalavraExisteServidor(palavraDescricao)){
+    public static void inserePalavra(int idCategoria, int idUsuarioCriador, String palavraDescricao){
+        if(!verificaPalavraExisteServidor(palavraDescricao)){
             Realm realm = Realm.getDefaultInstance();
             realm.beginTransaction();
 
@@ -100,14 +106,14 @@ public class TratamentoDeBancoDeDados {
             realm.copyToRealm(palavra);
             realm.commitTransaction();
 
-            return palavra;
+            inserePalavraNaCategoria(palavra, idCategoria);
         }
         else {
             Realm realm = Realm.getDefaultInstance();
 
             Palavra palavra = (Palavra) realm.where(Palavra.class).equalTo(ValuesConstantes.PALAVRA,palavraDescricao).findFirst();
 
-            return palavra;
+            inserePalavraNaCategoria(palavra, idCategoria);
         }
     }
 
@@ -160,10 +166,10 @@ public class TratamentoDeBancoDeDados {
 
         if(categoria != null){
             RealmList<Palavra> palavras = categoria.getPalavras();
+            realm.beginTransaction();
             palavras.add(palavra);
             categoria.setPalavras(palavras);
 
-            realm.beginTransaction();
             realm.copyToRealmOrUpdate(categoria);
             realm.commitTransaction();
         }
@@ -174,94 +180,49 @@ public class TratamentoDeBancoDeDados {
         ArrayList<Palavra> palavrasArray = new ArrayList<Palavra>();
         ArrayList<Categoria> categoriaArray = new ArrayList<Categoria>();
 
-        Log.d("Mensagem","Entrou no étodo de inserir da classe de tratamento");
-
         insereCategoria("Alimentos");
         insereCategoria("Animais");
         insereCategoria("Eletrônicos");
 
-        Log.d("Mensagem","Criou as categorias");
-
         int idAlimentos = buscaCategoriaID("Alimentos");
 
-        Log.d("Mensagem","Pegou o valor do idAlimento");
-        //Palavra palavra1 =
-
-
         inserePalavra(idAlimentos, -1,"rocambole");
-        //inserePalavraNaCategoria(palavra1, idAlimentos);
-
-        //Palavra palavra2 =
         inserePalavra(idAlimentos, -1,"estrogonofe");
-        //inserePalavraNaCategoria(palavra2, idAlimentos);
-
-        //Palavra palavra3 =
-        inserePalavra(idAlimentos, -1,"feijão tropeiro");
-        //inserePalavraNaCategoria(palavra3, idAlimentos);
-
-        //Palavra palavra4 =
+        inserePalavra(idAlimentos, -1,"feijao tropeiro");
         inserePalavra(idAlimentos, -1,"mousse de brigadeiro");
-        //inserePalavraNaCategoria(palavra4,idAlimentos);
-
-        //Palavra palavra5 =
         inserePalavra(idAlimentos, -1,"frango grelhado");
-        //inserePalavraNaCategoria(palavra5, idAlimentos);
+        inserePalavra(idAlimentos, -1,"bolo de morango");
+        inserePalavra(idAlimentos, -1,"arroz temperado");
+        inserePalavra(idAlimentos, -1,"salada de frutas");
+        inserePalavra(idAlimentos, -1,"hamburguer");
+        inserePalavra(idAlimentos, -1,"sorvete");
 
         int idAnimais = buscaCategoriaID("Animais");
-/*
-        palavra1 = new Palavra();
-        palavra2 = new Palavra();
-        palavra3 = new Palavra();
-        palavra4 = new Palavra();
-        palavra5 = new Palavra();
-*/
-        //palavra1 =
+
         inserePalavra(idAnimais, -1,"ouriço do mar");
-        //inserePalavraNaCategoria(palavra1, idAnimais);
-
-        //palavra2 =
         inserePalavra(idAnimais, -1,"peixe palhaço");
-        //inserePalavraNaCategoria(palavra2, idAnimais);
-
-        //palavra3 =
         inserePalavra(idAnimais, -1,"lemure");
-        //inserePalavraNaCategoria(palavra3,idAnimais);
-
-        //palavra4 =
         inserePalavra(idAnimais, -1,"ornitorrinco");
-        //inserePalavraNaCategoria(palavra4, idAnimais);
-
-        //palavra5 =
         inserePalavra(idAnimais, -1,"caracal");
-        //inserePalavraNaCategoria(palavra5,idAnimais);
+        inserePalavra(idAnimais, -1,"aguia");
+        inserePalavra(idAnimais, -1,"enguia");
+        inserePalavra(idAnimais, -1,"coruja");
+        inserePalavra(idAnimais, -1,"tubarao");
+        inserePalavra(idAnimais, -1,"coelho");
+
 
         int idEletronicos = buscaCategoriaID("Eletrônicos");
-/*
-        palavra1 = new Palavra();
-        palavra2 = new Palavra();
-        palavra3 = new Palavra();
-        palavra4 = new Palavra();
-        palavra5 = new Palavra();
-*/
-        //palavra1 =
+
         inserePalavra(idEletronicos, -1, "roteador");
-        //inserePalavraNaCategoria(palavra1,idEletronicos);
-
-        //palavra2 =
         inserePalavra(idEletronicos, -1, "switch");
-        //inserePalavraNaCategoria(palavra2, idEletronicos);
-
-        //palavra3 =
         inserePalavra(idEletronicos, -1, "hub");
-        //inserePalavraNaCategoria(palavra3,idEletronicos);
-
-        //palavra4 =
         inserePalavra(idEletronicos, -1, "multimetro");
-        //inserePalavraNaCategoria(palavra4,idEletronicos);
-
-        //palavra5 =
         inserePalavra(idEletronicos, -1, "celular");
-        //inserePalavraNaCategoria(palavra5,idEletronicos);
+        inserePalavra(idEletronicos, -1, "televisao");
+        inserePalavra(idEletronicos, -1, "notebook");
+        inserePalavra(idEletronicos, -1, "playstation");
+        inserePalavra(idEletronicos, -1, "mouse");
+        inserePalavra(idEletronicos, -1, "processador");
     }
 
     private static int buscaCategoriaID(String descricao){
@@ -273,21 +234,34 @@ public class TratamentoDeBancoDeDados {
         else {
             return -1;
         }
-
     }
 
+    public static String buscaDescricaoCategoria(int id){
+        Realm realm = Realm.getDefaultInstance();
+        Categoria categoria = (Categoria) realm.where(Categoria.class).equalTo(ValuesConstantes.ID_GENERICO,id).findFirst();
+        if(categoria != null){
+            return categoria.getDescricao();
+        }
+        else {
+            return "";
+        }
+    }
 
     //Útil para o projeto de SD
     public static void inserePalavraRespondida(Palavra palavra){
         Usuario usuario = buscarUsuario();
 
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+
         usuario.getPalavrasRespondidas().add(palavra);
 
-        atualizaUsuario(usuario);
+        realm.copyToRealmOrUpdate(usuario);
+        realm.commitTransaction();
     }
 
     //Útil para o projeto de SD
-    public static boolean verficaPalavraExisteServidor(String palavraDescricao){
+    public static boolean verificaPalavraExisteServidor(String palavraDescricao){
         Realm realm = Realm.getDefaultInstance();
         Palavra palavra;
 
@@ -319,38 +293,156 @@ public class TratamentoDeBancoDeDados {
     public static void aumentaNumerosDesafio(){
         Usuario usuario = buscarUsuario();
 
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+
         usuario.setPontuacaoDesafios(usuario.getPontuacaoDesafios() + 1);
 
-        atualizaUsuario(usuario);
+        realm.copyToRealmOrUpdate(usuario);
+        realm.commitTransaction();
     }
 
     //Usado apenas para o projeto de SD
-    public static ArrayList<Palavra> buscaPalarasAleatoriasNaoRespondida(){
+    public static void buscaPalarasAleatoriasNaoRespondida(){
         Realm realm = Realm.getDefaultInstance();
         RealmResults results;
 
-        ArrayList<Palavra> retorno = new ArrayList<Palavra>();
+        RealmList<Palavra> retorno = new RealmList<Palavra>();
         Random aleatorio = new Random();
         results = realm.where(Palavra.class).findAll();
+        int contador = 0;
+        boolean tem = false;
         if(results.size() < 5){
-            for(int i = 0; i < results.size();){
+            for(int i = 0; i < results.size();contador++){
                 Palavra aux = ((Palavra) results.get(aleatorio.nextInt(results.size())));
                 if(!verificarUsuarioRespondeu(aux.getPalavra())){
-                    retorno.add(aux);
-                    i++;
+                    for(int j = 0; j < retorno.size();j++){
+                        if(retorno.get(j).getPalavra().equalsIgnoreCase(aux.getPalavra())){
+                            tem = true;
+                            break;
+                        }
+                    }
+                    if(!tem){
+                        retorno.add(aux);
+                        i++;
+                    }
+                    tem = false;
+                }
+                if(contador >= results.size()){
+                    break;
                 }
             }
         }
         else {
-            for(int i = 0; i < 5;){
+            for(int i = 0; i < 5; contador++){
                 Palavra aux = ((Palavra) results.get(aleatorio.nextInt(results.size())));
                 if(!verificarUsuarioRespondeu(aux.getPalavra())){
-                    retorno.add(aux);
-                    i++;
+                    for(int j = 0; j < retorno.size();j++){
+                        if(retorno.get(j).getPalavra().equalsIgnoreCase(aux.getPalavra())){
+                            tem = true;
+                            break;
+                        }
+                    }
+                    if(!tem){
+                        retorno.add(aux);
+                        i++;
+                    }
+                    tem = false;
+                }
+                if(contador >= results.size()){
+                    break;
                 }
             }
         }
 
+        atualizarPalavrasDesafio(retorno);
+    }
+
+    private static void atualizarPalavrasDesafio(RealmList<Palavra> palavras){
+        PalavrasDesafio palavrasDesafio = buscarPalavrasDesafio();
+
+        Realm realm = Realm.getDefaultInstance();
+
+        realm.beginTransaction();
+
+        palavrasDesafio.setPalavrasDesafio(palavras);
+
+        realm.copyToRealmOrUpdate(palavrasDesafio);
+        realm.commitTransaction();
+    }
+
+    private static PalavrasDesafio buscarPalavrasDesafio() {
+        Realm realm = Realm.getDefaultInstance();
+        PalavrasDesafio palavras = (PalavrasDesafio) realm.where(PalavrasDesafio.class).findFirst();
+
+        if(palavras == null){
+            palavras = new PalavrasDesafio();
+            palavras.setPalavrasDesafio(new RealmList<Palavra>());
+
+            realm.beginTransaction();
+
+            realm.copyToRealmOrUpdate(palavras);
+            realm.commitTransaction();
+
+            palavras = (PalavrasDesafio) realm.where(PalavrasDesafio.class).findFirst();
+        }
+
+        return palavras;
+    }
+
+    public static RealmList<Palavra> buscarPalavrasDesafioList(){
+        Realm realm = Realm.getDefaultInstance();
+        PalavrasDesafio palavras = (PalavrasDesafio) realm.where(PalavrasDesafio.class).findFirst();
+
+        if(palavras == null){
+            palavras = new PalavrasDesafio();
+            palavras.setPalavrasDesafio(new RealmList<Palavra>());
+
+            realm.beginTransaction();
+
+            realm.copyToRealmOrUpdate(palavras);
+            realm.commitTransaction();
+
+            palavras = (PalavrasDesafio) realm.where(PalavrasDesafio.class).findFirst();
+        }
+
+        return palavras.getPalavrasDesafio();
+    }
+
+    public static void removePrimeiraPalavra(RealmList<Palavra> palavras){
+        Realm realm = Realm.getDefaultInstance();
+
+        realm.beginTransaction();
+
+        palavras.remove(0);
+
+        realm.commitTransaction();
+    }
+
+    public static void limparPalavrasDesafio(){
+        atualizarPalavrasDesafio(new RealmList<Palavra>());
+    }
+
+    //Usado apenas para o projeto de SD
+    public static Palavra buscaPalavraAleatoriaNaoRespondida(){
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults results;
+
+        Palavra retorno = new Palavra();
+        retorno.setPalavra("");
+        results = realm.where(Palavra.class).findAll();
+        Random aleatorio = new Random();
+
+        if(results.size() > 0){
+            for(int i = 0; i < results.size(); i++){
+                Palavra aux = ((Palavra) results.get(aleatorio.nextInt(results.size())));
+                if(!verificarUsuarioRespondeu(aux.getPalavra())){
+                    retorno = aux;
+                    break;
+                }
+            }
+
+        }
         return retorno;
     }
 
