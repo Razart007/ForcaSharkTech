@@ -27,7 +27,8 @@ public class DesafioActivitySD extends AppCompatActivity {
                 intent.setClass(DesafioActivitySD.this, JogoActivity.class);
 
                 TratamentoDeBancoDeDados.buscaPalarasAleatoriasNaoRespondida();
-                //Thread para ficar enviando a lista de palavras deve estar aqui, quando os dois estiverem de acordo faz
+                //Pedir um novo desafio ao servidor e esperar o desafiante, quando encontrar o servidor o mesmo envia as palavras
+                //para os dois clientes e o ip do outro, assim fecha a conexão, e a comunicação fica entre os dois clientes
                 Bundle bundle = new Bundle();
                 bundle.putInt("pontuacao",0);
                 bundle.putInt("desafios",5);

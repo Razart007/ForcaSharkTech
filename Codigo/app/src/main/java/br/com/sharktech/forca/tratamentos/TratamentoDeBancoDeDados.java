@@ -177,8 +177,6 @@ public class TratamentoDeBancoDeDados {
 
     //Útil para o projeto de SD
     public static void inserePalavrasDoServidor(){
-        ArrayList<Palavra> palavrasArray = new ArrayList<Palavra>();
-        ArrayList<Categoria> categoriaArray = new ArrayList<Categoria>();
 
         insereCategoria("Alimentos");
         insereCategoria("Animais");
