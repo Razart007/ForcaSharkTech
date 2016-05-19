@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
-	package="br.com.sharktech.forca">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.sharktech.forca">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -57,7 +57,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activitys.DesafioActivitySD" />
         <activity android:name=".activitys.VenceuDesafioActivity" />
-        <activity android:name=".activitys.PerdeuDesafioActivity"></activity>
+        <activity android:name=".activitys.PerdeuDesafioActivity" />
+        <activity android:name=".activitys.EmpatouActivity"></activity>
     </application>
 
 </manifest>
