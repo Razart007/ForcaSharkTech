@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import br.com.sharktech.forca.Cliente;
 import br.com.sharktech.forca.R;
 import br.com.sharktech.forca.entidades.Usuario;
 import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
@@ -31,7 +33,7 @@ public class SplashActivity extends Activity {
                 if(TratamentoDeBancoDeDados.buscarUsuario().getNome().equalsIgnoreCase("")){
                     intent.setClass(SplashActivity.this, InicialActivity.class);
                     Log.d("Mensagem","chegou antes de inserir as palavras");
-                    TratamentoDeBancoDeDados.inserePalavrasDoServidor();
+//                    TratamentoDeBancoDeDados.inserePalavrasDoServidor();
                     Log.d("Mensagem","depois de inserir as palavras");
                 }
                 else {

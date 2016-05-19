@@ -3,6 +3,7 @@ package br.com.sharktech.forca.tratamentos;
 import android.content.Context;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -172,6 +173,16 @@ public class TratamentoDeBancoDeDados {
 
             realm.copyToRealmOrUpdate(categoria);
             realm.commitTransaction();
+        }
+    }
+
+    public static void inserePalavrasDoServidor(ArrayList<CharSequence> palavras){
+
+        insereCategoria("Alimentos");
+        int idAlimentos = buscaCategoriaID("Alimentos");
+
+        for(CharSequence c : palavras){
+            inserePalavra(idAlimentos, -1, c + "");
         }
     }
 
@@ -401,7 +412,7 @@ public class TratamentoDeBancoDeDados {
             realm.copyToRealmOrUpdate(palavras);
             realm.commitTransaction();
 
-            palavras = (PalavrasDesafio) realm.where(PalavrasDesafio.class).findFirst();
+            palavras = realm.where(PalavrasDesafio.class).findFirst();
         }
 
         return palavras.getPalavrasDesafio();

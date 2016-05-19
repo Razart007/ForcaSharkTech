@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import br.com.sharktech.forca.Cliente;
 import br.com.sharktech.forca.R;
 import br.com.sharktech.forca.entidades.Palavra;
 import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
@@ -99,19 +101,18 @@ public class JogoActivity extends Activity implements View.OnClickListener {
 
         Bundle bundle = getIntent().getExtras();
 
-
         palavras = TratamentoDeBancoDeDados.buscarPalavrasDesafioList();
         palavra = palavras.get(0);
-        txvCategoriaPalavra.setText("Categoria - "+TratamentoDeBancoDeDados.buscaDescricaoCategoria(palavra.getIdCategoria()));
+        Log.e("Palavra", palavra.getPalavra() + " " + palavras.size());
+
+        txvCategoriaPalavra.setText("Categoria: Gerado pelo servidor");
 
         pontuacao = bundle.getInt("pontuacao");
         desafios = bundle.getInt("desafios");
 
         acertosPalavra = 0;
         errosPalavra = 0;
-
         acertoTotal = palavra.getPalavra().length();
-
         txvPalavra.setText("");
         esquemativaPalavra("");
 
@@ -119,6 +120,11 @@ public class JogoActivity extends Activity implements View.OnClickListener {
 
         Thread tempo = new Thread(new JogoActivity.tempoThread());
         tempo.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -319,7 +325,6 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                         txvPalavra.setText(txvPalavra.getText()+"_");
                     }
                 }
-
             }
         }
         else {
@@ -379,8 +384,8 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 bundle.putInt("pontuacao",pontuacao);
                 intent.putExtras(bundle);
 
-                finish();
-                startActivity(intent);
+                onBackPressed();
+//                startActivity(intent);
             }
         }
         else {
@@ -414,8 +419,8 @@ public class JogoActivity extends Activity implements View.OnClickListener {
                 bundle.putInt("pontuacao",pontuacao);
                 intent.putExtras(bundle);
 
-                finish();
-                startActivity(intent);
+                onBackPressed();
+//                startActivity(intent);
             }
         }
         palavraDescoberta = true;

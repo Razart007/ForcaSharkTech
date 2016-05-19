@@ -1,15 +1,18 @@
 package br.com.sharktech.forca.activitys;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
+import br.com.sharktech.forca.Cliente;
 import br.com.sharktech.forca.R;
-import br.com.sharktech.forca.entidades.Palavra;
 import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
 
 public class DesafioActivitySD extends AppCompatActivity {
@@ -19,10 +22,19 @@ public class DesafioActivitySD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desafio_sd);
 
-        //Inserir a parte de rede aqui
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
+
+                Cliente c = new Cliente(DesafioActivitySD.this);
+                while(c.isAguardar()){
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 Intent intent = new Intent();
                 intent.setClass(DesafioActivitySD.this, JogoActivity.class);
 
@@ -33,10 +45,17 @@ public class DesafioActivitySD extends AppCompatActivity {
                 bundle.putInt("pontuacao",0);
                 bundle.putInt("desafios",5);
                 intent.putExtras(bundle);
+                TratamentoDeBancoDeDados.inserePalavrasDoServidor(c.getPalavras());
 
-                finish();
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
-        }, 6000);
+        }, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1){
+
+        }
     }
 }

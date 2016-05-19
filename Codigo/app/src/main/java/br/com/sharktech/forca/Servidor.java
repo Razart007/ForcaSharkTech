@@ -1,4 +1,4 @@
-package br.com.sharktech.forca;
+package exercicio_3;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -6,40 +6,55 @@ import java.net.Socket;
 
 public class Servidor {
 
+	private static int codClientes = 0;
+
+	public static final String IP = "localhost";
 	public static final int PORTA = 6789;
 
-	private static int codClientes = 0;
 	private ServerSocket serverSocket = null;
-	
+
 	public Servidor() throws IOException {
 		serverSocket = new ServerSocket(PORTA);
+		System.out.println("Server running");
 	}
-	
-	public static int getCodNovoCliente() {
-		return codClientes;
-	}
-	
-	
-	public void aceitarClientes() throws IOException{
-		
-		if(serverSocket != null){
 
-			while(true){
+	public static int getCodNovoCliente() {
+		return ++codClientes;
+	}
+
+	public void aceitarClientes() throws IOException {
+
+		ThreadConexao primeiroUsuario = null;
+		boolean flag = true;
+
+		while (flag) {
+
+			if (primeiroUsuario == null) {
+
 				Socket conexao = serverSocket.accept();
-				new ThreadConexao(conexao).start();
-				System.out.println("Conexao #" + (++codClientes));
+				primeiroUsuario = new ThreadConexao(conexao, true);
+				primeiroUsuario.start();
+
+			} else {
+				Socket conexao = serverSocket.accept();
+				ThreadConexao segundoUsuario = new ThreadConexao(conexao, primeiroUsuario.getIp(), primeiroUsuario.getCod());
+				segundoUsuario.start();
+				
+				primeiroUsuario.setIpDesafiante(segundoUsuario.getIp());
+				primeiroUsuario.setCodDesafiante(segundoUsuario.getCod());
+				primeiroUsuario.setAguardar(false);
+				primeiroUsuario = null;
 			}
 		}
+		serverSocket.close();
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		try {
 			
-			System.out.println("Server running");
-			Servidor server = new Servidor();
-			server.aceitarClientes();
-						
+			new Servidor().aceitarClientes();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
