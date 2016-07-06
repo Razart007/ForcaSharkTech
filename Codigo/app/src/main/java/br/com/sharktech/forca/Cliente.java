@@ -97,7 +97,7 @@ public class Cliente implements Serializable{
 
             if(server){
 
-                porta = Servidor.PORTA + cod;
+                porta = PORTA + cod;
                 conexao = new ServerSocket(porta).accept();
 
                 emissor = new DataOutputStream(conexao.getOutputStream());
@@ -108,7 +108,7 @@ public class Cliente implements Serializable{
 
             } else{
 
-                porta = Servidor.PORTA + codDesafiante;
+                porta = PORTA + codDesafiante;
 
                 Socket conexaoDesafiante = new Socket(ipDesafiante, porta);
                 DataOutputStream emissorDesafiante = new DataOutputStream(conexaoDesafiante.getOutputStream());

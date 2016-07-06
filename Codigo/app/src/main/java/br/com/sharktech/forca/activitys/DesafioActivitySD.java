@@ -45,7 +45,7 @@ public class DesafioActivitySD extends AppCompatActivity {
                 bundle.putInt("pontuacao",0);
                 bundle.putInt("desafios",5);
                 intent.putExtras(bundle);
-                TratamentoDeBancoDeDados.inserePalavrasDoServidor(c.getPalavras());
+                TratamentoDeBancoDeDados.inserePalavrasDoServidor();
 
                 startActivityForResult(intent, 1);
             }

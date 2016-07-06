@@ -33,34 +33,37 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".activitys.CategoriaActivity"
-            android:label="@string/appname_categorias"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".activitys.InicialLogadoActivity" />
         <activity
             android:name=".activitys.JogoActivity"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activitys.RankingActivity"
-            android:label="@string/title_activity_ranking"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activitys.MeuPerfilActivity"
-            android:label="@string/title_activity_meu_perfil"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activitys.DesafioActivity"
-            android:label="@string/title_activity_desafio"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activitys.AmigosActivity"
-            android:label="@string/title_activity_amigos"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activitys.DesafioActivitySD" />
         <activity android:name=".activitys.VenceuDesafioActivity" />
         <activity android:name=".activitys.PerdeuDesafioActivity" />
-        <activity android:name=".activitys.EmpatouActivity"></activity>
+        <activity android:name=".activitys.EmpatouActivity" />
+        <activity
+            android:name=".activitys.MenuLateralActivity"
+            android:label="@string/title_activity_desafio"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <Fragment
+            android:name=".activitys.CategoriaActivity"
+            android:label="@string/appname_categorias"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <Fragment
+            android:name=".activitys.RankingActivity"
+            android:label="@string/title_activity_ranking"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <Fragment
+            android:name=".activitys.MeuPerfilActivity"
+            android:label="@string/title_activity_meu_perfil" />
+        <Fragment
+            android:name=".activitys.AmigosActivity"
+            android:label="@string/title_activity_amigos"/>
+        <Fragment
+            android:name=".activitys.DesafioActivity"
+            android:label="@string/title_activity_desafio"/>
     </application>
 
 </manifest>

@@ -1,4 +1,13 @@
 <resources>
+
+    <string name="menu_jogar">Jogar</string>
+    <string name="menu_categoria">Categorias</string>
+    <string name="menu_ranking">Ranking</string>
+    <string name="menu_desafios">Desafios</string>
+    <string name="menu_amigos">Amigos</string>
+    <string name="menu_meu_perfil">Meu Perfil</string>
+    <string name="menu_sobre">Sobre</string>
+
     <string name="app_name">Forca</string>
     <string name="splash">Tela Splash</string>
     <string name="appname_categorias">Categorias</string>

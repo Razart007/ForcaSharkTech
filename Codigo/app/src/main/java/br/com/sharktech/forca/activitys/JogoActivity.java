@@ -2,20 +2,14 @@ package br.com.sharktech.forca.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+//import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import br.com.sharktech.forca.Cliente;
 import br.com.sharktech.forca.R;
 import br.com.sharktech.forca.entidades.Palavra;
 import br.com.sharktech.forca.tratamentos.TratamentoDeBancoDeDados;
@@ -31,12 +25,15 @@ public class JogoActivity extends Activity implements View.OnClickListener {
     private Palavra palavra;
     private int pontuacao, acertosPalavra, errosPalavra, acertoTotal, desafios;
     private boolean palavraDescoberta;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogo);
+
+        toast = null;
 
         btnQJogo = (Button) findViewById(R.id.btnJogoQ);
         btnWJogo = (Button) findViewById(R.id.btnJogoW);
@@ -103,9 +100,12 @@ public class JogoActivity extends Activity implements View.OnClickListener {
 
         palavras = TratamentoDeBancoDeDados.buscarPalavrasDesafioList();
         palavra = palavras.get(0);
-        Log.e("Palavra", palavra.getPalavra() + " " + palavras.size());
+        //TODO: Remover esse Toast.
 
-        txvCategoriaPalavra.setText("Categoria: Gerado pelo servidor");
+        toast = getToast(palavra.getPalavra());
+        toast.show();
+
+        txvCategoriaPalavra.setText(TratamentoDeBancoDeDados.buscaDescricaoCategoria(palavra.getIdCategoria()));
 
         pontuacao = bundle.getInt("pontuacao");
         desafios = bundle.getInt("desafios");
@@ -302,7 +302,8 @@ public class JogoActivity extends Activity implements View.OnClickListener {
         else {
             errosPalavra++;
             //MudarImagem da forca
-            Toast.makeText(getApplicationContext(), "Errou uma letra", Toast.LENGTH_SHORT).show();
+            toast = getToast("Errou uma letra");
+            toast.show();
             if(errosPalavra == 5){
                 acertouOuErrouPalavra(false);
             }
@@ -354,7 +355,8 @@ public class JogoActivity extends Activity implements View.OnClickListener {
         TratamentoDeBancoDeDados.removePrimeiraPalavra(palavras);
 
         if(acertou){
-            Toast.makeText(getApplicationContext(), "Você acertou essa palavra!!!", Toast.LENGTH_SHORT).show();
+            toast = getToast("Você acertou essa palavra!!!");
+            toast.show();
 
             if(palavras.size() > 0){
                 Intent intent = new Intent();
@@ -389,7 +391,9 @@ public class JogoActivity extends Activity implements View.OnClickListener {
             }
         }
         else {
-            Toast.makeText(getApplicationContext(), "Você não acertou a palavra!!!", Toast.LENGTH_SHORT).show();
+
+            toast = getToast("Você não acertou a palavra!!!");
+            toast.show();
 
             if(palavras.size() > 0){
                 Intent intent = new Intent();
@@ -424,5 +428,17 @@ public class JogoActivity extends Activity implements View.OnClickListener {
             }
         }
         palavraDescoberta = true;
+    }
+
+    private Toast getToast(String message){
+
+        if(toast == null){
+            return Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        }
+
+        if(toast.getView().isShown()){
+            toast.cancel();
+        }
+        return Toast.makeText(this, message, Toast.LENGTH_SHORT);
     }
 }

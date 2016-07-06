@@ -92,6 +92,7 @@ public class TratamentoDeBancoDeDados {
 
     //Útil para o projeto de SD
     public static void inserePalavra(int idCategoria, int idUsuarioCriador, String palavraDescricao){
+
         if(!verificaPalavraExisteServidor(palavraDescricao)){
             Realm realm = Realm.getDefaultInstance();
             realm.beginTransaction();
@@ -176,16 +177,6 @@ public class TratamentoDeBancoDeDados {
         }
     }
 
-    public static void inserePalavrasDoServidor(ArrayList<CharSequence> palavras){
-
-        insereCategoria("Alimentos");
-        int idAlimentos = buscaCategoriaID("Alimentos");
-
-        for(CharSequence c : palavras){
-            inserePalavra(idAlimentos, -1, c + "");
-        }
-    }
-
     //Útil para o projeto de SD
     public static void inserePalavrasDoServidor(){
 
@@ -212,7 +203,7 @@ public class TratamentoDeBancoDeDados {
         inserePalavra(idAnimais, -1,"peixe palhaço");
         inserePalavra(idAnimais, -1,"lemure");
         inserePalavra(idAnimais, -1,"ornitorrinco");
-        inserePalavra(idAnimais, -1,"caracal");
+        inserePalavra(idAnimais, -1,"caracol");
         inserePalavra(idAnimais, -1,"aguia");
         inserePalavra(idAnimais, -1,"enguia");
         inserePalavra(idAnimais, -1,"coruja");
@@ -274,7 +265,7 @@ public class TratamentoDeBancoDeDados {
         Realm realm = Realm.getDefaultInstance();
         Palavra palavra;
 
-        palavra = realm.where(Palavra.class).equalTo(ValuesConstantes.PALAVRA,palavraDescricao).findFirst();
+        palavra = realm.where(Palavra.class).equalTo(ValuesConstantes.PALAVRA, palavraDescricao).findFirst();
         if(palavra == null){
             return false;
         }

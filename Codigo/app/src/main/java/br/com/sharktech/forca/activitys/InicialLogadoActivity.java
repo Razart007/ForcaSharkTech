@@ -24,7 +24,7 @@ public class InicialLogadoActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if(v == btnEntrarJogo){
-            Intent intent = new Intent(InicialLogadoActivity.this, DesafioActivitySD.class);
+            Intent intent = new Intent(InicialLogadoActivity.this, MenuLateralActivity.class);
             finish();
             startActivity(intent);
         }

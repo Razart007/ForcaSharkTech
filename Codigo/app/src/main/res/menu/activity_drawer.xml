@@ -3,20 +3,36 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:icon="@mipmap/ic_jogar"
+            android:id="@+id/nav_jogar"
+            android:title="@string/menu_jogar" />
+        <item
+            android:icon="@mipmap/ic_categoria"
             android:id="@+id/nav_categoria"
-            android:title="Categoria" />
+            android:title="@string/menu_categoria" />
         <item
+            android:icon="@mipmap/ic_ranking"
             android:id="@+id/nav_ranking"
-            android:title="Ranking" />
+            android:title="@string/menu_ranking" />
         <item
+            android:icon="@mipmap/ic_desafio"
             android:id="@+id/nav_desafio"
-            android:title="Desafio" />
+            android:title="@string/menu_desafios" />
         <item
+            android:icon="@mipmap/ic_amigos"
             android:id="@+id/nav_amigos"
-            android:title="Amigos" />
+            android:title="@string/menu_amigos" />
 
         <item
+            android:icon="@mipmap/ic_perfil"
             android:id="@+id/nav_meuperfil"
-            android:title="Meu Perfil" />
+            android:title="@string/menu_meu_perfil" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:icon="@mipmap/ic_sobre"
+            android:id="@+id/nav_sobre"
+            android:title="@string/menu_sobre" />
     </group>
 </menu>

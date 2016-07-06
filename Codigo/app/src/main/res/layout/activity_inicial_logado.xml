@@ -9,32 +9,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activitys.InicialLogadoActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ivTelaInicialLogado"
-        android:src="@drawable/gallowssplash"
+        android:id="@+id/scrollView2"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Configurações"
-        android:id="@+id/btnConfiguracoesTelaInicialLogado"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/btnEntrarjogoTelaInicialLogado" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Entrar no Jogo"
-        android:id="@+id/btnEntrarjogoTelaInicialLogado"
-        android:layout_below="@+id/ivTelaInicialLogado"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ivTelaInicialLogado"
+                android:src="@drawable/gallowssplash"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configurações"
+                android:id="@+id/btnConfiguracoesTelaInicialLogado"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/btnEntrarjogoTelaInicialLogado" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrar no Jogo"
+                android:id="@+id/btnEntrarjogoTelaInicialLogado"
+                android:layout_below="@+id/ivTelaInicialLogado"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                />
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
